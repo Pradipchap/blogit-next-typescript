@@ -1,9 +1,9 @@
 import { Schema, model, models } from "mongoose";
 
 const BlogSchema = new Schema({
-  userid: {
-    type: Schema.Types.ObjectId,
-  },
+  // userid: {
+  //   type: Schema.Types.ObjectId,
+  // },
   title: {
     type: String,
     required: [true, "title is required"],
@@ -21,13 +21,13 @@ const BlogSchema = new Schema({
     required: false,
   },
   content: {
-    type: Schema.Types.Mixed,
+    type: String,
     required: [true, "content is required"],
   },
-  date: {
-    type: Date,
-    required: [true, "date is required"],
-  },
+  // date: {
+  //   type: Date,
+  //   required: [true, "date is required"],
+  // },
   popularity: {
     type: Number,
     required: [true],
