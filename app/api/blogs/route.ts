@@ -1,9 +1,8 @@
-
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
-const GET = async (request:NextRequest) => {
+const GET = async (request: NextRequest) => {
   try {
-await connectToDB()
+    await connectToDB();
 
     // const requestPageNo = request.nextUrl.searchParams.get("page");
     // const pageNo = requestPageNo ? requestPageNo : 1;
@@ -12,14 +11,17 @@ await connectToDB()
     // const noOfBlogs = await Blog.count({});
 
     // const blogs = await Blog.find({})
-      // .sort({ date: -1 })
-      // .limit(5)
-      // .skip(skippedNumber)
-      // .populate("userid");
+    // .sort({ date: -1 })
+    // .limit(5)
+    // .skip(skippedNumber)
+    // .populate("userid");
 
-    return new NextResponse(JSON.stringify({ noOfBlogs: "noOfBlogs", blogs:'asd' }), {
-      status: 200,
-    });
+    return new NextResponse(
+      JSON.stringify({ noOfBlogs: "noOfBlogs", blogs: "asd" }),
+      {
+        status: 200,
+      },
+    );
   } catch (error) {
     return new Response("Failed to fetch all prompts", { status: 500 });
   }

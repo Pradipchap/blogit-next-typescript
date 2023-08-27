@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier-check": "prettier --check .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.28.0",

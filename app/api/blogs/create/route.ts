@@ -6,11 +6,18 @@ const POST = async (request: NextRequest) => {
     await request.json();
   try {
     await connectToDB();
-    const newBlog=new Blog({title,genre,description,image,content,popularity})
+    const newBlog = new Blog({
+      title,
+      genre,
+      description,
+      image,
+      content,
+      popularity,
+    });
     await newBlog.save();
-    return new NextResponse(JSON.stringify(newBlog),{status:200})
+    return new NextResponse(JSON.stringify(newBlog), { status: 200 });
   } catch (error) {
-    return new NextResponse(JSON.stringify(error),{status:500})
+    return new NextResponse(JSON.stringify(error), { status: 500 });
   }
 };
 
