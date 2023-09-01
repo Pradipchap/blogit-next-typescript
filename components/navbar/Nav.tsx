@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { TNavItems } from "../../types/navTypes";
 import Link from "next/link";
 import HamMenu from "./HamMenu";
@@ -13,7 +13,7 @@ export default function Nav() {
   //   const [ismenuClicked, setIsmenuClicked] = useState(false);
   return (
     <nav className="w-full bg-white h-14 flex justify-between items-center text-black px-5">
-      <p>Logo</p>
+      <Links name="Logo" url="/" operation={() => {}} />
       <div className="flex gap-10 ">
         {Navlist.map((element) => {
           return (
