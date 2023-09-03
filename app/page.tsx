@@ -9,5 +9,5 @@ export default function Home() {
   const { data: session } = useSession();
 
   function submit() {}
-  return <main>home page</main>;
+  return <main>{session?.user.id}</main>;
 }

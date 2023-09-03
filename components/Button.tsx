@@ -9,7 +9,7 @@ export default function Button({ name, type = "button", operation }: props) {
   return (
     <button
       type={type}
-      className="px-3 py-2 text-xl w-max h-max bg-red-600 rounded-md text-center text-white"
+      className="px-3 py-1 text-lg w-max h-max bg-white border-black border text-black rounded-sm text-center hover:bg-black hover:text-white"
       onClick={operation}
     >
       {name}

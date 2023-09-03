@@ -15,7 +15,7 @@ const POST = async (request: NextRequest) => {
       image,
       content,
       popularity,
-    }).populate("User");
+    });
     await newBlog.save();
     return new NextResponse(JSON.stringify(newBlog), { status: 200 });
   } catch (error) {

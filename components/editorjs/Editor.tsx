@@ -50,7 +50,7 @@ export default function EditorJs({
   const contentSave = async () => {
     if (editorInstance.current) {
       const content = await editorInstance.current?.save();
-      // console.log(content);
+      console.log(content);
       // console.log("first");
       typeof submit !== "undefined" && submit(content);
     }
