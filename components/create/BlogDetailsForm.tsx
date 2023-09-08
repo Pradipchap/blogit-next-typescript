@@ -1,56 +1,75 @@
-'use client'
-import React, { FormEvent, FormEventHandler, RefObject, useRef } from "react";
+"use client";
+import React, { FormEvent } from "react";
 import Button from "../Button";
 import { useSession } from "next-auth/react";
+import { OutputData } from "@editorjs/editorjs";
+import { detailsForm } from "@/types/createBlogTypes";
+
+import { useRouter } from "next/navigation";
+
+import ImageUpload from "./ImageUpload";
 
 export default function BlogDetailsForm({
-  getData,
+  getFormData,
   submit,
 }: {
-  getData: (params: object) => void;
-  submit: () => void;
+  getFormData: (formData: detailsForm) => void;
+  submit: () => { content: OutputData; formData: detailsForm };
 }) {
+  const router = useRouter();
   //   {
   //   returnData,
   // }: {
   //   returnData: (arg: string) => string;
   // }
-  const {data:session}=useSession()
+  const { data: session } = useSession();
   async function returnData(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     const form = e.currentTarget;
-    const formdata = new FormData(form);
-    const data = Object.fromEntries(formdata.entries());
-     getData(data);
+
+    const formdataInstnce = new FormData(form);
+    const formdata = Object.fromEntries(
+      formdataInstnce.entries(),
+    ) as detailsForm;
+    console.log("formdata", formdata);
+
+    getFormData(formdata);
     const content = submit();
-    console.log("all data are", content);
-    try {
-      const response = await fetch("http://localhost:3000/api/blogs/create", {
-        method: "POST",
-        body: JSON.stringify({
-          userid: session?.user.id,
-          title: "title",
-          genre: "genre",
-          description: "description",
-          content: "content",
-          image:"image is no",
-          popularity:2,
+    console.log("formadata", content.formData);
 
-        }),
-      }).then(response=>console.log('response',response.json()));
+    const data = new FormData();
+    data.append("title", content.formData.title);
+    data.append("genre", content.formData.genre);
+    data.append("description", content.formData.description);
+    data.append("image", content.formData.image!);
+    data.append("content", JSON.stringify(content.content));
+    data.append("userid", session?.user.id as string);
 
-    } catch (error) {
-      console.log("error",error)
-    }
+    const response = await fetch("http://localhost:3000/api/blogs/create", {
+      method: "POST",
+      body: data,
+    })
+      .then((response) => {
+        console.log("response", response.json());
 
+        router.push("/");
+
+        console.log("navigated");
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
   }
   return (
     <form
       action=""
       onSubmit={(e) => returnData(e)}
-      className="grid grid-cols-2 place-items-center gap-5 w-max bg-white p-10"
+      className="grid grid-cols-2  gap-5 w-max bg-white p-10"
     >
-      <div></div>
+      <div className=" col-span-2">Add Details for your blogs</div>
+      <ImageUpload />
+
       <div className="flex flex-col gap-5">
         <input
           type="text"
@@ -77,8 +96,8 @@ export default function BlogDetailsForm({
           required
           name="description"
         />
+        <Button name="Publish" type="submit" operation={() => {}} />
       </div>
-      <Button name="Publish" type="submit" operation={() => {}} />
     </form>
   );
 }

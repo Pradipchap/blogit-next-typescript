@@ -1,3 +1,4 @@
+import { OutputData } from "@editorjs/editorjs";
 import { Schema, model, models } from "mongoose";
 
 const BlogSchema = new Schema({
@@ -22,7 +23,7 @@ const BlogSchema = new Schema({
     required: false,
   },
   content: {
-    type: String,
+    type: Schema.Types.Mixed,
     required: [true, "content is required"],
   },
   date: {

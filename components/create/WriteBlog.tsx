@@ -3,9 +3,10 @@ import React, { useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import BlogDetailsForm from "./BlogDetailsForm";
 import { OutputData } from "@editorjs/editorjs";
-
-import Modal from "../Modal/Modal";
+import { detailsForm } from "@/types/createBlogTypes";
+import Modal from "../popups/Modal";
 import { createPortal } from "react-dom";
+
 const EditorJs = dynamic(() => import("@/components/editorjs/Editor"), {
   ssr: false,
 });
@@ -13,30 +14,37 @@ const EditorJs = dynamic(() => import("@/components/editorjs/Editor"), {
 export default function WriteBlog() {
   class output {
     content: OutputData;
-    formData: object;
-    constructor(content: OutputData, formData: object) {
+    formData: detailsForm;
+    constructor(content: OutputData, formData: detailsForm) {
       this.content = content;
       this.formData = formData;
       this.getContent = this.getContent.bind(this);
       this.getFormData = this.getFormData.bind(this);
       this.returnAll = this.returnAll.bind(this);
     }
-    getContent(content:OutputData) {
-      this.content=content
+    getContent(content: OutputData) {
+      this.content = content;
       try {
         setIsModalOpen(true);
       } catch (error) {
         console.log(error);
       }
     }
-    getFormData(formData: object) {
+    getFormData(formData: detailsForm) {
       this.formData = formData;
     }
-    returnAll() {
+    returnAll(): { content: OutputData; formData: detailsForm } {
       return { content: this.content, formData: this.formData };
     }
   }
-  const editorandform = useMemo(() => new output({ blocks: [] }, {}), []);
+  const editorandform = useMemo(
+    () =>
+      new output(
+        { blocks: [] },
+        { title: "", description: "", genre: "", image: null },
+      ),
+    [],
+  );
 
   async function create(content: OutputData) {
     // try {
@@ -65,11 +73,11 @@ export default function WriteBlog() {
         createPortal(
           <Modal onclose={() => setIsModalOpen(false)}>
             <BlogDetailsForm
-              getData={editorandform.getFormData}
+              getFormData={editorandform.getFormData}
               submit={editorandform.returnAll}
             />
           </Modal>,
-          document.body
+          document.body,
         )}
     </section>
   );
