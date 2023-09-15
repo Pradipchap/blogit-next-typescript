@@ -1,7 +1,8 @@
 import { connectToDB } from "@/utils/database";
+import { useSearchParams } from "next/navigation";
 import Blog from "@/models/blogModel";
 import { NextRequest, NextResponse } from "next/server";
-const GET = async (request: NextRequest) => {
+const GET = async (request: NextRequest, response: NextResponse) => {
   try {
     await connectToDB();
 
@@ -9,13 +10,16 @@ const GET = async (request: NextRequest) => {
     const noOfBlogs = await blogs.length;
 
     return new NextResponse(
-      JSON.stringify({ noOfBlogs: noOfBlogs, blogs: blogs }),
+      JSON.stringify({
+        blogs: blogs,
+        noOfBlogs: noOfBlogs,
+      }),
       {
         status: 200,
-      },
+      }
     );
   } catch (error) {
-    return new Response("Failed to fetch all prompts", { status: 500 });
+    return new Response(JSON.stringify({ error: error, status: 500 }));
   }
 };
 export { GET };

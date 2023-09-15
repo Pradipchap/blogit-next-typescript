@@ -2,6 +2,7 @@ import { StaticImageData } from "next/image";
 
 import write from "@/public/Icons/write.svg";
 import Notifications from "@/public/Icons/Notifications.svg";
+import { signOut } from "next-auth/react";
 export const Navlist: TNavItems[] = [
   { name: "Create", url: "/create", svg: write },
   { name: "Notifications", url: "/profile/notifications", svg: Notifications },

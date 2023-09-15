@@ -1,13 +1,12 @@
-"use client";
-import Image from "next/image";
-import { useSession } from "next-auth/react";
-import { signIn } from "next-auth/react";
-import EditorJs from "@/components/editorjs/Editor";
-import { useState } from "react";
+import BlogPage from "@/components/Home/Blogpage";
+import MainBlogs from "@/components/Home/MainBlogs/MainBlogs";
+import SideBlogs from "@/components/Home/SideBlogs/SideBlogs";
 
 export default function Home() {
-  const { data: session } = useSession();
-
-  function submit() {}
-  return <main>{session?.user.id}</main>;
+  return (
+    <div className=" flex justify-center">
+      <MainBlogs />
+      <SideBlogs />
+    </div>
+  );
 }
