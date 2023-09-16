@@ -1,4 +1,5 @@
-import React, { memo, useMemo } from "react";
+"use client";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import BlogCard from "@/components/Home/BlogCard";
 import { singleBlogProps } from "@/types/createBlogTypes";
 interface responseType {
@@ -8,15 +9,22 @@ interface responseType {
 type props = {
   api?: string;
 };
-async function BlogPage({ api = "http://localhost:3000/api/blogs" }: props) {
-  try {
-    const response = await fetch(api, { cache: "no-cache" });
-    const data: responseType = await response.json();
+function BlogPage({ api = "http://localhost:3000/api/blogs" }: props) {
+  const [data, setData] = useState<responseType | undefined>();
 
-    console.log(api)
-    return (
-      <div>
-        {data.blogs.map((blog) => {
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(api, { cache: "no-cache" });
+      const data: responseType = await response.json();
+      await setData(data);
+    };
+    getData();
+  }, [api]);
+
+  return (
+    <div>
+      {typeof data !== "undefined" ? (
+        data.blogs.map((blog) => {
           return (
             <BlogCard
               title={blog.title}
@@ -30,11 +38,11 @@ async function BlogPage({ api = "http://localhost:3000/api/blogs" }: props) {
               key={blog._id}
             />
           );
-        })}
-      </div>
-    );
-  } catch (error) {
-    return <h1>{JSON.stringify(error)}</h1>;
-  }
+        })
+      ) : (
+        <p>sorry something wrong occured</p>
+      )}
+    </div>
+  );
 }
 export default memo(BlogPage);

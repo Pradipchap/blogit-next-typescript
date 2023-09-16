@@ -3,11 +3,19 @@ import { useSearchParams } from "next/navigation";
 import Blog from "@/models/blogModel";
 import { NextRequest, NextResponse } from "next/server";
 const GET = async (request: NextRequest, response: NextResponse) => {
+  const pageNo = await Number(request.nextUrl.searchParams.get("pageno"));
   try {
     await connectToDB();
+    const noOfBlogs = await Blog.countDocuments({});
 
-    const blogs = await Blog.find({}).populate("userid");
-    const noOfBlogs = await blogs.length;
+    const skippingNumber =
+      pageNo === 0 ? 0 : pageNo === 1 ? 0 : (pageNo - 1) * 5;
+    console.log(skippingNumber);
+    const blogs = await Blog.find({})
+      .populate("userid")
+      .sort({ date: -1 })
+      .limit(5)
+      .skip(skippingNumber);
 
     return new NextResponse(
       JSON.stringify({
@@ -16,7 +24,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }),
       {
         status: 200,
-      }
+      },
     );
   } catch (error) {
     return new Response(JSON.stringify({ error: error, status: 500 }));

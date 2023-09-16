@@ -94,9 +94,7 @@ export default function BlogCard({
             </div>
           </div>
         </div>
-      
       </div>
-      
     </div>
   );
 }
