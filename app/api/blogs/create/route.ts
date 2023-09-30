@@ -2,7 +2,6 @@ import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 import Blog from "@/models/blogModel";
-import { data } from "autoprefixer";
 
 const POST = async (request: NextRequest) => {
   const data = await request.formData();

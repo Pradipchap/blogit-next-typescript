@@ -30,7 +30,7 @@ export default function EditorJs({
 
       readOnly: isReadOnly,
       data: isReadOnly ? data : undefined,
-      placeholder: "Write something",
+      placeholder: isReadOnly ? false : "write something",
     });
     editorInstance.current = editor;
   };
