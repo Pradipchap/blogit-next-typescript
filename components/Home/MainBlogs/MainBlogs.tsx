@@ -17,7 +17,7 @@ export default function MainBlogs() {
     <div className="w-[60%]">
       <Select />
 
-      <BlogPage api={` http://localhost:3000/api/blogs?pageno=${pageno}`} />
+      <BlogPage api={`http://localhost:3000/api/blogs?pageno=${pageno}`} />
       <div className="pagination flex gap-4">
         <button onClick={() => setpageno((page) => page + 1)}>prev</button>
         <p>{pageno}</p>
