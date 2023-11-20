@@ -46,20 +46,17 @@ export default function BlogDetailsForm({
     data.append("content", JSON.stringify(content.content));
     data.append("userid", session?.user.id as string);
 
-    const response = await fetch("http://localhost:3000/api/blogs/create", {
+    try {
+      const response = await fetch("http://localhost:3000/api/blogs/create", {
       method: "POST",
       body: data,
-    })
-      .then((response) => {
-        console.log("response", response.json());
-
-        router.push("/");
-
-        console.log("navigated");
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
+    });
+    const parsedData=await response.json()
+    router.push('/')
+    } catch (error) {
+      alert("error while creating blog")
+    }
+     
   }
   return (
     <form

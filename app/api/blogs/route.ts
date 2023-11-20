@@ -1,7 +1,7 @@
 import { connectToDB } from "@/utils/database";
-import { useSearchParams } from "next/navigation";
 import Blog from "@/models/blogModel";
 import { NextRequest, NextResponse } from "next/server";
+
 const GET = async (request: NextRequest, response: NextResponse) => {
   const pageNo = await Number(request.nextUrl.searchParams.get("pageno"));
   try {

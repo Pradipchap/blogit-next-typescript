@@ -12,7 +12,7 @@ export default function Select() {
   return (
     <div className="flex gap-5 relative py-10">
       <button
-        className=""
+        className=" cursor-pointer"
         onClick={() => {
           setFeedStatus("foryou");
         }}
@@ -20,7 +20,7 @@ export default function Select() {
         For you
       </button>
       <button
-        className=""
+        className=" cursor-pointer"
         onClick={() => {
           setFeedStatus("following");
         }}

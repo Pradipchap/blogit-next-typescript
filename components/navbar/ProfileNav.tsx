@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import OpenMenu from "./OpenMenu";
 import Login from "./Logout";
-export default async function ProfleNav() {
+export default async function ProfileNav() {
   const session = await getServerSession(authOptions);
 
   if (session)

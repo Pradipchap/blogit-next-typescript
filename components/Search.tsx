@@ -16,12 +16,12 @@ export default function Search() {
         type="search"
         name="searchString"
         id="search"
-        className="bg-gray-100 border border-gray-400 peer h-8 outline-none px-1 rounded-md"
+        className="border border-gray-400 peer h-8 outline-none px-1 rounded-md"
       />
       <Image
         src={searchIcon}
         alt="search icon"
-        className="absolute top-1/2 -translate-y-1/2 left-1 peer-focus:hidden"
+        className="absolute top-1/2 -translate-y-1/2 left-2 peer-focus:hidden"
       />{" "}
     </form>
   );
