@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import Nav from "../components/navbar/Nav";
 import ReduxProvider from "@/redux/ReduxProvider";
 import ProfileNav from "@/components/navbar/ProfileNav";
+import NextUiProvider from "@/utils/NextUiProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,12 +24,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-         <ReduxProvider>
-         <Nav >
-          <ProfileNav/>
-         </Nav>
-          {children}
-         </ReduxProvider>
+          <ReduxProvider>
+            <NextUiProvider>
+              <Nav>
+                <ProfileNav />
+              </Nav>
+              {children}
+            </NextUiProvider>
+          </ReduxProvider>
         </AuthProvider>
       </body>
     </html>
