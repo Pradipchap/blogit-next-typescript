@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const GET = async (request: NextRequest, response: NextResponse) => {
   const pageNo = await Number(request.nextUrl.searchParams.get("pageno"));
+  const option = await request.nextUrl.searchParams.get("option");
   try {
     await connectToDB();
     const noOfBlogs = await Blog.countDocuments({});
@@ -24,7 +25,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }),
       {
         status: 200,
-      },
+      }
     );
   } catch (error) {
     return new Response(JSON.stringify({ error: error, status: 500 }));
