@@ -1,5 +1,5 @@
 "use client";
-import React, { Key, useEffect, useState } from "react";
+import React, { Key, Suspense, useEffect, useState } from "react";
 import BlogPage from "../Blogpage";
 import Select from "./Select";
 import { useSearchParams } from "next/navigation";
@@ -13,14 +13,6 @@ export default function MainBlogs() {
   const [option, setOption] = useState<TabsInterface>(options[0]);
   const params = useSearchParams();
   const feedQuery = params.get("option") as string;
-  // useEffect(() => {
-  //   const feedQuery = params.get("option") as string;
-  //   const selectedOption =
-  //     options.filter((item) => {
-  //       item.key === feedQuery;
-  //     })[0] || options[0];
-  //   setOption(selectedOption);
-  // }, [params]);
 
   return (
     <div className="w-[60%]">

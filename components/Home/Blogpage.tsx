@@ -1,7 +1,8 @@
 "use client";
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { Fragment, memo, useEffect, useMemo, useState } from "react";
 import BlogCard from "@/components/Home/BlogCard";
 import { singleBlogProps } from "@/types/createBlogTypes";
+import BlogCardSkeleton from "../skeletons/BlogCardSkeleton";
 interface responseType {
   noOfBlogs: number;
   blogs: singleBlogProps[];
@@ -34,7 +35,15 @@ function BlogPage({ api = "http://localhost:3000/api/blogs" }: props) {
     return <p>something wrong happended</p>;
   }
   if (isLoading) {
-    return <p>Loading</p>;
+    return (
+      <>
+        <BlogCardSkeleton />
+        <BlogCardSkeleton />
+        <BlogCardSkeleton />
+        <BlogCardSkeleton />
+        <BlogCardSkeleton />
+      </>
+    );
   }
   return (
     <>
