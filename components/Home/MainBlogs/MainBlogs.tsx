@@ -16,7 +16,7 @@ export default function MainBlogs() {
 
   return (
     <div className="w-[60%]">
-      <Select options={options} setOption={setOption} />
+      <Select options={options} setOption={setOption} currentOption={option} />
       <BlogPage
         api={`http://localhost:3000/api/blogs?pageno=${pageno}&option=${feedQuery}`}
       />

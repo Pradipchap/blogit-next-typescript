@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -8,7 +8,7 @@ export default function Links({ name, url, svg }: TNavItems) {
   else
     return (
       <Link href={url} className="flex justify-center items-center gap-2">
-        <Image src={svg} alt={name} />
+        <Image src={svg} alt={name} className="text-white" />
         <p>{name}</p>
       </Link>
     );
