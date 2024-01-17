@@ -1,16 +1,19 @@
-import { StaticImageData } from "next/image";
+import { ReactNode } from "react";
 
-import write from "@/public/Icons/write.svg";
-import Notifications from "@/public/Icons/Notifications.svg";
-import { signOut } from "next-auth/react";
 export const Navlist: TNavItems[] = [
-  { name: "Create", url: "/create", svg: write },
-  { name: "Notifications", url: "/profile/notifications", svg: Notifications },
+  { name: "Create", url: "/create", iconName: "Write" },
+  {
+    name: "Notifications",
+    url: "/profile/notifications",
+    iconName: "Notification",
+  },
 ];
-export const ProfileNavList: TNavItems[] = [...Navlist];
+export const ProfileNavList: TNavItems[] = Navlist;
 export interface TNavItems {
-  name: string;
-  url: string;
-  operation?: () => void;
-  svg?: StaticImageData;
+  name: ReactNode;
+  url?: string;
+  iconName?: string;
+  className?: string;
+  containerClassName?: string;
+  iconClassName?: string;
 }

@@ -1,8 +1,5 @@
 "use client";
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
-import Close from "@/public/Icons/close.svg";
-import Image from "next/image";
-import { Children } from "react";
+import React, { useRef } from "react";
 export default function Modal({
   onclose,
   children,

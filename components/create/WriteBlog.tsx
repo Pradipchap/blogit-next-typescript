@@ -41,28 +41,11 @@ export default function WriteBlog() {
     () =>
       new output(
         { blocks: [] },
-        { title: "", description: "", genre: "", image: null },
+        { title: "", description: "", genre: "", image: null }
       ),
-    [],
+    []
   );
 
-  async function create(content: OutputData) {
-    // try {
-    //   const response = await fetch("http://localhost:3000/api/blogs/create", {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       userid: "session?.user.id",
-    //       title: "title",
-    //       genre: "genre",
-    //       description: "description",
-    //       content: "content",
-    //     }),
-    //   });
-    // } catch (error) {}
-    // console.log("content is",content)
-  }
-
-  const formRef = useRef<HTMLFormElement>(null!);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   async function getData(params: string) {}
@@ -77,7 +60,7 @@ export default function WriteBlog() {
               submit={editorandform.returnAll}
             />
           </Modal>,
-          document.body,
+          document.body
         )}
     </section>
   );

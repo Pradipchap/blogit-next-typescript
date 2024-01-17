@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { ChangeEvent, useRef, useState } from "react";
 
 export default function ImageUpload() {
