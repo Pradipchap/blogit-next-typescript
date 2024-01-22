@@ -7,6 +7,7 @@ export type detailsForm = {
   image: File | null;
 };
 export type blogCardProps = {
+  variant?: "small" | "large";
   blogid: string;
   title: string;
   profilename: string;

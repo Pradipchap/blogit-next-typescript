@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 const GET = async (request: NextRequest, response: NextResponse) => {
   const pageNo = await Number(request.nextUrl.searchParams.get("pageno"));
   const option = await request.nextUrl.searchParams.get("option");
+  const limit = await Number(request.nextUrl.searchParams.get("limit"));
   try {
     await connectToDB();
     const noOfBlogs = await Blog.countDocuments({});
@@ -15,7 +16,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
     const blogs = await Blog.find({})
       .populate("userid")
       .sort({ date: -1 })
-      .limit(5)
+      .limit(limit || 10)
       .skip(skippingNumber);
 
     return new NextResponse(

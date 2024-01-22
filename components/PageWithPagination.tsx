@@ -6,6 +6,7 @@ type props = {
   api?: string;
   noOfBlogs?: number;
 };
+
 export default function PageWithPagination({ title, api, noOfBlogs }: props) {
   return (
     <div className="flex flex-col">

@@ -6,10 +6,10 @@ import Search from "../Search";
 
 export default function Nav({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-14">
+    <div className="h-14 ">
       <nav
-        className={`w-full fixed top-0 text-black
-       h-14 bg-red-700 flex justify-between items-center px-5`}
+        className={`w-full z-20 fixed top-0 text-black
+       h-14 bg-white flex justify-between items-center px-5`}
       >
         <Links name="Logo" url="/" />
         <div className="flex gap-3 lg:gap-6">

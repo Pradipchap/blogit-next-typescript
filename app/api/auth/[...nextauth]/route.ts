@@ -15,7 +15,6 @@ export const authOptions: NextAuthOptions = {
     async session({ session }) {
       const user = await User.findOne({ email: session.user.email });
       session.user.id = user._id.toString();
-
       return session;
     },
     async signIn({ profile }) {

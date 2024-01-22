@@ -17,7 +17,7 @@ export default function Modal({
   }
   return (
     <div
-      className={` top-0 fixed  left-0 w-full h-full backdrop-blur-[0.5px] bg-black/80 z-20 flex justify-center items-center`}
+      className={`top-0 fixed left-0 w-full h-full backdrop-blur-[0.5px] bg-black/60 z-50 flex justify-center items-center`}
       onMouseEnter={() => (document.body.style.overflow = "hidden")}
       onMouseLeave={() => (document.body.style.overflow = "auto")}
       onClick={(event) => dismiss(event)}

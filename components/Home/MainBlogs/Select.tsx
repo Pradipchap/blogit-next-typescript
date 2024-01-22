@@ -23,11 +23,13 @@ export default function App({
     router.push(`?option=${selectedOption.key}`);
   }
   return (
-    <ul className="flex gap-2 items-center my-2 border-b border-slate-500 w-full px-2">
+    <ul className="sticky top-[56px] bg-white flex gap-2 items-center my-2 border-b border-slate-200 w-full px-2">
       {options.map((element) => (
         <li
           key={element.key}
-          className={`${currentOption.key===element.key?" border-b":""} px-3 border-black py-2`}
+          className={`${
+            currentOption.key === element.key ? " border-b" : ""
+          } px-3 border-black py-2`}
           onClick={() => {
             onSelectionChange(element.key);
           }}

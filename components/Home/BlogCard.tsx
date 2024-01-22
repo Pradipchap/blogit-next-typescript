@@ -12,7 +12,7 @@ export default function BlogCard({
   profileImage,
   image,
   description,
-
+  variant = "large",
   date,
 }: blogCardProps) {
   const router = useRouter();
@@ -22,76 +22,48 @@ export default function BlogCard({
   const viewBlog = () => {
     router.push(`/blogs/${blogid}`);
   };
-  const tags = [1, 2, 3, 4];
   return (
-    <div className="space-y-4 lg:grid lg:grid-cols-3 lg:items-start lg:gap-6 lg:space-y-0 m-5   w-full">
-      <div className="group">
-        <div className="aspect-w-3 aspect-h-2">
-          <Image
-            className="object-cover shadow-lg rounded-lg group-hover:opacity-75 max-md:hidden"
-            src={image}
-            alt="Featured Photo"
-            width={200}
-            height={150}
-          />
-        </div>
-      </div>
-
-      <div className="sm:col-span-2 cursor-pointer" onClick={viewBlog}>
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-2">
-            <span className="inline-flex items-center leading-none px-2.5 py-1.5 text-sm font-medium text-skin-inverted rounded-full border border-skin-input">
-              <svg
-                className="mr-1.5 h-2 w-2 brand-tutoriel"
-                fill="currentColor"
-                viewBox="0 0 8 8"
-              >
-                <circle cx="4" cy="4" r="3"></circle>
-              </svg>
-              {genre}
-            </span>
-          </div>
-        </div>
-
-        <div className="mt-2">
-          <div className="group">
-            <h4 className="text-lg leading-6 font-semibold font-sans text-skin-inverted group-hover:text-skin-primary">
-              {title}
-            </h4>
-          </div>
-
-          <p className="mt-1 text-sm font-normal text-skin-base leading-5 w-full break-words">
-            {description.slice(0, 200) + "..."}
+    <div className="w-full max-w-2xl h-52 grid grid-cols-7 gap-5">
+      <Image
+        className="h-auto m-auto w-full col-span-2"
+        src={image}
+        height={100}
+        width={100}
+        alt="Blog image"
+      />
+      <div className="h-full col-span-5 flex flex-col justify-between py-5">
+        <div className="flex flex-col gap-2">
+          {" "}
+          <p className="text-base md:text-lg font-bold ">{title}</p>
+          <p className="text-gray-600 text-sm max-w-full line-clamp-3">
+            {description.slice(0, 300)}....
           </p>
-
-          <div className="mt-3 flex items-center font-sans">
-            <div className="shrink-0">
-              <div>
-                <span className="sr-only">{profilename}</span>
-
-                <Image
-                  className="h-10 w-10 rounded-full"
-                  src={profileImage}
-                  alt=""
-                  width={500}
-                  height={300}
-                />
-              </div>
+        </div>
+        <div className="flex justify-start items-center font-sans">
+          <div className="shrink-0">
+            <div>
+              <span className="sr-only">{profilename}</span>
+              <Image
+                className="h-10 w-10 rounded-full bg-pink-600"
+                src={profileImage}
+                alt=""
+                width={500}
+                height={300}
+              />
             </div>
-
-            <div className="ml-3">
-              <div className="text-sm font-medium text-skin-inverted">
-                <p className="hover:underline">{profilename}</p>
-              </div>
-
-              <div className="flex space-x-1 text-sm text-skin-muted">
-                <p>{date.toString()}</p>
-
-                <span aria-hidden="true">·</span>
-
-                <span>3 min read time</span>
-              </div>
+          </div>
+          <div className="ml-3">
+            <div className="text-sm font-medium text-skin-inverted">
+              <p className="hover:underline">{profilename}</p>
             </div>
+            <div className="flex space-x-1 text-xs">
+              <p>{new Date(date).toDateString()}</p>
+              <span aria-hidden="true">·</span>
+              <span>3 min read time</span>
+            </div>
+          </div>
+          <div className="ml-auto bg-gray-300 text-black text-sm px-3 py-1 rounded-md">
+            {genre}
           </div>
         </div>
       </div>
