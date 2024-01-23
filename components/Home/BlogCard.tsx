@@ -23,7 +23,8 @@ export default function BlogCard({
     router.push(`/blogs/${blogid}`);
   };
   return (
-    <div className="w-full max-w-2xl h-52 grid grid-cols-7 gap-5">
+
+    <div onClick={viewBlog} className="w-full max-w-2xl h-52 grid grid-cols-7 gap-5">
       <Image
         className="h-auto m-auto w-full col-span-2"
         src={image}

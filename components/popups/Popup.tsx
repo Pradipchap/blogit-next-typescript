@@ -22,7 +22,7 @@ export default function PopupOver({ children, content }: dropdownProps) {
     right?: number | undefined;
     left?: number | undefined;
     bottom?: number | undefined;
-  }>({ top: 0, right: 0 });
+  }>({});
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const popupRef = useRef<HTMLDivElement | null>(null);
@@ -113,6 +113,7 @@ export default function PopupOver({ children, content }: dropdownProps) {
           <div
             id="popupEl"
             ref={popupRef}
+            className="transition-all duration-300 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] bg-white"
             style={{
               position: "fixed",
               ...position,

@@ -7,6 +7,7 @@ import Nav from "../components/navbar/Nav";
 import ReduxProvider from "@/redux/ReduxProvider";
 import ProfileNav from "@/components/navbar/ProfileNav";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import Toast from "@/components/popups/Toast";
 
 const inter = Fira_Sans({ subsets: ["latin"], weight: ["400","700","200"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <ReduxProvider>
+            <Toast/>
             <Nav>
               <ProfileNav />
             </Nav>

@@ -13,7 +13,7 @@ export default async function ProfileNav() {
     return (
       <PopupOver
         content={
-          <div className="bg-white flex flex-col items-start w-max px-5 py-2 gap-2 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
+          <div className="flex flex-col items-start w-max px-5 py-2 gap-2">
             {ProfileNavList.map((element) => {
               return (
                 <Links

@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import BlogDetailsForm from "./BlogDetailsForm";
 import { OutputData } from "@editorjs/editorjs";
@@ -22,8 +22,9 @@ export default function WriteBlog() {
       this.getFormData = this.getFormData.bind(this);
       this.returnAll = this.returnAll.bind(this);
     }
-    getContent(content: OutputData) {
+    getContent(content: OutputData, title: string) {
       this.content = content;
+      this.formData.title = title;
       try {
         setIsModalOpen(true);
       } catch (error) {
@@ -47,15 +48,15 @@ export default function WriteBlog() {
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  async function getData(params: string) {}
   return (
-    <section className="flex flex-col justify-center items-center gap-10 py-20">
+    <section className="flex flex-col justify-center items-center gap-10 pt-5">
       <EditorJs submit={editorandform.getContent} isReadOnly={false} />
       {isModalOpen &&
         createPortal(
           <Modal onclose={() => setIsModalOpen(false)}>
             <BlogDetailsForm
+              onclose={() => setIsModalOpen(false)}
+              title={editorandform.formData.title}
               getFormData={editorandform.getFormData}
               submit={editorandform.returnAll}
             />

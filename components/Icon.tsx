@@ -22,6 +22,7 @@ import {
   faLockOpen,
   faPenToSquare,
   faPen,
+  faExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faPencil,
@@ -192,7 +193,6 @@ export default function Icon({ name, className = "" }: IconProps) {
           className={classNames("text-white text-lg", className)}
         />
       );
-
     case "Back":
       return (
         <FontAwesomeIcon
@@ -239,6 +239,20 @@ export default function Icon({ name, className = "" }: IconProps) {
       return (
         <FontAwesomeIcon
           icon={faPenToSquare}
+          className={classNames("text-lg text-white", className)}
+        />
+      );
+      case "Exclamation":
+      return (
+        <FontAwesomeIcon
+          icon={faExclamation}
+          className={classNames("text-lg text-white", className)}
+        />
+      );
+      case "Loading":
+      return (
+        <FontAwesomeIcon
+          icon={faSpinner}
           className={classNames("text-lg text-white", className)}
         />
       );
