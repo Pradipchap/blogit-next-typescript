@@ -1,38 +1,42 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-export default function Select() {
+import React, { Key } from "react";
+import { TabsInterface } from "@/types/componentTypes";
+import { useRouter } from "next/navigation";
+
+interface selectTabProps {
+  options: TabsInterface[];
+  setOption: (option: TabsInterface) => void;
+  currentOption: TabsInterface;
+}
+
+export default function App({
+  options,
+  currentOption,
+  setOption,
+}: selectTabProps) {
   const router = useRouter();
-  const [feedStatus, setFeedStatus] = useState("foryou");
-
-  useEffect(() => {
-    router.push(`?feed=${feedStatus}`);
-  }, [feedStatus]);
-
+  function onSelectionChange(key: Key) {
+    const selectedOption =
+      options.find((item) => {
+        return item.key === key.toString();
+      }) || options[0];
+    setOption(selectedOption);
+    router.push(`?option=${selectedOption.key}`);
+  }
   return (
-    <div className="flex gap-5 relative py-10">
-      <button
-        className=""
-        onClick={() => {
-          setFeedStatus("foryou");
-        }}
-      >
-        For you
-      </button>
-      <button
-        className=""
-        onClick={() => {
-          setFeedStatus("following");
-        }}
-      >
-        Following
-      </button>
-      <div className={`absolute w-full h-[1px] bg-gray-300 bottom-8 left-0`} />
-      <div
-        className={`absolute w-14 h-0.5 bg-gray-700 bottom-8 left-0 ${
-          feedStatus === "foryou" ? "translate-x-0 " : "translate-x-20"
-        } transition-all `}
-      />
-    </div>
+    <ul className="sticky top-[56px] bg-white flex gap-2 items-center my-2 border-b border-slate-200 w-full px-2">
+      {options.map((element) => (
+        <li
+          key={element.key}
+          className={`${
+            currentOption.key === element.key ? " border-b" : ""
+          } px-3 border-black py-2`}
+          onClick={() => {
+            onSelectionChange(element.key);
+          }}
+        >
+          {element.label}
+        </li>
+      ))}
+    </ul>
   );
 }

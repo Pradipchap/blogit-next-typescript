@@ -4,40 +4,35 @@ import Button from "../Button";
 import { useSession } from "next-auth/react";
 import { OutputData } from "@editorjs/editorjs";
 import { detailsForm } from "@/types/createBlogTypes";
-
 import { useRouter } from "next/navigation";
-
 import ImageUpload from "./ImageUpload";
+import { useToast } from "@/custom_hooks/useToast";
 
 export default function BlogDetailsForm({
   getFormData,
   submit,
+  onclose,
+  title,
 }: {
   getFormData: (formData: detailsForm) => void;
   submit: () => { content: OutputData; formData: detailsForm };
+  title: string;
+  onclose: () => void;
 }) {
   const router = useRouter();
-  //   {
-  //   returnData,
-  // }: {
-  //   returnData: (arg: string) => string;
-  // }
+  const { showSuccess, showError, showLoading } = useToast();
   const { data: session } = useSession();
   async function returnData(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    showLoading("posting blog");
     const form = e.currentTarget;
-
     const formdataInstnce = new FormData(form);
     const formdata = Object.fromEntries(
-      formdataInstnce.entries(),
+      formdataInstnce.entries()
     ) as detailsForm;
     console.log("formdata", formdata);
-
     getFormData(formdata);
     const content = submit();
-    console.log("formadata", content.formData);
-
     const data = new FormData();
     data.append("title", content.formData.title);
     data.append("genre", content.formData.genre);
@@ -46,57 +41,66 @@ export default function BlogDetailsForm({
     data.append("content", JSON.stringify(content.content));
     data.append("userid", session?.user.id as string);
 
-    const response = await fetch("http://localhost:3000/api/blogs/create", {
-      method: "POST",
-      body: data,
-    })
-      .then((response) => {
-        console.log("response", response.json());
-
-        router.push("/");
-
-        console.log("navigated");
-      })
-      .catch((err) => {
-        console.log("error", err);
+    try {
+      const response = await fetch("http://localhost:3000/api/blogs/create", {
+        method: "POST",
+        body: data,
       });
+      if (!response.ok) {
+        throw new Error("Blog upload not successfull");
+      }
+      showSuccess("Blog upload successfull");
+      onclose();
+      sessionStorage.removeItem("editorContent");
+      router.push("/");
+    } catch (error) {
+      console.error("Error uploading blog:", error);
+      showError("Blog upload unsuccessful");
+    }
   }
+
   return (
     <form
       action=""
       onSubmit={(e) => returnData(e)}
-      className="grid grid-cols-2  gap-5 w-max bg-white p-10"
+      className="grid grid-cols-2 rounded gap-5 w-max bg-white p-10"
     >
-      <div className=" col-span-2">Add Details for your blogs</div>
+      <h3 className="col-span-2 text-xl">Add Details for your blogs</h3>
       <ImageUpload />
-
       <div className="flex flex-col gap-5">
         <input
           type="text"
-          placeholder="Blog Title "
-          className="  outline-none px-3 py-2 bg-transparent border-black border  "
+          defaultValue={title}
+          placeholder="Blog Title"
+          className="outline-none px-3 py-2 bg-gray-50 border-gray-300 border rounded"
           autoFocus
           required
           name="title"
         />
         <input
           type="text"
-          placeholder="Blog genre "
-          className=" outline-none px-3 py-2 bg-transparent border-black border  "
+          placeholder="Blog genre"
+          className="outline-none px-3 py-2 bg-gray-50 border-gray-300 border rounded"
           autoFocus
           required
           name="genre"
         />
         <textarea
-          placeholder="Short Description "
-          className="  outline-none px-3 py-2 bg-transparent border-black border  "
+          placeholder="Short Description"
+          className="outline-none px-3 py-2 bg-gray-50 border-gray-300 border rounded"
           autoFocus
           rows={3}
           minLength={40}
           required
           name="description"
         />
-        <Button name="Publish" type="submit" operation={() => {}} />
+        <Button
+          type="submit"
+          onClick={() => {}}
+          className="bg-green-600 text-sm text-white border-none py-2 px-3 hover:bg-green-500"
+        >
+          Publish
+        </Button>
       </div>
     </form>
   );

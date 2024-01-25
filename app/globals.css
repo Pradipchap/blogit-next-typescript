@@ -11,3 +11,8 @@ body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
 }
+
+.sideblog {
+  position: -webkit-sticky;
+  position: sticky;
+}

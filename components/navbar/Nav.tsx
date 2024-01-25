@@ -1,27 +1,34 @@
+"use client";
 import React from "react";
-import ProfleNav from "./ProfileNav";
 import Links from "./Links";
 import { Navlist } from "../../types/navTypes";
 import Search from "../Search";
 
-export default function Nav() {
+export default function Nav({ children }: { children: React.ReactNode }) {
   return (
-    <nav className="w-full bg-white h-14 flex justify-between items-center text-black px-5">
-      <Links name="Logo" url="/" />
-      <div className="flex gap-10 ">
-        <Search />
-        {Navlist.map((element) => {
-          return (
-            <Links
-              name={element.name}
-              url={element.url}
-              key={element.name}
-              svg={element.svg}
-            />
-          );
-        })}
-        <ProfleNav />
-      </div>
-    </nav>
+    <div className="h-14 ">
+      <nav
+        className={`w-full z-20 fixed top-0 text-black
+       h-14 bg-white flex justify-between items-center px-5`}
+      >
+        <Links name="Logo" url="/" />
+        <div className="flex gap-3 lg:gap-6">
+          <div className={`gap-6 sm:flex sm:flex-row hidden`}>
+            {Navlist.map((element) => {
+              return (
+                <Links
+                  name={element.name}
+                  url={element.url}
+                  key={element.url + JSON.stringify(element?.iconName)}
+                  iconName={element.iconName}
+                />
+              );
+            })}
+          </div>
+          <Search />
+          {children}
+        </div>
+      </nav>
+    </div>
   );
 }

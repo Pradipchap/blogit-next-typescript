@@ -2,10 +2,14 @@ import React from "react";
 import AuthProvider from "../utils/AuthProvider";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Bree_Serif, Fira_Sans, Inter, PT_Serif_Caption, Prosto_One, Sansita } from "next/font/google";
 import Nav from "../components/navbar/Nav";
+import ReduxProvider from "@/redux/ReduxProvider";
+import ProfileNav from "@/components/navbar/ProfileNav";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import Toast from "@/components/popups/Toast";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Fira_Sans({ subsets: ["latin"], weight: ["400","700","200"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,8 +25,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <Nav />
-          {children}
+          <ReduxProvider>
+            <Toast/>
+            <Nav>
+              <ProfileNav />
+            </Nav>
+            {children}
+          </ReduxProvider>
         </AuthProvider>
       </body>
     </html>

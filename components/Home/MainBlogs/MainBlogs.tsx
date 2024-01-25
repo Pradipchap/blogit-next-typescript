@@ -1,33 +1,28 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BlogPage from "../Blogpage";
 import Select from "./Select";
-const options = ["Featured", "For you"];
 import { useSearchParams } from "next/navigation";
+import { TabsInterface } from "@/types/componentTypes";
+import Pagination from "@/components/Pagination";
 export default function MainBlogs() {
-  const [pageno, setpageno] = useState(1);
-  const [feed, setfeed] = useState("foryou");
+  const options: TabsInterface[] = [
+    { key: "feeds", label: "Feeds" },
+    { key: "foryou", label: "For You" },
+  ];
+  const [option, setOption] = useState<TabsInterface>(options[0]);
   const params = useSearchParams();
-  useEffect(() => {
-    const feedQuery = params.get("feed") as string;
-    setfeed(feedQuery);
-  }, [params]);
+  const feedQuery = params.get("option") as string;
 
   return (
-    <div className="w-[60%]">
-      <Select />
-
-      <BlogPage api={`http://localhost:3000/api/blogs?pageno=${pageno}`} />
-      <div className="pagination flex gap-4">
-        <button onClick={() => setpageno((page) => page + 1)}>prev</button>
-        <p>{pageno}</p>
-        <button
-          onClick={() => setpageno((page) => page - 1)}
-          disabled={pageno <= 1}
-        >
-          next
-        </button>
-      </div>
+    <div className="relative h-full w-full">
+      {" "}
+      <Select options={options} setOption={setOption} currentOption={option} />
+      <div className="m-auto">
+        <BlogPage
+          api={`http://localhost:3000/api/blogs?option=${feedQuery}`}
+        />
+      </div>{" "}
     </div>
   );
 }
