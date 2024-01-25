@@ -44,7 +44,7 @@ export default function Pagination({
           }}
           className={`${
             currentPage === item
-              ? "bg-red-400 border border-gray-400 rounded-md"
+              ? "bg-[conic-gradient(at_right,_var(--tw-gradient-stops))] from-indigo-200 via-slate-600 to-indigo-200 border border-gray-400 rounded-md"
               : ` text-black `
           } px-3 py-2 text-black disabled:text-gray-300`}
           key={item}

@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { blogCardProps } from "@/types/createBlogTypes";
+import Link from "next/link";
 
 export default function BlogCard({
   blogid,
@@ -12,19 +12,10 @@ export default function BlogCard({
   profileImage,
   image,
   description,
-  variant = "large",
   date,
 }: blogCardProps) {
-  const router = useRouter();
-
-  //function to navigate to individual blog page..
-  //blogid as the params for dynamic routes
-  const viewBlog = () => {
-    router.push(`/blogs/${blogid}`);
-  };
   return (
-
-    <div onClick={viewBlog} className="w-full max-w-2xl h-52 grid grid-cols-7 gap-5">
+    <div className="w-full max-w-2xl h-52 grid grid-cols-7 gap-5">
       <Image
         className="h-auto m-auto w-full col-span-2"
         src={image}
@@ -35,7 +26,12 @@ export default function BlogCard({
       <div className="h-full col-span-5 flex flex-col justify-between py-5">
         <div className="flex flex-col gap-2">
           {" "}
-          <p className="text-base md:text-lg font-bold ">{title}</p>
+          <Link
+            href={`/blogs/${blogid}`}
+            className="text-base md:text-lg font-bold"
+          >
+            {title}
+          </Link>
           <p className="text-gray-600 text-sm max-w-full line-clamp-3">
             {description.slice(0, 300)}....
           </p>

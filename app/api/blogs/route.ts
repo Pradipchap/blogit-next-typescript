@@ -29,7 +29,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
-    return new Response(JSON.stringify({ error: error, status: 500 }));
+    return new NextResponse(JSON.stringify({ error: error }), { status: 500 });
   }
 };
 export { GET };

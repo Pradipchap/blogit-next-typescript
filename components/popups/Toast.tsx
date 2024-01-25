@@ -4,7 +4,6 @@ import { useAppSelector } from "@/app/reduxhooks";
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import Icon from "../Icon";
-import IconButton from "../IconButton";
 import { useToast } from "@/custom_hooks/useToast";
 
 export default function Toast() {
@@ -38,23 +37,21 @@ export default function Toast() {
     isToastOpen &&
     createPortal(
       <div
-        className={`absolute py-5 top-20 right-10 border-l-8 w-max min-w-[176px] h-14 flex justify-start gap-2 px-1 items-center rounded-md shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] ${style()}`}
+        className={`absolute py-5 text-sm top-20 right-10 z-[90] border-l-8 w-max min-w-[176px] h-14 flex justify-around gap-2 px-1 items-center rounded-md shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] ${style()}`}
       >
         <Icon
           {...(toastType === "success"
-            ? { name: "Check", className: "text-green-600" }
+            ? { name: "Check", className: "text-green-600 text-base" }
             : toastType === "error"
-            ? { name: "Close", className: "text-red-600" }
+            ? { name: "Close", className: "text-red-600 text-base" }
             : toastType === "info"
-            ? { name: "Exclamation", className: "text-blue-600" }
-            : { name: "Loading", className: "text-black animate-spin" })}
+            ? { name: "Exclamation", className: "text-blue-600 text-base" }
+            : {
+                name: "Loading",
+                className: "text-black animate-spin text-sm",
+              })}
         />
-        {message}
-        <IconButton
-          iconName="Close"
-          className="absolute top-0 right-0"
-          onClick={closeToast}
-        />
+        <p className="w-[90%]">{message}</p>
       </div>,
       document.body
     )

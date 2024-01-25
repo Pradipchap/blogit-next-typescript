@@ -40,18 +40,25 @@ export default function BlogDetailsForm({
     data.append("image", content.formData.image!);
     data.append("content", JSON.stringify(content.content));
     data.append("userid", session?.user.id as string);
+
     try {
       const response = await fetch("http://localhost:3000/api/blogs/create", {
         method: "POST",
         body: data,
       });
-      const parsedData = await response.json();
+      if (!response.ok) {
+        throw new Error("Blog upload not successfull");
+      }
       showSuccess("Blog upload successfull");
       onclose();
+      sessionStorage.removeItem("editorContent");
+      router.push("/");
     } catch (error) {
-      showError("Blog upload unsuccessfull");
+      console.error("Error uploading blog:", error);
+      showError("Blog upload unsuccessful");
     }
   }
+
   return (
     <form
       action=""
@@ -88,11 +95,12 @@ export default function BlogDetailsForm({
           name="description"
         />
         <Button
-          name="Publish"
           type="submit"
-          operation={() => {}}
+          onClick={() => {}}
           className="bg-green-600 text-sm text-white border-none py-2 px-3 hover:bg-green-500"
-        />
+        >
+          Publish
+        </Button>
       </div>
     </form>
   );

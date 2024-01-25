@@ -6,7 +6,7 @@ import Login from "./Logout";
 import Icon from "../Icon";
 import PopupOver from "../popups/Popup";
 import { ProfileNavList } from "@/types/navTypes";
-import Links from "./Links";
+import Button from "../Button";
 export default async function ProfileNav() {
   const session = await getServerSession(authOptions);
   if (session)
@@ -16,15 +16,14 @@ export default async function ProfileNav() {
           <div className="flex flex-col items-start w-max px-5 py-2 gap-2">
             {ProfileNavList.map((element) => {
               return (
-                <Links
+                <Button
                   key={element.url + JSON.stringify(element.iconName)}
-                  name={element.name}
-                  url={element.url}
-                  iconName={element.iconName}
-                  containerClassName="hover:bg-slate-300/30 w-full justify-start px-4 py-2 rounded-md"
-                  className="text-black"
+                  icon={element.iconName}
+                  className="text-black gap-2 hover:scale-105"
                   iconClassName="text-black"
-                />
+                >
+                  {element.name}
+                </Button>
               );
             })}
           </div>

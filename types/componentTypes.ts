@@ -3,3 +3,13 @@ export interface TabsInterface {
   key: string;
 }
 
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string;
+  variant?: "primary" | "muted";
+  icon?: string;
+  iconClassName?: string;
+  iconAlignment?: "left" | "right";
+  isLoading?: boolean;
+  children: React.ReactNode;
+}

@@ -18,7 +18,7 @@ export default function MainBlogs() {
     <div className="relative h-full w-full">
       {" "}
       <Select options={options} setOption={setOption} currentOption={option} />
-      <div>
+      <div className="m-auto">
         <BlogPage
           api={`http://localhost:3000/api/blogs?option=${feedQuery}`}
         />

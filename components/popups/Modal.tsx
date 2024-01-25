@@ -13,6 +13,7 @@ export default function Modal({
     const y = event.clientY;
     if (document.elementsFromPoint(x, y)[0].lastChild === childrenRef.current) {
       onclose();
+      document.body.style.overflow = "auto";
     }
   }
   return (

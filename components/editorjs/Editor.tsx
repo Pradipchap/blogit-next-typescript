@@ -65,8 +65,6 @@ export default function EditorJs({
     }
   };
 
-  
-
   return (
     <div className="flex flex-col items-center w-full gap-20 relative py-20">
       {!isReadOnly && (
@@ -88,15 +86,15 @@ export default function EditorJs({
               placeholder="Write your Blog title"
             />
           </div>
-
           <div className="absolute right-0 top-0 flex justify-center items-center gap-5">
             <CreateActionButtons />
             <Button
-              name="Publish"
               type="submit"
-              operation={contentSave}
+              onClick={contentSave}
               className="bg-green-600 text-sm text-white border-none py-2 px-3 hover:bg-green-500"
-            />
+            >
+              Publish
+            </Button>
           </div>
         </>
       )}
