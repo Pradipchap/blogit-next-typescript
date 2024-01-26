@@ -5,7 +5,7 @@ import BlogPage from "../Blogpage";
 export default function SideBlogs() {
   return (
     <div>
-      <BlogPage cardSize="small" />
+      <BlogPage />
     </div>
   );
 }

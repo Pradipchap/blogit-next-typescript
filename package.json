@@ -42,11 +42,9 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@slicemachine/adapter-next": "^0.3.33",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
-    "prettier": "3.0.1",
-    "slice-machine-ui": "^1.23.0"
+    "prettier": "3.0.1"
   },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"

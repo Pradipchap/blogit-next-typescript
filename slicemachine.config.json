@@ -1,5 +1,0 @@
-{
-  "repositoryName": "blogit-next",
-  "adapter": "@slicemachine/adapter-next",
-  "libraries": ["./slices"]
-}
