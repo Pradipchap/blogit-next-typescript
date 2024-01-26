@@ -5,6 +5,7 @@ import Select from "./Select";
 import { useSearchParams } from "next/navigation";
 import { TabsInterface } from "@/types/componentTypes";
 import Pagination from "@/components/Pagination";
+import { BASE_URL } from "@/utils/constants";
 export default function MainBlogs() {
   const options: TabsInterface[] = [
     { key: "feeds", label: "Feeds" },
@@ -20,7 +21,7 @@ export default function MainBlogs() {
       <Select options={options} setOption={setOption} currentOption={option} />
       <div className="m-auto">
         <BlogPage
-          api={`http://localhost:3000/api/blogs?option=${feedQuery}`}
+          api={`${BASE_URL}/api/blogs?option=${feedQuery}`}
         />
       </div>{" "}
     </div>

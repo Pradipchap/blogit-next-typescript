@@ -5,6 +5,7 @@ import { singleBlogProps } from "@/types/createBlogTypes";
 import BlogCardSkeleton from "../skeletons/BlogCardSkeleton";
 import useFetchBlog from "@/custom_hooks/useFetchBlog";
 import Pagination from "../Pagination";
+import { BASE_URL } from "@/utils/constants";
 interface responseType {
   noOfBlogs: number;
   blogs: singleBlogProps[];
@@ -12,7 +13,7 @@ interface responseType {
 type props = {
   api?: string;
 };
-function BlogPage({ api = "http://localhost:3000/api/blogs" }: props) {
+function BlogPage({ api = `${BASE_URL}/api/blogs` }: props) {
   const [pageno, setpageno] = useState(1);
   const apiWithPagination = api + `?&pageno=${pageno}`;
 

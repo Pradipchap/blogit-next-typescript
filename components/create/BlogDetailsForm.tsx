@@ -7,6 +7,7 @@ import { detailsForm } from "@/types/createBlogTypes";
 import { useRouter } from "next/navigation";
 import ImageUpload from "./ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
+import { BASE_URL } from "@/utils/constants";
 
 export default function BlogDetailsForm({
   getFormData,
@@ -42,7 +43,7 @@ export default function BlogDetailsForm({
     data.append("userid", session?.user.id as string);
 
     try {
-      const response = await fetch("http://localhost:3000/api/blogs/create", {
+      const response = await fetch(`${BASE_URL}/api/blogs/create`, {
         method: "POST",
         body: data,
       });

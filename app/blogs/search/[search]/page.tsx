@@ -1,11 +1,12 @@
 import BlogCard from "@/components/Home/BlogCard";
 import { responseType } from "@/types/dataTypes";
+import { BASE_URL } from "@/utils/constants";
 import React from "react";
 
 export default async function page({ params }: { params: { search: string } }) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/blogs/search?searchString=${params.search}`,
+      `${BASE_URL}/api/blogs/search?searchString=${params.search}`,
       { cache: "no-cache" },
     );
     const data: responseType = await response.json();

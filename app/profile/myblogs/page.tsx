@@ -1,10 +1,11 @@
 import Blogpage from "@/components/Home/Blogpage";
+import { BASE_URL } from "@/utils/constants";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <Blogpage api="http://localhost:3000/api/blogs/myblogs" />
+      <Blogpage api={`${BASE_URL}/api/blogs/myblogs`} />
     </div>
   );
 }

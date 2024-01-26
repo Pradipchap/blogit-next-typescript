@@ -1,5 +1,6 @@
 import EditorJs from "@/components/editorjs/Editor";
 import { singleBlogProps } from "@/types/createBlogTypes";
+import { BASE_URL } from "@/utils/constants";
 import React from "react";
 type response = {
   blog: singleBlogProps;
@@ -8,7 +9,7 @@ type response = {
 export default async function page({ params }: { params: { blogid: string } }) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/blogs/single?blogid=${params.blogid}`,
+      `${BASE_URL}/api/blogs/single?blogid=${params.blogid}`,
       { cache: "no-cache" },
     );
     const data: response = await response.json();
