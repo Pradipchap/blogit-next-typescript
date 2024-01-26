@@ -11,7 +11,7 @@ export default function useFetchBlog({
 }: useFetchBlogsInterface) {
   const [data, setData] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
-  const isNetworkConnected = window.navigator.onLine;
+  const isNetworkConnected = typeof window !=="undefined"&&window.navigator.onLine;
 
   useEffect(() => {
     if (!isNetworkConnected) {
