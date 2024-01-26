@@ -1,5 +1,6 @@
 export enum ErrorStatus {
   network_status = "Network connection Error",
+  unknown_error = "Sorry something wrong happended",
 }
 
 export enum SUBMIT_STATUS {
