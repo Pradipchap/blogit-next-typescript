@@ -24,6 +24,9 @@ export default function useFetchBlog({
     async function getData() {
       try {
         const response = await fetch(api);
+        if (!response.ok) {
+          throw new Error();
+        }
         const data = await response.json();
         setData(data);
       } catch (error) {
