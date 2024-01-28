@@ -1,6 +1,4 @@
-"use client";
 import WriteBlog from "@/components/create/WriteBlog";
-import { useToast } from "@/custom_hooks/useToast";
 import React from "react";
 
 export default function Create() {

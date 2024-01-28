@@ -7,11 +7,9 @@ export default async function page({ params }: { params: { search: string } }) {
   try {
     const response = await fetch(
       `${BASE_URL}/api/blogs/search?searchString=${params.search}`,
-      { cache: "no-cache" },
+      { cache: "no-cache" }
     );
     const data: responseType = await response.json();
-    console.log("data", data);
-
     return (
       <div className="flex flex-col mt-10 px-5 gap-10">
         <p className="text-4xl text-gray-400 font-bold">

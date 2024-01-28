@@ -32,7 +32,9 @@ export default function Button(props: ButtonProps) {
       )}
       {children}{" "}
       {isLoading && (
-        <Icon name="Loading" className="ml-2 animate-spin text-white" />
+        <span className="ml-1">
+          <Icon name="Loading" className="ml-2 animate-spin text-white" />
+        </span>
       )}
       {icon && iconAlignment === "right" && (
         <span className="ml-1">

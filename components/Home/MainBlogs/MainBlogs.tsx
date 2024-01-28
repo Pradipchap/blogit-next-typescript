@@ -4,7 +4,6 @@ import BlogPage from "../Blogpage";
 import Select from "./Select";
 import { useSearchParams } from "next/navigation";
 import { TabsInterface } from "@/types/componentTypes";
-import Pagination from "@/components/Pagination";
 import { BASE_URL } from "@/utils/constants";
 export default function MainBlogs() {
   const options: TabsInterface[] = [

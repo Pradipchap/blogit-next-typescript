@@ -1,5 +1,5 @@
+import Blogpage from "@/components/Home/Blogpage";
 import MainBlogs from "@/components/Home/MainBlogs/MainBlogs";
-import SideBlogs from "@/components/Home/SideBlogs/SideBlogs";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
           <MainBlogs />
         </div>
         <div className="border-l border-gray-200 sideblog w-[30%] sticky top-[76px] h-[60rem] hidden md:block px-5">
-          <SideBlogs />
+          <Blogpage/>
         </div>
       </div>
     </>
