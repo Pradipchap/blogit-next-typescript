@@ -2,6 +2,7 @@ export { default } from "next-auth/middleware";
 // Imports
 // ========================================================
 import { NextResponse, type NextRequest } from "next/server";
+import { BASE_URL } from "./utils/constants";
 
 // Config
 // ========================================================
@@ -25,6 +26,18 @@ const corsOptions: {
 // ========================================================
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
+  const redirectUrl = ["/create"];
+  const userToken = request.cookies.get("next-auth.session-token")?.value;
+  const currentUrl = request.nextUrl.pathname;
+  const isProtectedUrl = redirectUrl.find((element) => element === currentUrl);
+  const matchUrl = !!isProtectedUrl;
+
+  if (matchUrl && !userToken) {
+    return NextResponse.redirect(
+      new URL(`${BASE_URL}/api/auth/signin`, request.nextUrl)
+    );
+  }
+
   // Response
   const response = NextResponse.next();
 
@@ -65,4 +78,4 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 
-export const config = { matcher: ["/profile", "/create", "/api/:path*"] };
+export const config = { matcher: ["/profile", "/create"] };
