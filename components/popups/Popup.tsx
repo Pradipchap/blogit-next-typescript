@@ -88,7 +88,7 @@ export default function PopupOver({ children, content }: dropdownProps) {
       setposition(position);
     },
 
-    //eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint--next-line react-hooks/exhaustive-deps
     [popupRef.current, isOpen]
   );
 
@@ -113,7 +113,7 @@ export default function PopupOver({ children, content }: dropdownProps) {
           <div
             id="popupEl"
             ref={popupRef}
-            className="transition-all duration-300 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] bg-white"
+            className="transition-all h-max w-max duration-300 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] bg-white"
             style={{
               position: "fixed",
               ...position,

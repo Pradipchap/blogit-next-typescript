@@ -6,26 +6,26 @@ import Login from "./Logout";
 import Icon from "../Icon";
 import PopupOver from "../popups/Popup";
 import { ProfileNavList } from "@/types/navTypes";
-import Button from "../Button";
-import { signOut } from "next-auth/react";
 import LogoutButton from "../LogoutButton";
+import LinkWithIcon from "../LinkwithIcon";
+
 export default async function ProfileNav() {
   const session = await getServerSession(authOptions);
-  if (session)
+  if (session) {
+    const lists=ProfileNavList.concat([{name:"Profile",iconName:"Profile",href:"/profile"}])
     return (
       <PopupOver
         content={
           <div className="flex flex-col items-start w-max px-5 py-2">
-            {ProfileNavList.map((element) => {
+            {lists.map((element) => {
               return (
-                <Button
-                  key={element.url + JSON.stringify(element.iconName)}
-                  icon={element.iconName}
-                  className="text-black text-base gap-2 hover:scale-105 border-b"
+                <LinkWithIcon
+                  key={element.href + JSON.stringify(element.iconName)}
+                  iconName={element.iconName}
+                  name={element.name}
+                  href={element.href}
                   iconClassName="text-black"
-                >
-                  {element.name}
-                </Button>
+                />
               );
             })}
             <LogoutButton />
@@ -46,7 +46,7 @@ export default async function ProfileNav() {
         </div>
       </PopupOver>
     );
-  else {
+  } else {
     return <Login />;
   }
 }

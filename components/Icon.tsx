@@ -24,6 +24,8 @@ import {
   faPen,
   faExclamation,
   faRightFromBracket,
+  faBookOpen,
+  faPencilSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faPencil,
@@ -156,7 +158,7 @@ export default function Icon({ name, className = "" }: IconProps) {
     case "Edit":
       return (
         <FontAwesomeIcon
-          icon={faPencil}
+          icon={faPencilSquare}
           className={classNames("text-white text-lg", className)}
         />
       );
@@ -269,6 +271,13 @@ export default function Icon({ name, className = "" }: IconProps) {
       return (
         <FontAwesomeIcon
           icon={faRightFromBracket}
+          className={classNames("text-lg text-white", className)}
+        />
+      );
+    case "Blog":
+      return (
+        <FontAwesomeIcon
+          icon={faBookOpen}
           className={classNames("text-lg text-white", className)}
         />
       );

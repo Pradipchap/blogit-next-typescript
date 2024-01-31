@@ -11,15 +11,15 @@ export default function Nav({ children }: { children: React.ReactNode }) {
         className={`w-full z-20 fixed top-0 text-black
        h-14 bg-white flex justify-between items-center px-5`}
       >
-        <Links name="Logo" url="/" />
+        <Links name="Logo" href="/" />
         <div className="flex gap-3 lg:gap-6">
           <div className={`gap-6 sm:flex sm:flex-row hidden`}>
             {Navlist.map((element) => {
               return (
                 <Links
                   name={element.name}
-                  url={element.url}
-                  key={element.url + JSON.stringify(element?.iconName)}
+                  href={element.href}
+                  key={element.href + JSON.stringify(element?.iconName)}
                   iconName={element.iconName}
                 />
               );

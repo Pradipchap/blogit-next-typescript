@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import ImageUpload from "./ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL } from "@/utils/constants";
+import CustomInput from "../CustomInput";
 
 export default function BlogDetailsForm({
   getFormData,
@@ -52,6 +53,7 @@ export default function BlogDetailsForm({
       }
       showSuccess("Blog upload successfull");
       onclose();
+      document.body.style.overflow = "auto";
       sessionStorage.removeItem("editorContent");
       router.push("/");
     } catch (error) {
@@ -67,21 +69,19 @@ export default function BlogDetailsForm({
       className="grid grid-cols-2 rounded gap-5 w-max bg-white p-10"
     >
       <h3 className="col-span-2 text-xl">Add Details for your blogs</h3>
-      <ImageUpload />
+      <ImageUpload required={true} />
       <div className="flex flex-col gap-5">
-        <input
+        <CustomInput
           type="text"
           defaultValue={title}
           placeholder="Blog Title"
-          className="outline-none px-3 py-2 bg-gray-50 border-gray-300 border rounded"
           autoFocus
           required
           name="title"
         />
-        <input
+        <CustomInput
           type="text"
           placeholder="Blog genre"
-          className="outline-none px-3 py-2 bg-gray-50 border-gray-300 border rounded"
           autoFocus
           required
           name="genre"
@@ -98,7 +98,7 @@ export default function BlogDetailsForm({
         <Button
           type="submit"
           onClick={() => {}}
-          className="bg-green-600 text-sm text-white border-none py-2 px-3 hover:bg-green-500"
+          className="bg-green-600 w-full m-auto text-sm text-white border-none py-2 px-4 hover:bg-green-500"
         >
           Publish
         </Button>

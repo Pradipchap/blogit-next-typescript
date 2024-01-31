@@ -7,8 +7,8 @@ export default function LogoutButton() {
   return (
     <Button
       icon="Logout"
-      iconClassName="text-red-600"
-      className="text-base gap-2 hover:scale-105 text-red-600"
+      iconClassName="text-red-600 text-base"
+      className="text-base text-red-600"
       onClick={() => signOut()}
     >
       Logout

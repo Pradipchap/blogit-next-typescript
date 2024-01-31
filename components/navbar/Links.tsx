@@ -5,18 +5,17 @@ import classNames from "@/utils/classNames";
 import Icon from "../Icon";
 export default function Links({
   name,
-  url = "#",
+  href = "#",
   className,
-  containerClassName,
   iconName = "Notification",
   iconClassName,
 }: TNavItems) {
   return (
     <Link
-      href={url}
+      href={href}
       className={classNames(
         "flex justify-center items-center gap-2",
-        containerClassName
+        className
       )}
     >
       <Icon name={iconName} className={iconClassName+" text-black"} />

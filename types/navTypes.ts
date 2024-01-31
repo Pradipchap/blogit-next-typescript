@@ -1,19 +1,19 @@
-import { ReactNode } from "react";
+import { LinkProps } from "next/link";
+import { AnchorHTMLAttributes, HtmlHTMLAttributes, LinkHTMLAttributes, ReactNode } from "react";
 
 export const Navlist: TNavItems[] = [
-  { name: "Create", url: "/create", iconName: "Write" },
+  { name: "Create", href: "/create", iconName: "Write" },
   {
     name: "Notifications",
-    url: "/profile/notifications",
+    href: "/profile/notifications",
     iconName: "Notification",
   },
 ];
 export const ProfileNavList: TNavItems[] = Navlist;
-export interface TNavItems {
-  name: ReactNode;
-  url?: string;
+export interface TNavItems extends LinkProps {
+  name?:ReactNode
   iconName?: string;
   className?: string;
-  containerClassName?: string;
   iconClassName?: string;
+  iconAlignment?: "right" | "left";
 }

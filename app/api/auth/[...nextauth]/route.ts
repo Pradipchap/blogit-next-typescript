@@ -15,7 +15,19 @@ export const authOptions: NextAuthOptions = {
     async session({ session }) {
       const user = await User.findOne({ email: session.user.email });
       session.user.id = user._id.toString();
-      return session;
+      const phone = user.phone.toString();
+      const dateofbirth = user.dateofbirth.toString();
+      return {
+        user: {
+          name: session.user.name,
+          email: session.user.email,
+          id: session.user.id,
+          image: session.user.image,
+          dateofbirth,
+          phone,
+        },
+        expires: session.expires,
+      };
     },
     async signIn({ profile }) {
       try {
@@ -26,6 +38,8 @@ export const authOptions: NextAuthOptions = {
             email: profile?.email,
             username: profile?.name,
             image: profile?.image,
+            dateofbirth: new Date(),
+            phone: "",
           });
         }
         return true;

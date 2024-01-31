@@ -7,7 +7,6 @@ const POST = async (request: NextRequest) => {
   const data = await request.formData();
   try {
     await connectToDB();
-
     const { title, genre, description, userid, content, image } =
       Object.fromEntries(data.entries());
     if (!title || !genre || !description || !userid || !content || !image) {
