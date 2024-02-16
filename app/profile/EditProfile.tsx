@@ -74,6 +74,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
           Phone
         </label>
         <CustomInput
+        // @ts-ignore
           defaultValue={session?.user.phone|| ""}
           name="phone"
           className="px-0 bg-transparent border-b border-x-0 rounded-none border-t-0
@@ -85,6 +86,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
           Date of Birth
         </label>
         <CustomInput
+        // @ts-ignore
           defaultValue={new Date(session?.user.dateofbirth)
             .toISOString()
             .substring(0, 10)}
