@@ -26,7 +26,7 @@ const corsOptions: {
 // ========================================================
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  const redirectUrl = ["/creat"];
+  const redirectUrl = ["/create","/profile"];
   const userToken = request.cookies.get("next-auth.session-token")?.value;
   const currentUrl = request.nextUrl.pathname;
   const isProtectedUrl = redirectUrl.find((element) => element === currentUrl);
