@@ -9,11 +9,15 @@ type response = {
   blog: singleBlogProps;
 };
 
-export default async function Page({ params }: { params: { blogid: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: { draftid: string };
+}) {
   const session = await getServerSession(authOptions);
   try {
     const response = await fetch(
-      `${BASE_URL}/api/blogs/single?blogid=${params.blogid}`,
+      `${BASE_URL}/api/drafts/single?draftid=${params.draftid}`,
     );
     const data: response = await response.json();
     console.log(data.blog.title);

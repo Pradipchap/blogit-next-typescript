@@ -6,28 +6,31 @@ import Link from "next/link";
 
 export default function BlogCard({
   blogid,
-  title,
+  title = "",
   profilename,
   genre,
   profileImage,
-  image,
-  description,
+  image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4sEG5g9GFcy4SUxbzWNzUTf1jMISTDZrTw&usqp=CAU",
+  description = "",
   date,
+  link = `/blogs/${blogid}`,
 }: blogCardProps) {
   return (
     <div className="w-full max-w-2xl h-52 grid grid-cols-7 gap-5">
-      <Image
-        className="h-auto m-auto w-full col-span-2"
-        src={image}
-        height={100}
-        width={100}
-        alt="Blog image"
-      />
+      {image !== "" && (
+        <Image
+          className="h-auto m-auto w-full col-span-2"
+          src={image}
+          height={100}
+          width={100}
+          alt="Blog image"
+        />
+      )}
       <div className="h-full col-span-5 flex flex-col justify-between py-5">
         <div className="flex flex-col gap-2">
           {" "}
           <Link
-            href={`/blogs/${blogid}`}
+            href={link}
             className="text-base md:text-lg font-bold"
           >
             {title}
@@ -59,9 +62,11 @@ export default function BlogCard({
               <span>3 min read time</span>
             </div>
           </div>
-          <div className="ml-auto bg-gray-300 text-black text-sm px-3 py-1 rounded-md">
-            {genre}
-          </div>
+          {genre && (
+            <div className="ml-auto bg-gray-300 text-black text-sm px-3 py-1 rounded-md">
+              {genre}
+            </div>
+          )}
         </div>
       </div>
     </div>

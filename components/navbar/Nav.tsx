@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Links from "./Links";
-import { Navlist } from "../../types/navTypes";
+import { Navlist } from "@/utils/constants";
 import Search from "../Search";
 
 export default function Nav({ children }: { children: React.ReactNode }) {

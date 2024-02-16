@@ -1,10 +1,10 @@
 import { connectToDB } from "@/utils/database";
-import Blog from "@/models/blogModel";
+import Draft from "@/models/draftModel";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "../auth/[...nextauth]/route";
 const GET = async (request: NextRequest, response: NextResponse) => {
-  const pageNo = await Number(request.nextUrl.searchParams.get("pageno"));
+  const pageNo = await Number(request.nextUrl.searchParams.get("pageno"))||0;
 
   try {
     const session = await getServerSession(authOptions);
@@ -12,11 +12,11 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       throw new Error("you are not logged in");
     }
     await connectToDB();
-    const noOfBlogs = await Blog.countDocuments({});
+    const noOfBlogs = await Draft.countDocuments({});
     const skippingNumber =
       pageNo === 0 ? 0 : pageNo === 1 ? 0 : (pageNo - 1) * 5;
     console.log(skippingNumber);
-    const blogs = await Blog.find({ userid: session.user.id })
+    const drafts = await Draft.find({ userid: session.user.id })
       .populate("userid")
       .sort({ date: -1 })
       .limit(5)
@@ -24,7 +24,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
 
     return new NextResponse(
       JSON.stringify({
-        blogs: blogs,
+        blogs: drafts,
         noOfBlogs: noOfBlogs,
       }),
       {

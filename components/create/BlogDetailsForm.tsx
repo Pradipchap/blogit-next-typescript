@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import ImageUpload from "./ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL } from "@/utils/constants";
-import CustomInput from "../CustomInput";
+import CustomInput from "../Inputs/CustomInput";
 
 export default function BlogDetailsForm({
   getFormData,
@@ -24,6 +24,7 @@ export default function BlogDetailsForm({
   const router = useRouter();
   const { showSuccess, showError, showLoading } = useToast();
   const { data: session } = useSession();
+  
   async function returnData(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     showLoading("posting blog");

@@ -5,7 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Login from "./Logout";
 import Icon from "../Icon";
 import PopupOver from "../popups/Popup";
-import { ProfileNavList } from "@/types/navTypes";
+import { ProfileNavList } from "@/utils/constants";
 import LogoutButton from "../LogoutButton";
 import LinkWithIcon from "../LinkwithIcon";
 
@@ -16,7 +16,7 @@ export default async function ProfileNav() {
     return (
       <PopupOver
         content={
-          <div className="flex flex-col items-start w-max px-5 py-2">
+          <div className="flex flex-col items-start w-max px-10  py-2">
             {lists.map((element) => {
               return (
                 <LinkWithIcon
@@ -25,6 +25,7 @@ export default async function ProfileNav() {
                   name={element.name}
                   href={element.href}
                   iconClassName="text-black"
+                  className="gap-5 hover:opacity-40"
                 />
               );
             })}

@@ -12,8 +12,9 @@ interface responseType {
 }
 type props = {
   api?: string;
+  type?: "blogs" | "drafts";
 };
-function BlogPage({ api = `${BASE_URL}/api/blogs` }: props) {
+function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
   const [pageno, setpageno] = useState(1);
   const apiWithPagination = api + `?&pageno=${pageno}`;
 
@@ -22,7 +23,7 @@ function BlogPage({ api = `${BASE_URL}/api/blogs` }: props) {
     dependencies: [apiWithPagination],
   }) as { data: responseType; error: any; loading: boolean };
 
-  const totalPages = Math.ceil((data?.noOfBlogs ) / 10);
+  const totalPages = Math.ceil(Number(data?.noOfBlogs) / 10);
 
   if (error) {
     return <p>{error}</p>;
@@ -52,16 +53,19 @@ function BlogPage({ api = `${BASE_URL}/api/blogs` }: props) {
             profilename={blog.userid.username}
             genre={blog.genre}
             key={blog._id}
+            link={type === "drafts" ? `/drafts/${blog._id}` : undefined}
           />
         );
       })}
-      <Pagination
-        currentPage={pageno}
-        totalPages={totalPages}
-        onPageChange={(page) => {
-          setpageno(page);
-        }}
-      />
+      {Number(data.noOfBlogs) > totalPages && (
+        <Pagination
+          currentPage={pageno}
+          totalPages={totalPages}
+          onPageChange={(page) => {
+            setpageno(page);
+          }}
+        />
+      )}
     </>
   );
 }

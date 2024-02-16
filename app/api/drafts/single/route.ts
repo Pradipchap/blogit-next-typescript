@@ -1,10 +1,10 @@
-import Blog from "@/models/blogModel";
+import Draft from "@/models/draftModel";
 import { NextRequest, NextResponse } from "next/server";
 
 const GET = async (request: NextRequest, response: NextResponse) => {
-  const id = await request.nextUrl.searchParams.get("blogid");
+  const id = await request.nextUrl.searchParams.get("draftid");
   try {
-    const blog = await Blog.findById(id).populate("userid");
+    const blog = await Draft.findById(id).populate("userid");
     return new NextResponse(
       JSON.stringify({
         blog,

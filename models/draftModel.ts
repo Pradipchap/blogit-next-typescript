@@ -1,21 +1,21 @@
 import { Schema, model, models } from "mongoose";
 
-export const  BlogSchema = new Schema({
+export const DraftSchema = new Schema({
   userid: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
   title: {
     type: String,
-    required: [true, "title is required"],
+    required: false,
   },
   genre: {
     type: String,
-    required: [true, "genre is required"],
+    required: false,
   },
   description: {
     type: String,
-    required: [true, "description is required"],
+    required: false,
   },
   image: {
     type: String,
@@ -23,17 +23,15 @@ export const  BlogSchema = new Schema({
   },
   content: {
     type: Schema.Types.Mixed,
-    required: [true, "content is required"],
+    required: false,
   },
   date: {
     type: Date,
-    required: [true, "date is required"],
   },
   popularity: {
     type: Number,
-    required: [true],
   },
 });
 
-const Blog = models.Blog || model("Blog", BlogSchema);
-export default Blog;
+const Draft = models.Draft || model("Draft", DraftSchema);
+export default Draft;

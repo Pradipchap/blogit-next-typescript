@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import CustomInput from "@/components/CustomInput";
+import CustomInput from "@/components/Inputs/CustomInput";
 import ImageUpload from "@/components/create/ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL } from "@/utils/constants";
