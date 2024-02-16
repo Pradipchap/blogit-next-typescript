@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function Page() {
   async function handleLogin(formData: FormData) {
+    "use server"
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmpassword = formData.get("confirmpassword");
