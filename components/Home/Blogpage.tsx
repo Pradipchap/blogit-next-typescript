@@ -10,6 +10,7 @@ interface responseType {
   noOfBlogs: number;
   blogs: singleBlogProps[];
 }
+
 type props = {
   api?: string;
   type?: "blogs" | "drafts";

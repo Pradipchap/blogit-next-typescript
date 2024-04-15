@@ -3,21 +3,20 @@ import Blog from "@/models/blogModel";
 import { NextRequest, NextResponse } from "next/server";
 
 const GET = async (request: NextRequest, response: NextResponse) => {
-  const pageNo = await Number(request.nextUrl.searchParams.get("pageno"));
-  const option = await request.nextUrl.searchParams.get("option");
-  const limit = await Number(request.nextUrl.searchParams.get("limit"));
   try {
     await connectToDB();
-    const noOfBlogs = await Blog.countDocuments({});
+    const pageNo = Number(request.nextUrl.searchParams.get("pageno")) || 1;
+    const limit = Number(request.nextUrl.searchParams.get("limit")) || 10;
+    const skippingNumber = (pageNo - 1) * limit;
 
-    const skippingNumber =
-      pageNo === 0 ? 0 : pageNo === 1 ? 0 : (pageNo - 1) * 5;
-    console.log(skippingNumber);
-    const blogs = await Blog.find({})
-      .populate("userid")
-      .sort({ date: -1 })
-      .limit(limit || 10)
-      .skip(skippingNumber);
+    const [blogs, noOfBlogs] = await Promise.all([
+      Blog.find({})
+        .populate("userid")
+        .sort({ date: -1 })
+        .limit(limit)
+        .skip(skippingNumber),
+      Blog.countDocuments({}),
+    ]);
 
     return new NextResponse(
       JSON.stringify({

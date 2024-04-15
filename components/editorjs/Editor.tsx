@@ -2,17 +2,18 @@
 import React, { useEffect } from "react";
 import EditorJS from "@editorjs/editorjs";
 import { OutputData } from "@editorjs/editorjs";
+import code from "@editorjs/code"
 
 interface EditorProps {
   isReadOnly?: boolean;
-  data?: OutputData ;
+  data?: OutputData;
   submit?: (content: OutputData, title: string) => void;
   editorInstance: React.MutableRefObject<EditorJS | undefined>;
 }
 
 export default function EditorJs({
   isReadOnly = false,
-  data ,
+  data,
   editorInstance,
 }: EditorProps) {
   const initializeEditor = () => {
@@ -38,6 +39,7 @@ export default function EditorJs({
               JSON.stringify({ blocks: [] })
           ),
       placeholder: data ? "Blog Body" : false,
+      tools: {},
     });
     editorInstance.current = editor;
   };

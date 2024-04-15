@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { TabsInterface } from "@/types/componentTypes";
 import { BASE_URL } from "@/utils/constants";
 export default function MainBlogs() {
+  
   const options: TabsInterface[] = [
     { key: "feeds", label: "Feeds" },
     { key: "foryou", label: "For You" },

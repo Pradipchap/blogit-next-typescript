@@ -30,9 +30,15 @@ export default function PopupOver({ children, content }: dropdownProps) {
   function getPostition() {
     const x = buttonRef.current?.getBoundingClientRect().right;
     const y = buttonRef.current?.getBoundingClientRect().y;
+    const buttonHeight = buttonRef.current?.getBoundingClientRect().height;
     const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
     const popupWidth = popupRef.current?.getBoundingClientRect().width;
+    const popupHeight = popupRef.current?.getBoundingClientRect().height;
 
+    if (!buttonRef.current || !popupRef.current) {
+      return;
+    }
     if (typeof y !== "undefined" && typeof x !== "undefined") {
       const top = Math.ceil(y) + (buttonRef.current?.clientHeight || 0);
       const right =
@@ -41,6 +47,11 @@ export default function PopupOver({ children, content }: dropdownProps) {
         (popupWidth || 0) / 2;
       if ((right + (popupWidth || 0) || 0) > screenWidth) {
         return { top: top, left: screenWidth - (popupWidth || 0) };
+      } else if ((top + (popupHeight || 0) || 0) > screenHeight) {
+        return {
+          top: screenHeight - (popupHeight || 0) - (buttonHeight || 0),
+          left: right,
+        };
       } else return { top: top, left: right };
     } else {
       return {};

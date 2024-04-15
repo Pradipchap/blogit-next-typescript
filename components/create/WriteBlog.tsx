@@ -75,7 +75,7 @@ export default function WriteBlog({ data, title }: props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <section className="relative flex flex-col justify-center items-center gap-10 pt-5">
-      <div className="absolute right-0 top-0 flex justify-center items-center gap-5">
+      <div className="absolute right-0 top-5 flex justify-center items-center gap-5">
         <CreateActionButtons editorSave={editorandform.saveEditorContent} />
         <Button
           type="submit"
@@ -90,7 +90,7 @@ export default function WriteBlog({ data, title }: props) {
           Publish
         </Button>
       </div>
-      <div className="flex flex-col items-center w-full gap-20 relative py-20">
+      <div className="flex flex-col items-center w-full gap-20 relative mt-10">
         <div className="self-center flex items-center justify-center gap-4">
           {" "}
           <label className="self-start text-4xl text-gray-400" htmlFor="title">
