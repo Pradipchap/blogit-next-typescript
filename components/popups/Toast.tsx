@@ -19,7 +19,10 @@ export default function Toast() {
       }, 5000);
     }
     return () => {};
-  }, [isToastOpen, toastType]);
+    
+  },
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+   [isToastOpen, toastType]);
 
   const style = () => {
     switch (toastType) {

@@ -86,7 +86,7 @@ export default function PopupOver({ children, content }: dropdownProps) {
   useEffect(() => {
     function handleScreenSize() {
       const position = getPostition();
-      setposition(position);
+      setposition(position || {});
     }
 
     window.addEventListener("resize", handleScreenSize);
@@ -96,10 +96,10 @@ export default function PopupOver({ children, content }: dropdownProps) {
   useEffect(
     () => {
       const position = getPostition();
-      setposition(position);
+      setposition(position || {});
     },
 
-    //eslint--next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     [popupRef.current, isOpen]
   );
 
@@ -112,7 +112,7 @@ export default function PopupOver({ children, content }: dropdownProps) {
           onClick={() => {
             setIsOpen((isOpen) => !isOpen);
             const pos = getPostition();
-            setposition(pos);
+            setposition(pos || {});
           }}
           className={(children as ReactElement).props.className}
         >

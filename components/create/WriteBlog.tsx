@@ -69,6 +69,7 @@ export default function WriteBlog({ data, title }: props) {
         { blocks: [] },
         { title: "", description: "", genre: "", image: null }
       ),
+    //eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -79,7 +80,6 @@ export default function WriteBlog({ data, title }: props) {
         <CreateActionButtons editorSave={editorandform.saveEditorContent} />
         <Button
           type="submit"
-
           // disabled={JSON.parse(
           //   sessionStorage.getItem("editorContent") ||
           //     JSON.stringify({ blocks: [] })

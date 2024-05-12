@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import EditorJS from "@editorjs/editorjs";
 import { OutputData } from "@editorjs/editorjs";
-import code from "@editorjs/code"
 
 interface EditorProps {
   isReadOnly?: boolean;
@@ -44,18 +43,22 @@ export default function EditorJs({
     editorInstance.current = editor;
   };
 
-  useEffect(() => {
-    console.log("editor js compoentnt");
-    if (!editorInstance.current) {
-      initializeEditor();
-    }
-
-    return () => {
-      if (editorInstance.current && editorInstance.current.destroy) {
-        editorInstance.current.destroy();
+  useEffect(
+    () => {
+      console.log("editor js compoentnt");
+      if (!editorInstance.current) {
+        initializeEditor();
       }
-    };
-  }, []);
+
+      return () => {
+        if (editorInstance.current && editorInstance.current.destroy) {
+          editorInstance.current.destroy();
+        }
+      };
+    },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return <div id="editor" className="w-full" />;
 }
