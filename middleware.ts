@@ -2,7 +2,18 @@ export { default } from "next-auth/middleware";
 import { NextResponse, type NextRequest } from "next/server";
 import { BASE_URL } from "./utils/constants";
 
+const allowedOrigins = [
+  "https://blogit-next-typescript-pradipchaps-projects.vercel.app/",
+];
+
+const corsOptions = {
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
 export async function middleware(request: NextRequest) {
+  //checking autheticated routes
+
   const redirectUrl = ["/create", "/profile"];
   const userToken = request.cookies.get("next-auth.session-token")?.value;
   const currentUrl = request.nextUrl.pathname;
@@ -15,13 +26,30 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  // Response
+  const origin = request.headers.get("origin") ?? "";
+  const isAllowedOrigin = allowedOrigins.includes(origin);
+  // / Handle preflighted requests
+  const isPreflight = request.method === "OPTIONS";
+
+  if (isPreflight) {
+    const preflightHeaders = {
+      ...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin }),
+      ...corsOptions,
+    };
+    return NextResponse.json({}, { headers: preflightHeaders });
+  }
+
+  // Handle simple requests
   const response = NextResponse.next();
 
-  // Return
+  if (isAllowedOrigin) {
+    response.headers.set("Access-Control-Allow-Origin", origin);
+  }
+
+  Object.entries(corsOptions).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
   return response;
 }
 
-// See "Matching Paths" below to learn more
-
-export const config = { matcher: ["/profile", "/create"] };
+export const config = { matcher: ["/profile", "/create", "/api/:path"] };

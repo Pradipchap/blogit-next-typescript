@@ -1,15 +1,15 @@
 {
 	"headers": [
 		{
-			"source": "/api/(.*)",
+			"source": "/(.*)",
 			"headers": [
 				{
 					"key": "Access-Control-Allow-Credentials",
-					"value": "true"
+					"value": "false"
 				},
 				{
 					"key": "Access-Control-Allow-Origin",
-					"value": "*"
+					"value": "/asd"
 				},
 				{
 					"key": "Access-Control-Allow-Methods",
