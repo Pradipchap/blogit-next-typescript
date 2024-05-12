@@ -13,7 +13,7 @@ const corsOptions = {
 };
 
 export async function middleware(request: NextRequest) {
-  //checking autheticated routes
+  //checking authenticated routes
 
   const redirectUrl = ["/create", "/profile"];
   const userToken = request.cookies.get("next-auth.session-token")?.value;
@@ -44,6 +44,7 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
   if (isAllowedOrigin) {
+    console.log("is allowed origin",origin)
     response.headers.set("Access-Control-Allow-Origin", origin);
   }
 
