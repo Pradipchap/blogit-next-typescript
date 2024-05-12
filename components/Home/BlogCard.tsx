@@ -29,10 +29,7 @@ export default function BlogCard({
       <div className="h-full col-span-5 flex flex-col justify-between py-5">
         <div className="flex flex-col gap-2">
           {" "}
-          <Link
-            href={link}
-            className="text-base md:text-lg font-bold"
-          >
+          <Link href={link} className="text-base md:text-lg font-bold">
             {title}
           </Link>
           <p className="text-gray-600 text-sm max-w-full line-clamp-3">
@@ -43,13 +40,15 @@ export default function BlogCard({
           <div className="shrink-0">
             <div>
               <span className="sr-only">{profilename}</span>
-              <Image
-                className="h-10 w-10 rounded-full bg-pink-600"
-                src={profileImage}
-                alt=""
-                width={500}
-                height={300}
-              />
+              {profileImage && (
+                <Image
+                  className="h-10 w-10 rounded-full bg-pink-600"
+                  src={profileImage}
+                  alt="profile image"
+                  width={500}
+                  height={300}
+                />
+              )}
             </div>
           </div>
           <div className="ml-3">
