@@ -1,6 +1,7 @@
 import { connectToDB } from "@/utils/database";
 import Blog from "@/models/blogModel";
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = 'force-dynamic';
 
 const GET = async (req: NextRequest, res: NextResponse) => {
   const searchString = await req.nextUrl.searchParams.get("searchString");

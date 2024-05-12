@@ -3,6 +3,8 @@ import Draft from "@/models/draftModel";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
+export const dynamic = 'force-dynamic';
+
 const GET = async (request: NextRequest, response: NextResponse) => {
   const pageNo = await Number(request.nextUrl.searchParams.get("pageno"))||0;
 
