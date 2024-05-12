@@ -5,6 +5,7 @@ import { BASE_URL } from "./utils/constants";
 const allowedOrigins = [
   "https://blogit-next-typescript-pradipchaps-projects.vercel.app",
   "https://blogit-next-typescript-pradipchap.vercel.app",
+  "https://blogit-next-typescript.vercel.app"
 ];
 
 const corsOptions = {
