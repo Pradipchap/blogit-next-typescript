@@ -17,17 +17,17 @@ const corsOptions = {
 export async function middleware(request: NextRequest) {
   //checking authenticated routes
 
-  const redirectUrl = ["/create", "/profile"];
-  const userToken = request.cookies.get("next-auth.session-token")?.value;
-  const currentUrl = request.nextUrl.pathname;
-  const isProtectedUrl = redirectUrl.find((element) => element === currentUrl);
-  const matchUrl = !!isProtectedUrl;
+  // const redirectUrl = ["/create", "/profile"];
+  // const userToken = request.cookies.get("next-auth.session-token")?.value;
+  // const currentUrl = request.nextUrl.pathname;
+  // const isProtectedUrl = redirectUrl.find((element) => element === currentUrl);
+  // const matchUrl = !!isProtectedUrl;
 
-  if (matchUrl && !userToken) {
-    return NextResponse.redirect(
-      new URL(`${BASE_URL}/api/auth/signin`, request.nextUrl)
-    );
-  }
+  // if (matchUrl && !userToken) {
+  //   return NextResponse.redirect(
+  //     new URL(`${BASE_URL}/api/auth/signin`, request.nextUrl)
+  //   );
+  // }
 
   // const origin = request.headers.get("origin") ?? "";
   // const isAllowedOrigin = allowedOrigins.includes(origin);
