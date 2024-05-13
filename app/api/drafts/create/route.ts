@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Draft from "@/models/draftModel";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
+export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 const POST = async (request: NextRequest) => {

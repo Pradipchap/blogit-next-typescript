@@ -2,6 +2,7 @@ import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 import Blog from "@/models/blogModel";
+export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 const POST = async (request: NextRequest) => {

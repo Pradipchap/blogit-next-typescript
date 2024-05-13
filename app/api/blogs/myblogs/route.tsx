@@ -3,6 +3,7 @@ import Blog from "@/models/blogModel";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
+export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 const GET = async (request: NextRequest, response: NextResponse) => {
