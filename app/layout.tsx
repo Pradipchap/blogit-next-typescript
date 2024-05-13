@@ -2,7 +2,7 @@ import React from "react";
 import AuthProvider from "../utils/AuthProvider";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Bree_Serif, Fira_Sans, Inter, PT_Serif_Caption, Prosto_One, Sansita } from "next/font/google";
+import { Fira_Sans } from "next/font/google";
 import Nav from "../components/navbar/Nav";
 import ReduxProvider from "@/redux/ReduxProvider";
 import ProfileNav from "@/components/navbar/ProfileNav";

@@ -1,11 +1,16 @@
 "use client";
+
 import React, { memo, useState } from "react";
-import BlogCard from "@/components/Home/BlogCard";
 import { singleBlogProps } from "@/types/createBlogTypes";
 import BlogCardSkeleton from "../skeletons/BlogCardSkeleton";
 import useFetchBlog from "@/custom_hooks/useFetchBlog";
 import Pagination from "../Pagination";
 import { BASE_URL } from "@/utils/constants";
+import dynamic from "next/dynamic";
+
+const BlogCard = dynamic(() => import("@/components/Home/BlogCard"), {
+  ssr: false,
+});
 interface responseType {
   noOfBlogs: number;
   blogs: singleBlogProps[];

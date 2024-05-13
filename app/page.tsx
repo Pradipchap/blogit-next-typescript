@@ -1,21 +1,8 @@
 "use client"
 import Blogpage from "@/components/Home/Blogpage";
 import MainBlogs from "@/components/Home/MainBlogs/MainBlogs";
-import { useEffect } from "react";
 
 export default function Home() {
-  useEffect(() => {
-    function usWebWorker() {
-      if (typeof Worker === "undefined") {
-      } else {
-        const w = new Worker("../workers/text.ts");
-        w.onmessage = function (event) {
-          console.log(event.data);
-        };
-      }
-    }
-    usWebWorker();
-  }, []);
 
   return (
     <>
