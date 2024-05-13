@@ -29,30 +29,30 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  const origin = request.headers.get("origin") ?? "";
-  const isAllowedOrigin = allowedOrigins.includes(origin);
-  // / Handle preflighted requests
-  const isPreflight = request.method === "OPTIONS";
+  // const origin = request.headers.get("origin") ?? "";
+  // const isAllowedOrigin = allowedOrigins.includes(origin);
+  // // / Handle preflighted requests
+  // const isPreflight = request.method === "OPTIONS";
 
-  if (isPreflight) {
-    const preflightHeaders = {
-      ...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin }),
-      ...corsOptions,
-    };
-    return NextResponse.json({}, { headers: preflightHeaders });
-  }
+  // if (isPreflight) {
+  //   const preflightHeaders = {
+  //     ...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin }),
+  //     ...corsOptions,
+  //   };
+  //   return NextResponse.json({}, { headers: preflightHeaders });
+  // }
 
-  // Handle simple requests
+  // // Handle simple requests
   const response = NextResponse.next();
 
-  if (isAllowedOrigin) {
-    console.log("is allowed origin", origin);
-    response.headers.set("Access-Control-Allow-Origin", origin);
-  }
+  // if (isAllowedOrigin) {
+  //   console.log("is allowed origin", origin);
+  //   response.headers.set("Access-Control-Allow-Origin", origin);
+  // }
 
-  Object.entries(corsOptions).forEach(([key, value]) => {
-    response.headers.set(key, value);
-  });
+  // Object.entries(corsOptions).forEach(([key, value]) => {
+  //   response.headers.set(key, value);
+  // });
   return response;
 }
 
