@@ -1,6 +1,6 @@
-"use client"
-import Blogpage from "@/components/Home/Blogpage";
-import MainBlogs from "@/components/Home/MainBlogs/MainBlogs";
+// "use client"
+// import Blogpage from "@/components/Home/Blogpage";
+// import MainBlogs from "@/components/Home/MainBlogs/MainBlogs";
 
 export default function Home() {
 
