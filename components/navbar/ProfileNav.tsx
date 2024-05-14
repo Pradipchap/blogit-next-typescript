@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import authOptions from "@/utils/NextAuthOptions";
 import Login from "./Logout";
 import Icon from "../Icon";
 import PopupOver from "../popups/Popup";

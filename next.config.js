@@ -4,9 +4,9 @@ const nextConfig = {
   images: {
     domains: ["lh3.googleusercontent.com", "encrypted-tbn0.gstatic.com"],
   },
-  experimental: {
-    serverActions: true,
-  },
+  // experimental: {
+  //   serverActions: true,
+  // },
 };
 
 module.exports =

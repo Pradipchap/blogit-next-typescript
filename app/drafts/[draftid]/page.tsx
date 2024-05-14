@@ -3,7 +3,7 @@ import { BASE_URL } from "@/utils/constants";
 import React from "react";
 import Content from "@/app/blogs/[blogid]/Content";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import authOptions from "@/utils/NextAuthOptions";
 import WriteBlog from "@/components/create/WriteBlog";
 type response = {
   blog: singleBlogProps;
