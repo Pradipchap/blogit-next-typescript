@@ -42,7 +42,7 @@ export default async function ProfileNav() {
             className="rounded-full"
           />
           <button>
-            <Icon className="text-black text-sm" name="Down" />
+            {/* <Icon className="text-black text-sm" name="Down" /> */}
           </button>
         </div>
       </PopupOver>

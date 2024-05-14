@@ -42,7 +42,7 @@ export default function Toast() {
       <div
         className={`absolute py-5 text-sm top-20 right-10 z-[90] border-l-8 w-max min-w-[176px] h-14 flex justify-around gap-2 px-1 items-center rounded-md shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] ${style()}`}
       >
-        <Icon
+        {/* <Icon
           {...(toastType === "success"
             ? { name: "Check", className: "text-green-600 text-base" }
             : toastType === "error"
@@ -53,7 +53,7 @@ export default function Toast() {
                 name: "Loading",
                 className: "text-black animate-spin text-sm",
               })}
-        />
+        /> */}
         <p className="w-[90%]">{message}</p>
       </div>,
       document.body

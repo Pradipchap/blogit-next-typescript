@@ -42,7 +42,7 @@ export default function CustomInput({
             className="absolute top-1/2 right-[3%] -translate-y-1/2"
             onClick={() => setIsHidden((isHidden) => !isHidden)}
           >
-            <Icon name={isHidden ? "EyeSlash" : "Eye"} className="text-sm" />
+            {/* <Icon name={isHidden ? "EyeSlash" : "Eye"} className="text-sm" /> */}
           </button>
         )}
         {error && (

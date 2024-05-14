@@ -19,7 +19,7 @@ export default function IconButton({
       )}
     >
       {" "}
-      <Icon name={iconName} className={classNames("text-black", iconClassName)} />
+      {/* <Icon name={iconName} className={classNames("text-black", iconClassName)} /> */}
     </button>
   );
 }

@@ -15,7 +15,7 @@ export default function Search() {
       action={handleSearch}
       className="relative flex items-center rounded-lg px-2 sm:px-3 shadow-[0px_5px_15px_1px_#e2e8f0] h-10 w-44 md:w-56 lg:w-64 bg-white"
     >
-      <Icon name="Search" className="text-black  px-2 " />
+      {/* <Icon name="Search" className="text-black  px-2 " /> */}
       <input
         type="search"
         name="searchString"

@@ -18,7 +18,7 @@ export default function Links({
         className
       )}
     >
-      <Icon name={iconName} className={iconClassName+" text-black"} />
+      {/* <Icon name={iconName} className={iconClassName+" text-black"} /> */}
       <p className={classNames("text-black", className)}>{name}</p>
     </Link>
   );
