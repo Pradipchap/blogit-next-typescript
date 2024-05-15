@@ -31,6 +31,9 @@ const authOptions: NextAuthOptions = {
     },
     async signIn({ profile }) {
       try {
+        if (typeof profile?.email === "undefined") {
+          throw new Error();
+        }
         await connectToDB();
         const userExists = await User.findOne({ email: profile?.email });
         if (!userExists) {
