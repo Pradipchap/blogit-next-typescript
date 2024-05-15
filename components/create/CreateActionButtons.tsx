@@ -16,7 +16,7 @@ export default function CreateActionButtons({ editorSave }: props) {
       <PopupOver content={<Content editorSave={editorSave} />}>
         <button className="hover:bg-gray-200 transition-all duration-300 rotate-90 rounded-full flex justify-center items-center px-2 py-1">
           {" "}
-          {/* <Icon name="ThreeDots" className="text-black" /> */}
+          <Icon name="ThreeDots" className="text-black" />
         </button>
       </PopupOver>
     </div>

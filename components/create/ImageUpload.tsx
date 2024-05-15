@@ -43,7 +43,7 @@ export default function ImageUpload({
                 shape === "square" ? "rounded-sm" : "rounded-full"
               }`}
             >
-              {/* <Icon name="write" className=" h-10 " /> */}
+              <Icon name="write" className=" h-10 " />
             </div>
             <Image
               height={100}

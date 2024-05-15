@@ -6,7 +6,7 @@ import { Fira_Sans } from "next/font/google";
 import Nav from "../components/navbar/Nav";
 import ReduxProvider from "@/redux/ReduxProvider";
 import ProfileNav from "@/components/navbar/ProfileNav";
-// import "@fortawesome/fontawesome-svg-core/styles.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import Toast from "@/components/popups/Toast";
 
 const inter = Fira_Sans({ subsets: ["latin"], weight: ["400", "700", "200"] });

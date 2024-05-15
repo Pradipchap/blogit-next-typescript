@@ -24,14 +24,14 @@ export default function LinkWithIcon(props: TNavItems) {
     >
       {iconName && iconAlignment === "left" && (
         <span className="mr-1">
-          {/* <Icon name={iconName || ""} className={iconClassName} /> */}
+          <Icon name={iconName || ""} className={iconClassName} />
         </span>
       )}
       {name}
 
       {iconName && iconAlignment === "right" && (
         <span className="ml-1">
-          {/*  name={iconName} className={iconClassName} /> */}
+          <Icon name={iconName} className={iconClassName} />
         </span>
       )}
     </Link>

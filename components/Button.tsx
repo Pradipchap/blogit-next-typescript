@@ -20,18 +20,18 @@ export default function Button(props: ButtonProps) {
     <button {...rest} className={classNames("px-3 py-2 rounded-sm flex items-center justify-center",className)} disabled={isLoading}>
       {icon && iconAlignment === "left" && (
         <span className="mr-1">
-          {/* <Icon name={icon} className={iconClassName} /> */}
+          <Icon name={icon} className={iconClassName} />
         </span>
       )}
       {children}{" "}
       {isLoading && (
         <span className="ml-1">
-          {/* <Icon name="Loading" className="ml-2 animate-spin text-white" /> */}
+          <Icon name="Loading" className="ml-2 animate-spin text-white" />
         </span>
       )}
       {icon && iconAlignment === "right" && (
         <span className="ml-1">
-          {/* <Icon name={icon} className={iconClassName} /> */}
+          <Icon name={icon} className={iconClassName} />
         </span>
       )}
     </button>
