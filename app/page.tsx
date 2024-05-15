@@ -1,9 +1,8 @@
 // "use client"
 // import Blogpage from "@/components/Home/Blogpage";
 // import MainBlogs from "@/components/Home/MainBlogs/MainBlogs";
-
+export const maxDuration = 300;
 export default function Home() {
-
   return (
     <>
       <div className="h-max flex justify-around w-full mt-5 min-h-[calc(100vh-76px)] px-2 md:px-20">
