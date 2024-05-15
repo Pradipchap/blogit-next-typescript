@@ -5,6 +5,7 @@ import Content from "@/app/blogs/[blogid]/Content";
 import { getServerSession } from "next-auth";
 import authOptions from "@/utils/NextAuthOptions";
 import WriteBlog from "@/components/create/WriteBlog";
+
 type response = {
   blog: singleBlogProps;
 };
@@ -13,7 +14,7 @@ export default async function Page({ params }: { params: { blogid: string } }) {
   const session = await getServerSession(authOptions);
   try {
     const response = await fetch(
-      `${BASE_URL}/api/blogs/single?blogid=${params.blogid}`,
+      `${BASE_URL}/api/blogs/single?blogid=${params.blogid}`
     );
     const data: response = await response.json();
     console.log(data.blog.title);

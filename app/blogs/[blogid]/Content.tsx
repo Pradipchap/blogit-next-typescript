@@ -1,4 +1,5 @@
 "use client";
+
 import { OutputData } from "@editorjs/editorjs";
 import React, { useRef } from "react";
 import EditorJSType from "@editorjs/editorjs";
@@ -20,8 +21,9 @@ export default function Content({ data, title, image }: props) {
       {image && (
         <Image
           src={image}
+          loading="lazy"
           alt="Blog image"
-          className=" h-96"
+          className="h-96"
           objectFit="cover"
           height={200}
           width={700}

@@ -33,8 +33,9 @@ function Content({ editorSave }: props) {
   async function saveToDrafts() {
     const { content, title } = await editorSave();
     showLoading("drafts ");
-    if ( title === "" ){}
-     const data = new FormData();
+    if (title === "") {
+    }
+    const data = new FormData();
     data.append("title", title);
     data.append("content", JSON.stringify(content));
     try {
