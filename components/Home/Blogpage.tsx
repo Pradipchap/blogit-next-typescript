@@ -63,7 +63,7 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
           />
         );
       })}
-      {Number(data.noOfBlogs) > totalPages && (
+      {Number(data.noOfBlogs) > totalPages &&data.blogs.length>0&& (
         <Pagination
           currentPage={pageno}
           totalPages={totalPages}
