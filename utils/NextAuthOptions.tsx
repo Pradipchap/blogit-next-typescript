@@ -2,6 +2,7 @@ import GoogleProvider from "next-auth/providers/google";
 import User from "@/models/userModel";
 import { connectToDB } from "@/utils/database";
 import { NextAuthOptions } from "next-auth";
+export const maxDuration=60;
 
 const authOptions: NextAuthOptions = {
   providers: [
