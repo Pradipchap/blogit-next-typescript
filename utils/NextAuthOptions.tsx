@@ -2,13 +2,15 @@ import GoogleProvider from "next-auth/providers/google";
 import User from "@/models/userModel";
 import { connectToDB } from "@/utils/database";
 import { NextAuthOptions } from "next-auth";
-export const maxDuration=60;
 
 const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+			httpOptions:{
+				timeout:40000
+			}
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
