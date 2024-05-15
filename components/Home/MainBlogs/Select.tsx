@@ -17,6 +17,7 @@ export default function App({
   className,
 }: selectTabProps) {
   const router = useRouter();
+
   function onSelectionChange(key: Key) {
     const selectedOption =
       options.find((item) => {
@@ -25,6 +26,7 @@ export default function App({
     setOption(selectedOption);
     router.push(`?option=${selectedOption.key}`);
   }
+  
   return (
     <ul
       className={classNames(

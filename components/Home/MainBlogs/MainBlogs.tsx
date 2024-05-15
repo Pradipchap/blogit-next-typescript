@@ -16,7 +16,7 @@ export default function MainBlogs() {
   ];
   const [option, setOption] = useState<TabsInterface>(options[0]);
   const params = useSearchParams();
-  const feedQuery = params.get("option") as string;
+  const feedQuery = params.get("option") || options[0].key;
 
   return (
     <div className="relative h-full w-full">
