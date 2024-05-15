@@ -1,7 +1,7 @@
 // "use client"
 // import Blogpage from "@/components/Home/Blogpage";
 // import MainBlogs from "@/components/Home/MainBlogs/MainBlogs";
-export const maxDuration = 300;
+export const maxDuration = 60;
 export default function Home() {
   return (
     <>
