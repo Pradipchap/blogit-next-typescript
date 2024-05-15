@@ -11,12 +11,10 @@ export const connectToDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI!, {
       dbName: "Blogs",
-      socketTimeoutMS:45000,
-      serverSelectionTimeoutMS:30000
     });
     isConnected = true;
     console.log("MongoDB connected");
   } catch (error) {
-    console.log("Error while connecting ", error);
+    console.log("Error while connecting", error);
   }
 };
