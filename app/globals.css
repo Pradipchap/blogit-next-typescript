@@ -16,3 +16,51 @@ body {
   position: -webkit-sticky;
   position: sticky;
 }
+
+.overlay {
+  /* display: inline-block;
+  position: relative; */
+  /* background:  radial-gradient(circle, rgb(44, 144, 46) 60%, rgba(67, 104, 39, 0) 100%); */
+  /* mask-image: radial-gradient(circle, rgb(44, 144, 46) 60%, rgba(67, 104, 39, 0) 100%); */
+}
+
+.ray {
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    rgba(224, 115, 20, 0.7) 10%,
+    rgba(250, 204, 21, 0.1) 50%,
+    rgba(239, 160, 48, 0) 70%
+  );
+}
+
+/* border-image property */
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: radial-gradient(
+    rgba(224, 115, 20, 0.7) 10%,
+    rgba(250, 204, 21, 0.1) 50%,
+    rgba(239, 160, 48, 0) 70%
+  );
+  background-position: left;
+}
+
+.mydiv {
+  width: 300px;
+  height: 300px;
+  background-repeat: no-repeat;
+  background: url("../public/img01.png"),
+    radial-gradient(
+      rgba(197, 109, 8, 0.8) 10%,
+      rgba(250, 204, 21, 0.4) 30%,
+      rgba(239, 160, 48, 0.2) 70%
+    );
+  mask-image: url("../public/img01.png");
+}

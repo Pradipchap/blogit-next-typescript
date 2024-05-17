@@ -18,3 +18,12 @@ export const Navlist: TNavItems[] = [
 export const ProfileNavList: TNavItems[] = Navlist;
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+export enum ErrorCodes {
+  EMAIL_NOT_VERIFIED = 1000,
+  USER_NOT_FOUND = 1001,
+  WRONG_CODE = 1002,
+  USER_EXISTS = 1003,
+}
+
+export const NUMBER_REGEX = /^[0-9]*$/;

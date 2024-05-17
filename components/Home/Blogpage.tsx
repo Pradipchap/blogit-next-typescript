@@ -45,6 +45,7 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
       </>
     );
   }
+
   return (
     <>
       {data?.blogs.map((blog) => {
@@ -53,7 +54,7 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
             title={blog.title}
             description={blog.description}
             image={blog.image}
-            profileImage={blog.userid.image}
+            profileImage={blog.userid?.image}
             blogid={blog._id}
             date={blog.date}
             profilename={blog.userid.username}
@@ -63,7 +64,7 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
           />
         );
       })}
-      {Number(data.noOfBlogs) > totalPages &&data.blogs.length>0&& (
+      {Number(data.noOfBlogs) > totalPages && data.blogs.length > 0 && (
         <Pagination
           currentPage={pageno}
           totalPages={totalPages}

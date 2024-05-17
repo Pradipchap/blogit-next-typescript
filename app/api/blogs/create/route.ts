@@ -6,8 +6,9 @@ export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 const POST = async (request: NextRequest) => {
-  const data = await request.formData();
+  
   try {
+    const data = await request.formData();
     await connectToDB();
     const { title, genre, description, userid, content, image } =
       Object.fromEntries(data.entries());
@@ -33,6 +34,7 @@ const POST = async (request: NextRequest) => {
     await newBlog.save();
     return new NextResponse(JSON.stringify(newBlog), { status: 200 });
   } catch (error) {
+    console.log(error)
     return new NextResponse(
       JSON.stringify({ error: "Internal Server Error" }),
       { status: 500 }

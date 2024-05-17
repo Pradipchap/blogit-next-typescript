@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
   // checking authenticated routes
 
   const redirectUrl = ["/create", "/profile"];
-  const userToken = request.cookies.get("__Secure-next-auth.session-token")?.value;
+  const userToken = request.cookies.get("blogit")?.value;
   const currentUrl = request.nextUrl.pathname;
   const isProtectedUrl = redirectUrl.find((element) => element === currentUrl);
   const matchUrl = !!isProtectedUrl;
