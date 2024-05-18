@@ -44,6 +44,11 @@ export default function Page() {
     }
   }
 
+  async function googleLogin() {
+    const response = await fetch(BASE_URL + "/api/google");
+    const result = await response.json();
+  }
+
   return (
     <form
       action={handleLogin}
@@ -60,7 +65,12 @@ export default function Page() {
       </div>
       <Button className="bg-blue-800 text-white mt-5">Login</Button>
       <OrDivider />
-      <Button className="bg-white text-black border" icon="Google">
+      <Button
+        className="bg-white text-black border hover:bg-slate-200 transition-all"
+        icon="Google"
+        onClick={googleLogin}
+        type="button"
+      >
         Login with Google
       </Button>
     </form>
