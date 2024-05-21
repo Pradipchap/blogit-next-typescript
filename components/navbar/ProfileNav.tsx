@@ -1,16 +1,18 @@
+"use client"
+
 import Image from "next/image";
 import React from "react";
-import { getServerSession } from "next-auth";
-import authOptions from "@/utils/NextAuthOptions";
 import Login from "./Logout";
 import Icon from "../Icon";
 import PopupOver from "../popups/Popup";
 import { ProfileNavList } from "@/utils/constants";
 import LogoutButton from "../LogoutButton";
 import LinkWithIcon from "../LinkwithIcon";
+import { useAppSelector } from "@/app/reduxhooks";
 
-export default async function ProfileNav() {
-  const session = await getServerSession(authOptions);
+export default  function ProfileNav() {
+  const session = useAppSelector(state=>state.session)
+  console.log(session.userID)
   if (session) {
     const lists=ProfileNavList.concat([{name:"Profile",iconName:"Profile",href:"/profile"}])
     return (
@@ -35,7 +37,7 @@ export default async function ProfileNav() {
       >
         <div className="flex relative justify-center items-center gap-1 cursor-pointer">
           <Image
-            src={session?.user.image as string}
+            src={session?.image as string}
             alt="profile"
             width={30}
             height={30}

@@ -16,6 +16,6 @@ export interface LoginResult {
   accessToken: string;
   email: string;
   username: string;
-  id: string;
+  userID: string;
   image: string;
 }

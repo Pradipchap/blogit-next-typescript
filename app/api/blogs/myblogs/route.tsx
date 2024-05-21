@@ -1,16 +1,16 @@
 import { connectToDB } from "@/utils/database";
 import Blog from "@/models/blogModel";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import authOptions from "@/utils/NextAuthOptions";
+import getApiCookie from "@/custom_hooks/getApiCookie";
 export const maxDuration = 60;
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const GET = async (request: NextRequest, response: NextResponse) => {
   const pageNo = await Number(request.nextUrl.searchParams.get("pageno"));
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getApiCookie(request);
     if (!session) {
       throw new Error("you are not logged in");
     }
@@ -19,7 +19,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
     const skippingNumber =
       pageNo === 0 ? 0 : pageNo === 1 ? 0 : (pageNo - 1) * 5;
     console.log(skippingNumber);
-    const blogs = await Blog.find({ userid: session.user.id })
+    const blogs = await Blog.find({ userid: session.userID })
       .populate("userid")
       .sort({ date: -1 })
       .limit(5)

@@ -36,6 +36,7 @@ export default function Page() {
       showSuccess("Login successfull");
       router.push(`/`);
       const result: LoginResult = await response.json();
+      console.log(result)
       setCookie("blogit", JSON.stringify(result), 1);
       fetchSessionData();
     } catch (error) {

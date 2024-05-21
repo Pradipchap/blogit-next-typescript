@@ -9,6 +9,7 @@ import ImageUpload from "./ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL } from "@/utils/constants";
 import CustomInput from "../Inputs/CustomInput";
+import { useAppSelector } from "@/app/reduxhooks";
 
 export default function BlogDetailsForm({
   getFormData,
@@ -23,7 +24,7 @@ export default function BlogDetailsForm({
 }) {
   const router = useRouter();
   const { showSuccess, showError, showLoading } = useToast();
-  const { data: session } = useSession();
+  const   session  = useAppSelector(state=>state.session);
   
   async function returnData(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -42,7 +43,7 @@ export default function BlogDetailsForm({
     data.append("description", content.formData.description);
     data.append("image", content.formData.image!);
     data.append("content", JSON.stringify(content.content));
-    data.append("userid", session?.user.id as string);
+    data.append("userid", session?.userID as string);
 
     try {
       const response = await fetch(`${BASE_URL}/api/blogs/create`, {

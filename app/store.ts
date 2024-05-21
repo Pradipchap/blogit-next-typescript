@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import MenuReducer from "@/redux/MenuSlice";
 import ToastReducer from "@/redux/ToastSlice";
+import SessionReducer from "@/redux/SessionSlice";
 export const store = configureStore({
   reducer: {
     Menu: MenuReducer,
     Toast: ToastReducer,
+    session: SessionReducer,
   },
 });
 

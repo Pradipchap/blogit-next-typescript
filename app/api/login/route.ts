@@ -2,30 +2,24 @@ import bcrypt from "bcrypt";
 import UserCredentials from "@/models/userCredentials";
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
-import { ErrorCodes } from "@/utils/constants";
 import jwt from "jsonwebtoken";
 
 const POST = async (req: NextRequest) => {
   try {
     await connectToDB();
     const { email, password } = await req.json();
+    console.log(email, password);
     const userDetail = await UserCredentials.findOne({ email }).populate(
       "user"
     );
     console.log(userDetail);
     if (!userDetail) {
-      throw new Error("User doesn't exists");
+      throw "User doesn't exists";
     }
     const userVerifiedDate = await userDetail.verifiedAt;
     console.log(userVerifiedDate);
     if (!userVerifiedDate) {
-      return new NextResponse(
-        JSON.stringify({
-          errorMessage: "User not verified",
-          errorCode: ErrorCodes.EMAIL_NOT_VERIFIED,
-        }),
-        { status: 401 }
-      );
+      throw "User not verified";
     }
 
     const isPasswordCorrect = await bcrypt.compare(
@@ -50,25 +44,16 @@ const POST = async (req: NextRequest) => {
         }),
         {
           status: 200,
-          headers: {
-            "Set-Cookie": `blogit=${JSON.stringify({
-              accessToken: token,
-              email: userDetail.user.email,
-              username: userDetail.user.username,
-              userID: userDetail.user._id,
-            })}`,
-          },
         }
       );
     } else {
-      throw new Error("password doesn't match");
+      throw "password doesn't match";
     }
   } catch (error) {
     console.log(error);
-    return new NextResponse(
-      JSON.stringify({ errorMessage: "something wrong happened" }),
-      { status: 401 }
-    );
+    return new NextResponse(JSON.stringify({ errorMessage: error }), {
+      status: 401,
+    });
   }
 };
 

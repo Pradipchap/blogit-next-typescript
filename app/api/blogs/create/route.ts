@@ -2,12 +2,16 @@ import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 import Blog from "@/models/blogModel";
+import getApiCookie from "@/custom_hooks/getApiCookie";
 export const maxDuration = 60;
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const POST = async (request: NextRequest) => {
-  
   try {
+    const session = await getApiCookie(request);
+    if (!session) {
+      throw "";
+    }
     const data = await request.formData();
     await connectToDB();
     const { title, genre, description, userid, content, image } =
@@ -19,7 +23,7 @@ const POST = async (request: NextRequest) => {
     await console.log(await buffer);
     const parsedContent = await JSON.parse(content as string);
     await console.log(parsedContent);
-    
+
     const newBlog = await new Blog({
       userid,
       title,
@@ -34,7 +38,7 @@ const POST = async (request: NextRequest) => {
     await newBlog.save();
     return new NextResponse(JSON.stringify(newBlog), { status: 200 });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return new NextResponse(
       JSON.stringify({ error: "Internal Server Error" }),
       { status: 500 }

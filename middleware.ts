@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
 
   if (matchUrl && !userToken) {
     return NextResponse.redirect(
-      new URL(`${BASE_URL}/api/auth/signin`, request.nextUrl)
+      new URL(`${BASE_URL}/login`, request.nextUrl)
     );
   }
 

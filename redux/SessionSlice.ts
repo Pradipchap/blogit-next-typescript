@@ -2,13 +2,11 @@ import { LoginResult } from "@/types/dataTypes";
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getProjectCookieValue from "@/custom_hooks/getCookievalue";
 
-export const fetchSessionData = createAsyncThunk(
-  "session",
-  async () => {
-    const loginResult = getProjectCookieValue();
-    return loginResult;
-  }
-);
+export const fetchSessionData = createAsyncThunk("session", async () => {
+  console.log("first");
+  const loginResult = getProjectCookieValue();
+  return loginResult;
+});
 
 const CURRENT_USER_SLICE = createSlice({
   name: "currentUser",
@@ -19,7 +17,7 @@ const CURRENT_USER_SLICE = createSlice({
         state.username = action.payload.username;
         state.accessToken = action.payload.accessToken;
         state.email = action.payload.email;
-        state.id = action.payload.id;
+        state.userID = action.payload.userID;
         state.image = action.payload.image;
       }
     },
@@ -30,7 +28,7 @@ const CURRENT_USER_SLICE = createSlice({
         state.accessToken = action.payload.accessToken;
         state.username = action.payload.username;
         state.email = action.payload.email;
-        state.id = action.payload.id;
+        state.userID = action.payload.userID;
         state.image = action.payload.image;
       }
     });
