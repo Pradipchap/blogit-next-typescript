@@ -13,7 +13,7 @@ import { useAppSelector } from "@/app/reduxhooks";
 export default  function ProfileNav() {
   const session = useAppSelector(state=>state.session)
   console.log(session.userID)
-  if (session) {
+  if (session.userID) {
     const lists=ProfileNavList.concat([{name:"Profile",iconName:"Profile",href:"/profile"}])
     return (
       <PopupOver
