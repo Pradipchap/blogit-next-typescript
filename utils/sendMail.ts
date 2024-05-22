@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import nodemailer, { Transport, TransportOptions } from "nodemailer";
 import { google } from "googleapis";
 const OAuth2 = google.auth.OAuth2;
 
@@ -24,7 +24,7 @@ async function createTransporter() {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
     },
-  });
+  } as TransportOptions | Transport<unknown>);
   return transporter;
 }
 

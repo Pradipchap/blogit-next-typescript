@@ -1,8 +1,8 @@
 import { connectToDB } from "@/utils/database";
 import Draft from "@/models/draftModel";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import authOptions from "@/utils/NextAuthOptions";
+import getApiCookie from "@/custom_hooks/getApiCookie";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
@@ -11,7 +11,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
     (await Number(request.nextUrl.searchParams.get("pageno"))) || 0;
 
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getApiCookie(request);
     if (!session) {
       throw new Error("you are not logged in");
     }
@@ -20,7 +20,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
     const skippingNumber =
       pageNo === 0 ? 0 : pageNo === 1 ? 0 : (pageNo - 1) * 5;
     console.log(skippingNumber);
-    const drafts = await Draft.find({ userid: session.user.id })
+    const drafts = await Draft.find({ userid: session.userID })
       .populate("userid")
       .sort({ date: -1 })
       .limit(5)

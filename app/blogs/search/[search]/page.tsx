@@ -3,7 +3,7 @@ import { responseType } from "@/types/dataTypes";
 import { BASE_URL } from "@/utils/constants";
 import React from "react";
 
-export default async function page({ params }: { params: { search: string } }) {
+export default async function Page({ params }: { params: { search: string } }) {
   try {
     const response = await fetch(
       `${BASE_URL}/api/blogs/search?searchString=${params.search}`,
