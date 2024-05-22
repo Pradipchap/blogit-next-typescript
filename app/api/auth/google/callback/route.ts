@@ -29,7 +29,7 @@ const GET = async (req: NextRequest, res: NextResponse) => {
     // Code to handle user authentication and retrieval using the profile data
     return NextResponse.redirect("/");
   } catch (error) {
-    console.error("Error:", error.response.data.error);
+    console.error("Error:", error);
     return NextResponse.redirect("/login");
   }
 };

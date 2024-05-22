@@ -5,8 +5,9 @@ import { useToast } from "@/custom_hooks/useToast";
 import { useRouter } from "next/navigation";
 import { BASE_URL } from "@/utils/constants";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function EmailVerification() {
+function EmailVerification() {
   const { showError, showLoading, showSuccess } = useToast();
   const params = useSearchParams();
   const router = useRouter();
@@ -51,5 +52,15 @@ export default function EmailVerification() {
         Submit
       </Button>
     </form>
+  );
+}
+
+import React from "react";
+
+export default function Page() {
+  return (
+    <Suspense>
+      <EmailVerification />
+    </Suspense>
   );
 }

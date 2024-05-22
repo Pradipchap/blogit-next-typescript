@@ -6,12 +6,15 @@ interface responseType {
   noOfBlogs: number;
   blogs: singleBlogProps[];
 }
-export default async function page() {
+async function Page() {
   try {
-    const response = await fetch(`${BASE_URL}/api/blogs`, {
-      cache: "no-cache",
-    });
+    const response = await fetch(`${BASE_URL}/api/blogs`);
     const data: responseType = await response.json();
+    if (!data) {
+      {
+        throw new Error("null");
+      }
+    }
     return (
       <div>
         {data.blogs.map((blog) => {
@@ -32,6 +35,7 @@ export default async function page() {
       </div>
     );
   } catch (error) {
-    return <h1>{error as string}</h1>;
+    return <h1>Sorry, something wrong occured</h1>;
   }
 }
+export default Page;

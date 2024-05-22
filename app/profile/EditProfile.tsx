@@ -1,14 +1,17 @@
+
+"use client"
 import Button from "@/components/Button";
 import CustomInput from "@/components/Inputs/CustomInput";
 import ImageUpload from "@/components/create/ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL } from "@/utils/constants";
-import { useSession } from "next-auth/react";
 
 import React from "react";
+import { useAppSelector } from "../reduxhooks";
 
 export default function EditProfile({ onclose }: { onclose: () => void }) {
-  const { data: session} = useSession();
+  const session = useAppSelector((state) => state.session);
+  console.log("session",session)
   const { showSuccess, showError, showLoading } = useToast();
 
   async function handleSubmit(formData: FormData) {
@@ -41,7 +44,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
     >
       <p className="h-10 text-xl ">Edit Profile</p>
       <ImageUpload
-        defaultImage={session?.user.image || undefined}
+        defaultImage={session?.image || undefined}
         shape="circle"
         className="h-32 w-32"
       />
@@ -50,7 +53,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
           Display Name
         </label>
         <CustomInput
-          defaultValue={session?.user.name || ""}
+          defaultValue={session.username || ""}
           name="name"
           disabled
           className="px-0 bg-transparent border-b border-x-0 rounded-none border-t-0
@@ -62,7 +65,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
           Email Address
         </label>
         <CustomInput
-          defaultValue={session?.user.email || ""}
+          defaultValue={session?.email || ""}
           name="email"
           disabled
           className="px-0 bg-transparent border-b border-x-0 rounded-none border-t-0
@@ -74,8 +77,8 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
           Phone
         </label>
         <CustomInput
-        // @ts-ignore
-          defaultValue={session?.user.phone|| ""}
+          // @ts-ignore
+          defaultValue={session?.user?.phone || ""}
           name="phone"
           className="px-0 bg-transparent border-b border-x-0 rounded-none border-t-0
 				"
@@ -86,8 +89,8 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
           Date of Birth
         </label>
         <CustomInput
-        // @ts-ignore
-          defaultValue={new Date(session?.user.dateofbirth)
+          // @ts-ignore
+          defaultValue={new Date(session?.user?.dateofbirth||new Date())
             .toISOString()
             .substring(0, 10)}
           name="dateofbirth"
