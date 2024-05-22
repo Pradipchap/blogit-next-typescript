@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import UserCredentials from "@/models/userCredentials";
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
+export const maxDuration = 60;
+export const dynamic = "force-dynamic";
 
 const POST = async (req: NextRequest) => {
   const { code, email } = await req.json();
