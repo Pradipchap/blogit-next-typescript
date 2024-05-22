@@ -3,6 +3,8 @@ import UserCredentials from "@/models/userCredentials";
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+export const dynamic = "force-dynamic";
+export const maxDuration=60
 
 const POST = async (req: NextRequest) => {
   try {
