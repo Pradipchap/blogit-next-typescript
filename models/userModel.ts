@@ -24,5 +24,6 @@ const UserSchema = new Schema({
     type: Date,
   },
 });
+
 const User = models.User || model("User", UserSchema);
 export default User;

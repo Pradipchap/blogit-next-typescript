@@ -1,5 +1,3 @@
-"use client"
-
 import Image from "next/image";
 import React from "react";
 import Login from "./Logout";
@@ -9,12 +7,16 @@ import { ProfileNavList } from "@/utils/constants";
 import LogoutButton from "../LogoutButton";
 import LinkWithIcon from "../LinkwithIcon";
 import { useAppSelector } from "@/app/reduxhooks";
+import ProfileImg from "@/public/profile.jpg";
+import getServerSession from "@/custom_hooks/getServerSession";
 
-export default  function ProfileNav() {
-  const session = useAppSelector(state=>state.session)
-  console.log(session.userID)
-  if (session.userID) {
-    const lists=ProfileNavList.concat([{name:"Profile",iconName:"Profile",href:"/profile"}])
+export default function ProfileNav() {
+  const session = getServerSession()
+  console.log(session.userID);
+  if (typeof session !=="undefined"&&session.userID) {
+    const lists = ProfileNavList.concat([
+      { name: "Profile", iconName: "Profile", href: "/profile" },
+    ]);
     return (
       <PopupOver
         content={
@@ -37,7 +39,7 @@ export default  function ProfileNav() {
       >
         <div className="flex relative justify-center items-center gap-1 cursor-pointer">
           <Image
-            src={session?.image as string}
+            src={session?.image as string||ProfileImg}
             alt="profile"
             width={30}
             height={30}

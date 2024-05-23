@@ -1,5 +1,6 @@
 import { connectToDB } from "@/utils/database";
 import Blog from "@/models/blogModel";
+import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
@@ -30,7 +31,8 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
-    return new NextResponse(JSON.stringify({ error: error }), { status: 500 });
+    console.log(error)
+    return new NextResponse(JSON.stringify({ error: JSON.stringify(error) }), { status: 500 });
   }
 };
 export { GET };

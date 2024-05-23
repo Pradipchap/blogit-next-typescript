@@ -9,6 +9,9 @@ interface responseType {
 async function Page() {
   try {
     const response = await fetch(`${BASE_URL}/api/blogs`);
+    if (!response.ok) {
+      throw new Error("");
+    }
     const data: responseType = await response.json();
     if (!data) {
       {

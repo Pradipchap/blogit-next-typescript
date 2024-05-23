@@ -1,9 +1,10 @@
 import { Schema, models, model } from "mongoose";
+import User from "./userModel";
 
 const UserCredentialsSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: User,
   },
   email: {
     type: String,

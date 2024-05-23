@@ -1,7 +1,7 @@
 import Blog from "@/models/blogModel";
 import { NextRequest, NextResponse } from "next/server";
 export const maxDuration = 60;
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const GET = async (request: NextRequest, response: NextResponse) => {
   const id = await request.nextUrl.searchParams.get("blogid");
@@ -16,6 +16,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
+    console.log(error);
     return new NextResponse(JSON.stringify({ error: error }), { status: 500 });
   }
 };
