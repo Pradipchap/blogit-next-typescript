@@ -11,9 +11,9 @@ import ProfileImg from "@/public/profile.jpg";
 import getServerSession from "@/custom_hooks/getServerSession";
 
 export default function ProfileNav() {
-  const session = getServerSession()
+  const session = getServerSession();
   console.log(session.userID);
-  if (typeof session !=="undefined"&&session.userID) {
+  if (typeof session !== "undefined" && session.userID) {
     const lists = ProfileNavList.concat([
       { name: "Profile", iconName: "Profile", href: "/profile" },
     ]);
@@ -39,7 +39,7 @@ export default function ProfileNav() {
       >
         <div className="flex relative justify-center items-center gap-1 cursor-pointer">
           <Image
-            src={session?.image as string||ProfileImg}
+            src={(session?.image as string) || ProfileImg}
             alt="profile"
             width={30}
             height={30}

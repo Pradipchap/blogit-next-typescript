@@ -8,7 +8,7 @@ import { ErrorInterface, LoginResult } from "@/types/dataTypes";
 import { BASE_URL } from "@/utils/constants";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAppDispatch } from "../reduxhooks";
+import { useAppDispatch } from "@/app/reduxhooks";
 import setCookie from "@/custom_hooks/setCookie";
 import { fetchSessionData } from "@/redux/SessionSlice";
 
@@ -21,7 +21,7 @@ export default function Page() {
     const email = formData.get("email");
     const password = formData.get("password");
     try {
-      const response = await fetch(`${BASE_URL}/api/login`, {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         body: JSON.stringify({
           email,
@@ -34,11 +34,11 @@ export default function Page() {
         throw error.errorMessage;
       }
       showSuccess("Login successfull");
-      router.push(`/`);
       const result: LoginResult = await response.json();
-      console.log(result)
+      console.log(result);
       setCookie("blogit", JSON.stringify(result), 1);
       fetchSessionData();
+      window.location.assign("/");
     } catch (error) {
       console.log(error);
       showError(error as string);
@@ -56,8 +56,8 @@ export default function Page() {
       className="m-auto w-[450px] bg-slate-50 gap-1 flex flex-col p-5"
     >
       <p className="font-bold text-xl py-5">Login </p>
-      <CustomInput label="Email" name="email" type="text" />
-      <CustomInput label="Password" type="password" name="password" />
+      <CustomInput label="Email" name="email" type="text" required />
+      <CustomInput label="Password" type="password" name="password" required />
       <div className="w-full flex justify-between items-center">
         <Checkbox label="Remember me" name="rememberme" />
         <Link href="/" className="hover:underline text-sm text-green-700">
@@ -74,6 +74,13 @@ export default function Page() {
       >
         Login with Google
       </Button>
+
+      <Link
+        href={"/auth/register"}
+        className="m-auto mt-3  hover:underline transition-all text-red-600"
+      >
+        Already have an account ?
+      </Link>
     </form>
   );
 }

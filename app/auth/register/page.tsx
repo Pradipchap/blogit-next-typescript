@@ -50,12 +50,13 @@ export default function Page() {
       action={handleRegister}
       className="m-auto w-[450px] bg-slate-50 gap-1 flex flex-col p-5"
     >
-      <p className="font-bold text-xl py-5">Login </p>
-      <CustomInput label="Email or Username" name="email" type="text" />
-      <CustomInput label="Full Name" name="username" type="text" />
-      <CustomInput label="Password" type="password" name="password" />
+      <p className="font-bold text-xl py-5">Register your Account </p>
+      <CustomInput label="Email or Username" name="email" type="text" required />
+      <CustomInput label="Full Name" name="username" type="text" required/>
+      <CustomInput label="Password" type="password" name="password" required />
       <CustomInput
         label="Confirm Password"
+        required
         type="password"
         name="confirmpassword"
       />
@@ -65,7 +66,7 @@ export default function Page() {
           Forgot password ?
         </Link>
       </div>
-      <Button className="bg-blue-800 text-white mt-5">Login</Button>
+      <Button className="bg-blue-800 text-white mt-5">Register</Button>
       <OrDivider />
       <Button className="bg-white text-black border" icon="Google">
         Login with Google
