@@ -16,6 +16,7 @@ export default function Page() {
   const { showError, showInfo, showLoading, showSuccess } = useToast();
   const router = useRouter();
   const dispatch = useAppDispatch();
+
   async function handleLogin(formData: FormData) {
     showLoading("logging in");
     const email = formData.get("email");
@@ -60,7 +61,10 @@ export default function Page() {
       <CustomInput label="Password" type="password" name="password" required />
       <div className="w-full flex justify-between items-center">
         <Checkbox label="Remember me" name="rememberme" />
-        <Link href="/" className="hover:underline text-sm text-green-700">
+        <Link
+          href="/auth/resetpassword"
+          className="hover:underline text-sm text-green-700"
+        >
           Forgot password ?
         </Link>
       </div>

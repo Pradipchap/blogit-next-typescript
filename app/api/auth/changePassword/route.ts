@@ -7,11 +7,12 @@ import { ErrorCodes } from "@/utils/constants";
 const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const changePasswordCode = await req.cookies.get("changePasswordCode");
+    console.log(changePasswordCode)
     const { email, password } = await req.json();
     await connectToDB();
     const credentials = await UserCredentials.findOne({ email });
     const isCorrectCode = await bcrypt.compare(
-      changePasswordCode?.toString(),
+      changePasswordCode?.value?.toString(),
       credentials.code
     );
     if (!isCorrectCode) {
