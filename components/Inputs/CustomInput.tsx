@@ -39,6 +39,7 @@ export default function CustomInput({
         />
         {type === "password" && (
           <button
+            type="button"
             className="absolute top-1/2 right-[3%] -translate-y-1/2"
             onClick={() => setIsHidden((isHidden) => !isHidden)}
           >

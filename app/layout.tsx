@@ -27,7 +27,7 @@ export default function RootLayout({
           <ReduxProvider>
             <Toast />
             <Nav>
-              <ProfileNav />
+              <ProfileNav/>
             </Nav>
             {children}
           </ReduxProvider>

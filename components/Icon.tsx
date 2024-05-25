@@ -172,7 +172,7 @@ export default function Icon({ name, className = "" }: IconProps) {
       return (
         <FontAwesomeIcon
           icon={faSpinner}
-          className={classNames("text-black text-lg", className)}
+          className={classNames("text-black text-lg animate-spin", className)}
         />
       );
     case "Right":

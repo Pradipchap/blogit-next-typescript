@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
+import React, { ReactNode } from "react";
 import Links from "./Links";
 import { Navlist } from "@/utils/constants";
 import Search from "../Search";
 
-export default function Nav({ children }: { children: React.ReactNode }) {
+export default function Nav({ children }: { children: ReactNode }) {
   return (
     <div className="h-14 ">
       <nav
@@ -12,8 +12,8 @@ export default function Nav({ children }: { children: React.ReactNode }) {
        h-14 bg-white flex justify-between items-center px-5`}
       >
         <Links name="Logo" href="/" />
-        <div className="flex gap-3 lg:gap-6">
-          <div className={`gap-6 sm:flex sm:flex-row hidden`}>
+        <div className="flex gap-3 lg:gap-6 items-center">
+          <div className={`gap-6 sm:flex sm:flex-row hidden items-center`}>
             {Navlist.map((element) => {
               return (
                 <Links
