@@ -5,7 +5,7 @@ import CustomInput from "@/components/Inputs/CustomInput";
 import OTP from "@/components/Otp";
 import setCookie from "@/custom_hooks/setCookie";
 import { useToast } from "@/custom_hooks/useToast";
-import { BASE_URL } from "@/utils/constants";
+import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -1,26 +1,30 @@
 "use client";
+
 import Button from "@/components/Button";
 import Checkbox from "@/components/Inputs/Checkbox";
 import CustomInput from "@/components/Inputs/CustomInput";
 import OrDivider from "@/components/OrDivider";
 import { useToast } from "@/custom_hooks/useToast";
 import { ErrorInterface, LoginResult } from "@/types/dataTypes";
-import { BASE_URL } from "@/utils/constants";
+import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/app/reduxhooks";
 import setCookie from "@/custom_hooks/setCookie";
 import { fetchSessionData } from "@/redux/SessionSlice";
+import { FormEvent, useState } from "react";
 
 export default function Page() {
-  const { showError, showInfo, showLoading, showSuccess } = useToast();
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+  const { showError } = useToast();
+  const [loginStatus, setLoginStatus] = useState<SUBMIT_STATUS>(
+    SUBMIT_STATUS.INACTIVE
+  );
 
-  async function handleLogin(formData: FormData) {
-    showLoading("logging in");
+  async function handleLogin(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log(e);
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
     const email = formData.get("email");
     const password = formData.get("password");
+    setLoginStatus(SUBMIT_STATUS.PROCESSING);
     try {
       const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
@@ -29,20 +33,25 @@ export default function Page() {
           password,
         }),
       });
-      if (!response.ok) {
+      if (response.ok) {
+        setLoginStatus(SUBMIT_STATUS.SUCCESS);
+        const result: LoginResult = await response.json();
+        console.log(result);
+        setCookie("blogit", JSON.stringify(result), 1);
+        fetchSessionData();
+        window.location.assign("/");
+      } else {
         console.log("error");
         const error: ErrorInterface = await response.json();
         throw error.errorMessage;
       }
-      showSuccess("Login successfull");
-      const result: LoginResult = await response.json();
-      console.log(result);
-      setCookie("blogit", JSON.stringify(result), 1);
-      fetchSessionData();
-      window.location.assign("/");
     } catch (error) {
       console.log(error);
+      setLoginStatus(SUBMIT_STATUS.FAILED);
       showError(error as string);
+      setTimeout(() => {
+        setLoginStatus(SUBMIT_STATUS.INACTIVE);
+      }, 2000);
     }
   }
 
@@ -53,7 +62,7 @@ export default function Page() {
 
   return (
     <form
-      action={handleLogin}
+      onSubmit={handleLogin}
       className="m-auto w-[450px] bg-slate-50 gap-1 flex flex-col p-5"
     >
       <p className="font-bold text-xl py-5">Login </p>
@@ -68,7 +77,13 @@ export default function Page() {
           Forgot password ?
         </Link>
       </div>
-      <Button className="bg-blue-800 text-white mt-5">Login</Button>
+      <Button
+        status={loginStatus}
+        disabled={loginStatus !== SUBMIT_STATUS.INACTIVE}
+        className="bg-blue-800 text-white mt-5"
+      >
+        Login
+      </Button>
       <OrDivider />
       <Button
         className="bg-white text-black border hover:bg-slate-200 transition-all"
