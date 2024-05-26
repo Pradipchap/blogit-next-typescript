@@ -7,7 +7,6 @@ import { put } from "@vercel/blob";
 import optimizeImage, {
   optimizeProfileImage,
 } from "@/custom_hooks/optimizeImage";
-import uploadFile from "@/utils/uploadToDrive";
 import User from "@/models/userModel";
 import getApiCookie from "@/custom_hooks/getApiCookie";
 
