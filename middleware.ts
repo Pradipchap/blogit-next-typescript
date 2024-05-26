@@ -16,7 +16,7 @@ const corsOptions = {
 
 export async function middleware(request: NextRequest) {
   // checking authenticated routes
-
+  console.log("first");
   const redirectUrl = ["/create", "/profile"];
   const userToken = request.cookies.get("blogit")?.value;
   const currentUrl = request.nextUrl.pathname;

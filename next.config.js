@@ -15,6 +15,11 @@ const nextConfig = {
         hostname: "encrypted-tbn0.gstatic.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "rygx4bpy84fhfq8q.public.blob.vercel-storage.com",
+        port: "",
+      },
     ],
   },
   // experimental: {

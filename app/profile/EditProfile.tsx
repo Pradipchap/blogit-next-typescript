@@ -1,45 +1,47 @@
-
-"use client"
+"use client";
 import Button from "@/components/Button";
 import CustomInput from "@/components/Inputs/CustomInput";
 import ImageUpload from "@/components/create/ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
-import { BASE_URL } from "@/utils/constants";
-
-import React from "react";
+import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
+import React, { FormEvent, useState } from "react";
 import { useAppSelector } from "../reduxhooks";
 
 export default function EditProfile({ onclose }: { onclose: () => void }) {
   const session = useAppSelector((state) => state.session);
-  console.log("session",session)
-  const { showSuccess, showError, showLoading } = useToast();
+  const {  showError } = useToast();
+  const [profileEditStatus, setProfileEditStatus] = useState<SUBMIT_STATUS>(
+    SUBMIT_STATUS.INACTIVE
+  );
 
-  async function handleSubmit(formData: FormData) {
-    showLoading("Profile is updating");
-    const phone = formData.get("phone");
-    const dateofbirth = formData.get("dateofbirth");
-    const image = formData.get("image");
-    console.log(phone, dateofbirth, image);
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setProfileEditStatus(SUBMIT_STATUS.PROCESSING);
     try {
-      const response = await fetch(`${BASE_URL}/api/blogs/create`, {
+      const formData = new FormData(e.currentTarget);
+      const response = await fetch(`${BASE_URL}/api/auth/editprofile`, {
         method: "POST",
         body: formData,
       });
       if (!response.ok) {
-        throw new Error("Blog upload not successfull");
+        throw new Error("profile edit not successfull");
       }
-      showSuccess("Blog upload successfull");
-      onclose();
+      setProfileEditStatus(SUBMIT_STATUS.SUCCESS);
       document.body.style.overflow = "auto";
       sessionStorage.removeItem("editorContent");
+      onclose();
     } catch (error) {
-      console.error("Error uploading blog:", error);
-      showError("Blog upload unsuccessful");
+      console.error("Error updating profile:", error);
+      setProfileEditStatus(SUBMIT_STATUS.FAILED);
+      showError("profile edit unsuccessful");
+      setTimeout(() => {
+        setProfileEditStatus(SUBMIT_STATUS.INACTIVE);
+      }, 3000);
     }
   }
   return (
     <form
-      action={handleSubmit}
+      onSubmit={handleSubmit}
       className="bg-white p-5 w-[450px] items-center justify-center flex flex-col gap-5"
     >
       <p className="h-10 text-xl ">Edit Profile</p>
@@ -90,7 +92,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
         </label>
         <CustomInput
           // @ts-ignore
-          defaultValue={new Date(session?.user?.dateofbirth||new Date())
+          defaultValue={new Date(session?.user?.dateofbirth || new Date())
             .toISOString()
             .substring(0, 10)}
           name="dateofbirth"
@@ -100,6 +102,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
         />
       </div>
       <Button
+        status={profileEditStatus}
         type="submit"
         className="mt-5 bg-green-600 text-white w-full py-2 hover:bg-green-700 transition-all"
       >

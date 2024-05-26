@@ -1,7 +1,6 @@
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import Draft from "@/models/draftModel";
-import authOptions from "@/utils/NextAuthOptions";
 import getApiCookie from "@/custom_hooks/getApiCookie";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";

@@ -4,22 +4,19 @@ import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 export const dynamic = "force-dynamic";
-export const maxDuration=60
+export const maxDuration = 60;
 
 const POST = async (req: NextRequest) => {
   try {
     await connectToDB();
     const { email, password } = await req.json();
-    console.log(email, password);
     const userDetail = await UserCredentials.findOne({ email }).populate(
       "user"
     );
-    console.log(userDetail);
     if (!userDetail) {
       throw "User doesn't exists";
     }
     const userVerifiedDate = await userDetail.verifiedAt;
-    console.log(userVerifiedDate);
     if (!userVerifiedDate) {
       throw "User not verified";
     }
@@ -28,7 +25,6 @@ const POST = async (req: NextRequest) => {
       password,
       userDetail.password
     );
-    console.log(isPasswordCorrect);
     if (isPasswordCorrect) {
       const token = jwt.sign(
         { userID: userDetail.user._id },
@@ -43,6 +39,9 @@ const POST = async (req: NextRequest) => {
           email: userDetail.user.email,
           username: userDetail.user.username,
           userID: userDetail.user._id,
+          image: userDetail.user.image,
+          phone: userDetail.user.phone,
+          dateofbirth: userDetail.user.dateofbirth,
         }),
         {
           status: 200,
@@ -52,7 +51,6 @@ const POST = async (req: NextRequest) => {
       throw "password doesn't match";
     }
   } catch (error) {
-    console.log(error);
     return new NextResponse(JSON.stringify({ errorMessage: error }), {
       status: 401,
     });

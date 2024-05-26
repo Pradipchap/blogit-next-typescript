@@ -18,4 +18,6 @@ export interface LoginResult {
   username: string;
   userID: string;
   image: string;
+  dateofbirth: string;
+  phone: string;
 }
