@@ -39,6 +39,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
       }, 3000);
     }
   }
+  console.log(session)
   return (
     <form
       onSubmit={handleSubmit}
@@ -80,7 +81,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
         </label>
         <CustomInput
           // @ts-ignore
-          defaultValue={session?.user?.phone || ""}
+          defaultValue={session?.phone || ""}
           name="phone"
           className="px-0 bg-transparent border-b border-x-0 rounded-none border-t-0
 				"

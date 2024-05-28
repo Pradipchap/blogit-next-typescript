@@ -1,8 +1,4 @@
-import UserCredentials from "@/models/userCredentials";
-import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcrypt";
-import { ErrorCodes } from "@/utils/constants";
 import { put } from "@vercel/blob";
 import optimizeImage, {
   optimizeProfileImage,

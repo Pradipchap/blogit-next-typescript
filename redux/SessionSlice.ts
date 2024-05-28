@@ -1,11 +1,20 @@
 import { LoginResult } from "@/types/dataTypes";
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getProjectCookieValue from "@/custom_hooks/getCookievalue";
+import { BASE_URL } from "@/utils/constants";
 
 export const fetchSessionData = createAsyncThunk("session", async () => {
   console.log("first");
-  const loginResult = getProjectCookieValue();
-  return loginResult;
+  try {
+    const response = await fetch(`${BASE_URL}/api/auth/getSession`);
+    if (!response.ok) {
+      throw "someting wrong happened";
+    }
+    console.log(await response.json());
+    return response.json();
+  } catch (error) {
+    return null;
+  }
 });
 
 const CURRENT_USER_SLICE = createSlice({
@@ -18,6 +27,7 @@ const CURRENT_USER_SLICE = createSlice({
         state.accessToken = action.payload.accessToken;
         state.email = action.payload.email;
         state.userID = action.payload.userID;
+        state.phone = action.payload.userID;
         state.image = action.payload.image;
       }
     },
@@ -29,6 +39,7 @@ const CURRENT_USER_SLICE = createSlice({
         state.username = action.payload.username;
         state.email = action.payload.email;
         state.userID = action.payload.userID;
+        state.phone = action.payload.phone;
         state.image = action.payload.image;
       }
     });

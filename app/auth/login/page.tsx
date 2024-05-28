@@ -11,6 +11,7 @@ import Link from "next/link";
 import setCookie from "@/custom_hooks/setCookie";
 import { fetchSessionData } from "@/redux/SessionSlice";
 import { FormEvent, useState } from "react";
+import client from "@/utils/redixClient";
 
 export default function Page() {
   const { showError } = useToast();

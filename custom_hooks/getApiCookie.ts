@@ -3,9 +3,9 @@ import { NextRequest } from "next/server";
 
 export default function getApiCookie(requeset: NextRequest) {
   const cookie = requeset.cookies.get("blogit")?.value;
-  if (cookie) {
+  if (typeof cookie !== "undefined") {
     return JSON.parse(cookie) as LoginResult;
   } else {
-    return null
+    return null;
   }
 }

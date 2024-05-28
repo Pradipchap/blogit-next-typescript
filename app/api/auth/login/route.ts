@@ -3,6 +3,7 @@ import UserCredentials from "@/models/userCredentials";
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import client from "@/utils/redixClient";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
@@ -33,15 +34,23 @@ const POST = async (req: NextRequest) => {
           expiresIn: 86400,
         }
       );
+      (await client).hSet(`user-session:${userDetail.user._id}`, {
+        email: userDetail.user.email,
+        username: userDetail.user.username,
+        userID: userDetail.user._id,
+        image: userDetail.user.image,
+        phone: userDetail.user.phone,
+        dateofbirth: userDetail.user.dateofbirth,
+      });
+
+      (await client).disconnect();
+
       return new NextResponse(
         JSON.stringify({
           accessToken: token,
           email: userDetail.user.email,
           username: userDetail.user.username,
           userID: userDetail.user._id,
-          image: userDetail.user.image,
-          phone: userDetail.user.phone,
-          dateofbirth: userDetail.user.dateofbirth,
         }),
         {
           status: 200,
@@ -51,6 +60,7 @@ const POST = async (req: NextRequest) => {
       throw "password doesn't match";
     }
   } catch (error) {
+    console.log(error);
     return new NextResponse(JSON.stringify({ errorMessage: error }), {
       status: 401,
     });
