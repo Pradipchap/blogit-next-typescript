@@ -6,14 +6,13 @@ import PopupOver from "../popups/Popup";
 import { ProfileNavList } from "@/utils/constants";
 import LogoutButton from "../LogoutButton";
 import LinkWithIcon from "../LinkwithIcon";
-import { useAppSelector } from "@/app/reduxhooks";
 import ProfileImg from "@/public/profile.jpg";
 import getServerSession from "@/custom_hooks/getServerSession";
 
-export default function ProfileNav() {
-  const session = getServerSession();
-  console.log(session.userID);
-  if (typeof session !== "undefined" && session.userID) {
+export default async function ProfileNav() {
+  const session = await getServerSession();
+  console.log(session);
+  if (session) {
     const lists = ProfileNavList.concat([
       { name: "Profile", iconName: "Profile", href: "/profile" },
     ]);

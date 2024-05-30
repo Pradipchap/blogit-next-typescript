@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put } from "@vercel/blob";
+import { put, del } from "@vercel/blob";
+
 import optimizeImage, {
   optimizeProfileImage,
 } from "@/custom_hooks/optimizeImage";
@@ -19,19 +20,28 @@ const POST = async (req: NextRequest, res: NextResponse) => {
     if (profileImage.size > 0) {
       const fileName = profileImage.name.split(".")[0];
       const optimizedImage = await optimizeProfileImage(profileImage);
+
       const imageDetails = await put(`${fileName}.webp`, optimizedImage, {
         access: "public",
       });
       imageUrl = imageDetails.url;
     }
 
-    const updatedProfile = await User.findByIdAndUpdate(userData.userID, {
-      ...(dateofbirth !== "" ? { dateofbirth: dateofbirth } : {}),
-      ...(phone !== "" ? { phone: phone } : {}),
-      ...(imageUrl !== "" ? { image: imageUrl } : {}),
-    });
+    const updatedProfile = await User.findByIdAndUpdate(
+      userData.userID,
+      {
+        ...(dateofbirth !== "" ? { dateofbirth: dateofbirth } : {}),
+        ...(phone !== "" ? { phone: phone } : {}),
+        ...(imageUrl !== "" ? { image: imageUrl } : {}),
+      },
+      { new: true }
+    );
+    console.log(await updatedProfile);
     return new NextResponse(
-      JSON.stringify({ message: "profile updated successfully" }),
+      JSON.stringify({
+        message: "profile updated successfully",
+        profile: updatedProfile,
+      }),
       { status: 200 }
     );
   } catch (error) {

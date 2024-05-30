@@ -4,9 +4,9 @@ import Button from "@/components/Button";
 import CustomInput from "@/components/Inputs/CustomInput";
 import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 
-export default function Page() {
+function Form() {
   const params = useSearchParams();
   const router = useRouter();
   const [emailSubmissionStatus, setEmailSubmissionStatus] = useState<
@@ -54,5 +54,13 @@ export default function Page() {
         Change Password
       </Button>
     </form>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <Form />
+    </Suspense>
   );
 }

@@ -3,7 +3,6 @@ import UserCredentials from "@/models/userCredentials";
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import client from "@/utils/redixClient";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
@@ -14,6 +13,7 @@ const POST = async (req: NextRequest) => {
     const userDetail = await UserCredentials.findOne({ email }).populate(
       "user"
     );
+    console.log(await userDetail);
     if (!userDetail) {
       throw "User doesn't exists";
     }
@@ -34,23 +34,16 @@ const POST = async (req: NextRequest) => {
           expiresIn: 86400,
         }
       );
-      (await client).hSet(`user-session:${userDetail.user._id}`, {
-        email: userDetail.user.email,
-        username: userDetail.user.username,
-        userID: userDetail.user._id,
-        image: userDetail.user.image,
-        phone: userDetail.user.phone,
-        dateofbirth: userDetail.user.dateofbirth,
-      });
-
-      (await client).disconnect();
-
+      console.log(userDetail.user._id.toString());
       return new NextResponse(
         JSON.stringify({
           accessToken: token,
           email: userDetail.user.email,
           username: userDetail.user.username,
           userID: userDetail.user._id,
+          phone: userDetail.user.phone,
+          image:userDetail.user.image,
+          dateofbirth: userDetail.user.dateofbirth,
         }),
         {
           status: 200,

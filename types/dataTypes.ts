@@ -21,3 +21,6 @@ export interface LoginResult {
   dateofbirth: string;
   phone: string;
 }
+export interface CookieInterface extends LoginResult {
+  expiresIn: string;
+}

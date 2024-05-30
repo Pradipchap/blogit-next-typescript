@@ -8,9 +8,9 @@ import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 
-export default function Page() {
+function Form() {
   const { showError } = useToast();
   const params = useSearchParams();
   const router = useRouter();
@@ -122,5 +122,13 @@ export default function Page() {
         </form>
       )}
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <Form />
+    </Suspense>
   );
 }

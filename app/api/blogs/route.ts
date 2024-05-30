@@ -8,11 +8,6 @@ export const dynamic = "force-dynamic";
 
 const GET = async (request: NextRequest, response: NextResponse) => {
   try {
-    const session = await getApiCookie(request);
-    if (!session) {
-      throw "Not authenticated";
-    }
-
     await connectToDB();
     const pageNo = Number(request.nextUrl.searchParams.get("pageno")) || 1;
     const limit = Number(request.nextUrl.searchParams.get("limit")) || 10;

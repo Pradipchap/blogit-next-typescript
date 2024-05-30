@@ -5,13 +5,16 @@ import Checkbox from "@/components/Inputs/Checkbox";
 import CustomInput from "@/components/Inputs/CustomInput";
 import OrDivider from "@/components/OrDivider";
 import { useToast } from "@/custom_hooks/useToast";
-import { ErrorInterface, LoginResult } from "@/types/dataTypes";
+import {
+  CookieInterface,
+  ErrorInterface,
+  LoginResult,
+} from "@/types/dataTypes";
 import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
 import Link from "next/link";
 import setCookie from "@/custom_hooks/setCookie";
 import { fetchSessionData } from "@/redux/SessionSlice";
 import { FormEvent, useState } from "react";
-import client from "@/utils/redixClient";
 
 export default function Page() {
   const { showError } = useToast();
@@ -36,9 +39,9 @@ export default function Page() {
       });
       if (response.ok) {
         setLoginStatus(SUBMIT_STATUS.SUCCESS);
-        const result: LoginResult = await response.json();
+        const result: CookieInterface = await response.json();
         console.log(result);
-        setCookie("blogit", JSON.stringify(result), 1);
+        setCookie("blogit", result, 1);
         fetchSessionData();
         window.location.assign("/");
       } else {

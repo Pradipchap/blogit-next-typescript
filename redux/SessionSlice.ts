@@ -1,27 +1,30 @@
-import { LoginResult } from "@/types/dataTypes";
+import { CookieInterface } from "@/types/dataTypes";
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getProjectCookieValue from "@/custom_hooks/getCookievalue";
-import { BASE_URL } from "@/utils/constants";
 
 export const fetchSessionData = createAsyncThunk("session", async () => {
-  console.log("first");
   try {
-    const response = await fetch(`${BASE_URL}/api/auth/getSession`);
-    if (!response.ok) {
-      throw "someting wrong happened";
+    const cookieValue = getProjectCookieValue();
+    if (cookieValue === null) {
+      throw "";
     }
-    console.log(await response.json());
-    return response.json();
+    console.log("first")
+    console.log(cookieValue);
+    return cookieValue;
   } catch (error) {
+    console.log(error);
     return null;
   }
 });
 
 const CURRENT_USER_SLICE = createSlice({
   name: "currentUser",
-  initialState: <LoginResult>{},
+  initialState: <CookieInterface>{},
   reducers: {
-    updateCurrentUser: (state, action: PayloadAction<LoginResult | null>) => {
+    updateCurrentUser: (
+      state,
+      action: PayloadAction<CookieInterface | null>
+    ) => {
       if (action.payload) {
         state.username = action.payload.username;
         state.accessToken = action.payload.accessToken;
@@ -29,6 +32,7 @@ const CURRENT_USER_SLICE = createSlice({
         state.userID = action.payload.userID;
         state.phone = action.payload.userID;
         state.image = action.payload.image;
+        state.expiresIn = action.payload.expiresIn;
       }
     },
   },
@@ -41,6 +45,7 @@ const CURRENT_USER_SLICE = createSlice({
         state.userID = action.payload.userID;
         state.phone = action.payload.phone;
         state.image = action.payload.image;
+        state.expiresIn = action.payload.expiresIn;
       }
     });
   },

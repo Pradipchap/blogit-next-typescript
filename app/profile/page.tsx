@@ -4,8 +4,8 @@ import Image from "next/image";
 import Blogs from "./Blogs";
 import getServerSession from "@/custom_hooks/getServerSession";
 
-export default function Page() {
-  const session = getServerSession();
+export default async function Page() {
+  const session = await getServerSession();
   return (
     <div className="flex flex-col justify-center items-center">
       <div className={`profileSection w-full`}>

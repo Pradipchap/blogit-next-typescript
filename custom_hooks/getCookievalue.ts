@@ -1,12 +1,12 @@
-import { LoginResult } from "@/types/dataTypes";
+import { CookieInterface, LoginResult } from "@/types/dataTypes";
 
-export default function getProjectCookieValue(): LoginResult | null {
+export default function getProjectCookieValue(): CookieInterface | null {
   const cookieName = "blogit";
   console.log("first")
   const cookieValue = getCookieByName(cookieName);
   console.log("first")
   if (cookieValue === "") return null;
-  const parsedValue: LoginResult = JSON.parse(cookieValue);
+  const parsedValue: CookieInterface = JSON.parse(cookieValue);
   console.log(parsedValue)
   return parsedValue;
 }

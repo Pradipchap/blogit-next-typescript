@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 async function authenticatedMiddleware(req: NextRequest) {
   try {
     const cookie = getApiCookie(req);
+    console.log(cookie)
     if (cookie) {
       const accessToken = cookie.accessToken;
       const isCorrect = await jwt.verify(accessToken, process.env.JWT_SECRET);
@@ -17,6 +18,8 @@ async function authenticatedMiddleware(req: NextRequest) {
       throw "";
     }
   } catch (error) {
+    console.log(error)
+    throw error
     return new NextResponse("Not Authenticated", { status: 400 });
   }
 }

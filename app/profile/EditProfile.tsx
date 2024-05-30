@@ -5,11 +5,17 @@ import ImageUpload from "@/components/create/ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
 import React, { FormEvent, useState } from "react";
-import { useAppSelector } from "../reduxhooks";
+import { useAppDispatch, useAppSelector } from "../reduxhooks";
+import setCookie from "@/custom_hooks/setCookie";
+import { CookieInterface } from "@/types/dataTypes";
+import updateProfile from "@/custom_hooks/updateProfile";
+import { fetchSessionData } from "@/redux/SessionSlice";
 
 export default function EditProfile({ onclose }: { onclose: () => void }) {
   const session = useAppSelector((state) => state.session);
-  const {  showError } = useToast();
+  const dispatch = useAppDispatch();
+  console.log(session);
+  const { showError } = useToast();
   const [profileEditStatus, setProfileEditStatus] = useState<SUBMIT_STATUS>(
     SUBMIT_STATUS.INACTIVE
   );
@@ -26,7 +32,10 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
       if (!response.ok) {
         throw new Error("profile edit not successfull");
       }
+      const data = await response.json();
       setProfileEditStatus(SUBMIT_STATUS.SUCCESS);
+      updateProfile(await data.profile, session.expiresIn, session.accessToken);
+      dispatch(fetchSessionData());
       document.body.style.overflow = "auto";
       sessionStorage.removeItem("editorContent");
       onclose();
@@ -39,7 +48,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
       }, 3000);
     }
   }
-  console.log(session)
+  console.log(session);
   return (
     <form
       onSubmit={handleSubmit}
