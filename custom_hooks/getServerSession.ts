@@ -5,12 +5,12 @@ import { connectToDB } from "@/utils/database";
 
 export default async function getServerSession() {
   try {
-    const cookie = cookies().get("blogit")?.value;
+    const cookie = await cookies().get("blogit")?.value;
     if (typeof cookie === "undefined") {
       throw "";
     }
-    const session = JSON.parse(cookie);
-    const accessToken = session.accessToken;
+    const session = await JSON.parse(cookie);
+    const accessToken = await session.accessToken;
     const isCorrect = await jwt.verify(accessToken, process.env.JWT_SECRET);
     if (isCorrect) {
       await connectToDB();

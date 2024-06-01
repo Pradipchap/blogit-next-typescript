@@ -20,17 +20,17 @@ export default function Button(props: ButtonProps) {
   const buttonStatus =
     status === SUBMIT_STATUS.FAILED
       ? {
-          backgroundColor: "bg-red-700",
+          backgroundColor: "bg-red-700 hover:bg-red-600",
           icon: "Close",
         }
       : status === SUBMIT_STATUS.SUCCESS
       ? {
-          backgroundColor: "bg-green-700",
+          backgroundColor: "bg-green-700 hover:bg-green-600",
           icon: "Check",
         }
       : status === SUBMIT_STATUS.PROCESSING
       ? {
-          backgroundColor: "bg-yellow-700",
+          backgroundColor: "bg-yellow-700 hover:bg-yellow-600",
           icon: "Loading",
         }
       : {};

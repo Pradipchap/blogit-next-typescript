@@ -24,7 +24,7 @@ export default function Page() {
     console.log(email, username, password);
     if (password !== confirmpassword) return;
     try {
-      const response = await fetch(`${BASE_URL}/api/register`, {
+      const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
         body: JSON.stringify({
           email,
@@ -38,7 +38,7 @@ export default function Page() {
         throw error.errorMessage;
       }
       showSuccess("User Registered");
-      router.push(`/verifyemail?email=${email}`);
+      router.push(`auth/verifyemail?email=${email}`);
     } catch (error) {
       console.log(error);
       showError(error as string);

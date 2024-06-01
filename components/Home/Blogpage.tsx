@@ -29,8 +29,8 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
     dependencies: [apiWithPagination],
   }) as { data: responseType; error: any; loading: boolean };
 
-  const totalPages = Math.ceil(Number(data?.noOfBlogs) / 10);
-  
+  const totalPages = Number(data?.noOfBlogs) / 10;
+
   if (error) {
     return <p>{error}</p>;
   }
@@ -45,7 +45,6 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
       </>
     );
   }
-
   return (
     <>
       {data?.blogs.map((blog) => {
@@ -64,7 +63,7 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
           />
         );
       })}
-      {Number(data.noOfBlogs) > totalPages && data.blogs.length > 0 && (
+      {totalPages > 1 && data.blogs.length > 0 && (
         <Pagination
           currentPage={pageno}
           totalPages={totalPages}

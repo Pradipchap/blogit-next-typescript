@@ -30,7 +30,7 @@ export default function App({
   return (
     <ul
       className={classNames(
-        "sticky top-[56px] bg-white flex gap-2 items-center my-2 border-b border-slate-200 w-full px-2",
+        "sticky top-[56px] bg-white flex gap-2 items-center my-2 border-b border-slate-200 w- px-2",
         className
       )}
     >

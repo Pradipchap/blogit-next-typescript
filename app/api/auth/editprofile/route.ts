@@ -37,7 +37,13 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       },
       { new: true }
     );
-    await del(userData.image);
+
+    if (typeof userData.image !== undefined && userData.image !== "") {
+      console.log(userData.image);
+      await del(userData.image).catch((err) => {
+        throw "previous image not deleted";
+      });
+    }
     console.log(await updatedProfile);
     return new NextResponse(
       JSON.stringify({
@@ -50,7 +56,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,
-        errorMessage: "sorry,something wrong happened",
+        errorMessage: error,
       }),
       {
         status: 500,

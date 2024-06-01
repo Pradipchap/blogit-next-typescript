@@ -242,7 +242,7 @@ export default function Icon({ name, className = "" }: IconProps) {
       return (
         <FontAwesomeIcon
           icon={faPenToSquare}
-          className={classNames("text-lg text-black", className)}
+          className={classNames("text-lg text-black font-light", className)}
         />
       );
     case "Exclamation":

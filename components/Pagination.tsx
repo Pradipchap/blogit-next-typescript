@@ -35,7 +35,7 @@ export default function Pagination({
   pages();
 
   return (
-    <div className="w-max flex gap-1 m-auto">
+    <div className="w-max flex gap-1 m-auto my-5">
       {array.map((item) => (
         <button
           disabled={item > totalPages}

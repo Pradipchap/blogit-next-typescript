@@ -3,15 +3,20 @@ import React, { ReactNode } from "react";
 import Links from "./Links";
 import { Navlist } from "@/utils/constants";
 import Search from "../Search";
+import Logo from "@/public/logo-no-background.svg";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Nav({ children }: { children: ReactNode }) {
   return (
     <div className="h-14 ">
       <nav
         className={`w-full z-20 fixed top-0 text-black
-       h-14 bg-white flex justify-between items-center px-5`}
+       h-14 bg-white flex justify-between items-center px-3 xl:px-10`}
       >
-        <Links name="Logo" href="/" />
+        <Link href="/">
+          <Image src={Logo} width={70} height={70} alt="logo" />
+        </Link>
         <div className="flex gap-3 lg:gap-6 items-center">
           <div className={`gap-6 sm:flex sm:flex-row hidden items-center`}>
             {Navlist.map((element) => {

@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { ErrorCodes } from "./constants";
-export default function sendError(code: ErrorCodes, message: string) {
+export default function sendError(
+  errorCode: ErrorCodes,
+  message: string,
+  statusCode?: number | undefined
+) {
   return new NextResponse(
-    JSON.stringify({ errorCode: code, errorMessage: message })
+    JSON.stringify({ errorCode, errorMessage: message }),
+    { status: statusCode || 500 }
   );
 }

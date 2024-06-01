@@ -8,21 +8,11 @@ export const dynamic = "force-dynamic";
 const GET = async (request: NextRequest, response: NextResponse) => {
   try {
     await connectToDB();
-    const pageNo = Number(request.nextUrl.searchParams.get("pageno")) || 1;
-    const limit = Number(request.nextUrl.searchParams.get("limit")) || 10;
-    const skippingNumber = (pageNo - 1) * limit;
-    const [blogs, noOfBlogs] = await Promise.all([
-      Blog.find({})
-        .populate("userid")
-        .sort({ date: -1 })
-        .limit(limit)
-        .skip(skippingNumber),
-      Blog.countDocuments({}),
-    ]);
+    const blogs = await Blog.find({}).populate("userid").limit(3);
     return new NextResponse(
       JSON.stringify({
         blogs: blogs,
-        noOfBlogs: noOfBlogs,
+        noOfBlogs: 3,
       }),
       {
         status: 200,

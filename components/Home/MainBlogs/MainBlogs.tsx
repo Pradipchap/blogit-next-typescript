@@ -19,10 +19,10 @@ export default function MainBlogs() {
   const feedQuery = params.get("option") || options[0].key;
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full flex flex-col items-center">
       {" "}
       <Select options={options} setOption={setOption} currentOption={option} />
-      <div className="m-auto">
+      <div className="m-auto w-full items-center flex flex-col ">
         <BlogPage api={`${BASE_URL}/api/blogs?option=${feedQuery}`} />
       </div>{" "}
     </div>

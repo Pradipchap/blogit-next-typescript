@@ -14,12 +14,24 @@ export default function Links({
     <Link
       href={href}
       className={classNames(
-        "flex justify-center items-center gap-2",
+        "flex justify-center items-center gap-2 group",
         className
       )}
     >
-      <Icon name={iconName} className={iconClassName+" text-black"} />
-      <p className={classNames("text-black", className)}>{name}</p>
+      <Icon
+        name={iconName}
+        className={
+          iconClassName + "text-black/70 text-base font-light group-hover:text-black"
+        }
+      />
+      <p
+        className={classNames(
+          "text-black/70 text-base group-hover:text-black transition-all",
+          className
+        )}
+      >
+        {name}
+      </p>
     </Link>
   );
 }

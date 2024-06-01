@@ -16,10 +16,10 @@ const POST = async (req: NextRequest) => {
     const userDetail = await UserCredentials.findOne({ email }).populate(
       "user"
     );
-    console.log(await userDetail);
     if (!userDetail) {
-      return sendError(ErrorCodes.USER_NOT_FOUND, "sorry user not found");
+      return sendError(ErrorCodes.USER_NOT_FOUND, "sorry user not found", 401);
     }
+    console.log("first");
     const userVerifiedDate = await userDetail.verifiedAt;
     if (!userVerifiedDate) {
       return sendError(

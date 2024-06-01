@@ -23,13 +23,13 @@ function EmailVerification() {
     const requestData = { email, code: Number(otp) };
 
     try {
-      const response = await fetch(BASE_URL + "/api/verifyemail", {
+      const response = await fetch(BASE_URL + "/api/auth/verifyemail", {
         method: "POST",
         body: JSON.stringify(requestData),
       });
       if (await response.ok) {
         showSuccess("User successfully verified");
-        router.push("/login");
+        router.push("auth/login");
       } else {
         showError("user cannot be verified");
       }
