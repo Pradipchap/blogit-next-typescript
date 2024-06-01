@@ -62,7 +62,7 @@ export default function BlogCard({
             </div>
           </div>
           {genre && (
-            <div className="ml-auto bg-gray-300 text-black text-sm px-3 py-1 rounded-md">
+            <div className="ml-auto bg-gray-100 text-black text-sm px-3 py-1 rounded-md">
               {genre}
             </div>
           )}

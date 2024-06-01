@@ -1,4 +1,6 @@
 import Blog from "@/models/blogModel";
+import { ErrorInterface } from "@/types/dataTypes";
+import { ErrorCodes } from "@/utils/constants";
 import { NextRequest, NextResponse } from "next/server";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
@@ -16,8 +18,16 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
-    console.log(error);
-    return new NextResponse(JSON.stringify({ error: error }), { status: 500 });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
+
 export { GET };

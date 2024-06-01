@@ -6,34 +6,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { ErrorCodes } from "@/utils/constants";
 import getVerificationCode from "@/utils/getVerificationCode";
 import sendMail from "@/utils/sendMail";
+import sendError from "@/utils/sendError";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
 const POST = async (request: NextRequest) => {
-  console.log("first");
   try {
     const data = await request.json();
-    console.log(data);
     const { email, username, password } = data;
-    console.log(email);
-
     await connectToDB();
-    console.log("first");
     const doesUserExists = await User.exists({ email });
     if (doesUserExists) {
-      return new NextResponse(
-        JSON.stringify({
-          errorCode: ErrorCodes.USER_EXISTS,
-          errorMessage: "User already exists!",
-        }),
-        {
-          status: 500,
-        }
-      );
+      return sendError(ErrorCodes.USER_EXISTS, "User already exists!");
     }
-    console.log("first");
     const user = await User.create({ email, username });
- 
+
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
     const { verificationCode, hashedCode } = await getVerificationCode();
@@ -57,8 +44,15 @@ const POST = async (request: NextRequest) => {
       }
     );
   } catch (error) {
-    console.log(error);
-    return new NextResponse(JSON.stringify({ error: error }), { status: 500 });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
 export { POST };

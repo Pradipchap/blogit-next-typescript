@@ -25,6 +25,10 @@ export default function EditorJs({
       onChange: async (api, event) => {
         console.log("editor is changed", event);
         if (editorInstance.current) {
+          if (isReadOnly) {
+            return;
+          }
+
           const content = await editorInstance.current?.save();
           sessionStorage.setItem("editorContent", JSON.stringify(content));
         }

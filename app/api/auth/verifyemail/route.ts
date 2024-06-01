@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import UserCredentials from "@/models/userCredentials";
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
+import { ErrorCodes } from "@/utils/constants";
+import sendError from "@/utils/sendError";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
@@ -17,10 +19,7 @@ const POST = async (req: NextRequest) => {
     );
     console.log();
     if (!isCorrectCode) {
-      return new NextResponse(
-        JSON.stringify({ errorMessage: "Wrong verification code" }),
-        { status: 401 }
-      );
+      return sendError(ErrorCodes.WRONG_CODE, "wrong verification code");
     } else {
       await UserCredentials.findByIdAndUpdate(credentials._id, {
         verifiedAt: new Date(),
@@ -34,7 +33,10 @@ const POST = async (req: NextRequest) => {
     }
   } catch (error) {
     return new NextResponse(
-      JSON.stringify({ errorMessage: "something wrong happened" }),
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "something wrong happened",
+      }),
       { status: 401 }
     );
   }

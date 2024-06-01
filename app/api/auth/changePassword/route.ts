@@ -3,11 +3,12 @@ import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { ErrorCodes } from "@/utils/constants";
+import sendError from "@/utils/sendError";
 
 const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const changePasswordCode = await req.cookies.get("changePasswordCode");
-    console.log(changePasswordCode)
+    console.log(changePasswordCode);
     const { email, password } = await req.json();
     await connectToDB();
     const credentials = await UserCredentials.findOne({ email });
@@ -16,10 +17,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       credentials.code
     );
     if (!isCorrectCode) {
-      throw {
-        errorMessage: "sorry authentication failed",
-        errorCode: ErrorCodes.WRONG_CODE,
-      };
+      return sendError(ErrorCodes.WRONG_CODE, "wrong verification code");
     }
     const encryptedPassword = await bcrypt.hash(password, 10);
     const updatedUserCredentials = await UserCredentials.findOneAndUpdate(
@@ -31,9 +29,15 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       { status: 200 }
     );
   } catch (error) {
-    return new NextResponse(JSON.stringify({ message: "something wrong" }), {
-      status: 500,
-    });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
 

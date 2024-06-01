@@ -1,8 +1,7 @@
 import { connectToDB } from "@/utils/database";
 import Blog from "@/models/blogModel";
-import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
-import getApiCookie from "@/custom_hooks/getApiCookie";
+import { ErrorCodes } from "@/utils/constants";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
@@ -32,8 +31,15 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
-    console.log(error)
-    return new NextResponse(JSON.stringify({ error: JSON.stringify(error) }), { status: 500 });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
 export { GET };

@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import sendMail from "@/utils/sendMail";
 import UserCredentials from "@/models/userCredentials";
+import sendError from "@/utils/sendError";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -15,10 +16,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
     const { email } = await req.json();
     const user = await User.findOne({ email });
     if (!user) {
-      throw {
-        errorMessage: "User not found",
-        errorCode: ErrorCodes.USER_NOT_FOUND,
-      };
+      return sendError(ErrorCodes.USER_NOT_FOUND, "User not found");
     }
     const code = Math.ceil(Math.random() * 1000000);
     const encryptedCode = await bcrypt.hash(code.toString(), 10);
@@ -38,9 +36,15 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       }
     );
   } catch (error) {
-    return new NextResponse(JSON.stringify({ errorMessage: error }), {
-      status: 401,
-    });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
 

@@ -3,6 +3,9 @@ import UserCredentials from "@/models/userCredentials";
 import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+import { ErrorInterface } from "@/types/dataTypes";
+import { ErrorCodes } from "@/utils/constants";
+import sendError from "@/utils/sendError";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
@@ -15,11 +18,14 @@ const POST = async (req: NextRequest) => {
     );
     console.log(await userDetail);
     if (!userDetail) {
-      throw "User doesn't exists";
+      return sendError(ErrorCodes.USER_NOT_FOUND, "sorry user not found");
     }
     const userVerifiedDate = await userDetail.verifiedAt;
     if (!userVerifiedDate) {
-      throw "User not verified";
+      return sendError(
+        ErrorCodes.EMAIL_NOT_VERIFIED,
+        "sorry email not verified"
+      );
     }
 
     const isPasswordCorrect = await bcrypt.compare(
@@ -42,7 +48,7 @@ const POST = async (req: NextRequest) => {
           username: userDetail.user.username,
           userID: userDetail.user._id,
           phone: userDetail.user.phone,
-          image:userDetail.user.image,
+          image: userDetail.user.image,
           dateofbirth: userDetail.user.dateofbirth,
         }),
         {
@@ -53,10 +59,15 @@ const POST = async (req: NextRequest) => {
       throw "password doesn't match";
     }
   } catch (error) {
-    console.log(error);
-    return new NextResponse(JSON.stringify({ errorMessage: error }), {
-      status: 401,
-    });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
 

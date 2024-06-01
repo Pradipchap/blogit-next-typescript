@@ -3,6 +3,8 @@ import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import UserCredentials from "@/models/userCredentials";
+import { ErrorInterface } from "@/types/dataTypes";
+import sendError from "@/utils/sendError";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -18,10 +20,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
     );
     console.log(isCodeCorrect);
     if (!isCodeCorrect) {
-      throw {
-        errorMessage: "Wrong verification code",
-        errorCode: ErrorCodes.WRONG_CODE,
-      };
+      return sendError(ErrorCodes.WRONG_CODE, "Wrong verification code");
     }
     const newVerificationCodeForChangingPassword = Math.ceil(
       Math.random() * 1000000
@@ -40,9 +39,15 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       { status: 200 }
     );
   } catch (error) {
-    return new NextResponse(JSON.stringify({ errorMessage: error }), {
-      status: 401,
-    });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
 

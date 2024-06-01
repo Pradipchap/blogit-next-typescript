@@ -1,17 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put, del } from "@vercel/blob";
+import { del, put } from "@vercel/blob";
 
-import optimizeImage, {
-  optimizeProfileImage,
-} from "@/custom_hooks/optimizeImage";
+import { optimizeProfileImage } from "@/custom_hooks/optimizeImage";
 import User from "@/models/userModel";
 import getApiCookie from "@/custom_hooks/getApiCookie";
+
+import { ErrorCodes } from "@/utils/constants";
+import sendError from "@/utils/sendError";
 
 const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const userData = getApiCookie(req);
     if (!userData) {
-      throw "";
+      return sendError(ErrorCodes.USER_NOT_FOUND, "sorry user not found");
     }
     const data = await req.formData();
     const { image, dateofbirth, phone } = Object.fromEntries(data.entries());
@@ -36,6 +37,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       },
       { new: true }
     );
+    await del(userData.image);
     console.log(await updatedProfile);
     return new NextResponse(
       JSON.stringify({
@@ -45,10 +47,15 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
-    return new NextResponse(JSON.stringify({ message: "something wrong" }), {
-      status: 500,
-    });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
 

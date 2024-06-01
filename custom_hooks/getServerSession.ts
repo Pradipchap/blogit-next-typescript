@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import User from "@/models/userModel";
+import { connectToDB } from "@/utils/database";
 
 export default async function getServerSession() {
   try {
@@ -12,6 +13,7 @@ export default async function getServerSession() {
     const accessToken = session.accessToken;
     const isCorrect = await jwt.verify(accessToken, process.env.JWT_SECRET);
     if (isCorrect) {
+      await connectToDB();
       const data = await User.findById(isCorrect.userID);
       return data;
     } else {

@@ -1,8 +1,9 @@
 import { connectToDB } from "@/utils/database";
 import Blog from "@/models/blogModel";
 import { NextRequest, NextResponse } from "next/server";
-import authOptions from "@/utils/NextAuthOptions";
 import getApiCookie from "@/custom_hooks/getApiCookie";
+import { ErrorCodes } from "@/utils/constants";
+import sendError from "@/utils/sendError";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
@@ -12,7 +13,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
   try {
     const session = await getApiCookie(request);
     if (!session) {
-      throw new Error("you are not logged in");
+      return sendError(ErrorCodes.USER_NOT_AUTHENTICATED, "Not Authenticated");
     }
     await connectToDB();
     const noOfBlogs = await Blog.countDocuments({});
@@ -35,7 +36,15 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
-    return new NextResponse(JSON.stringify({ error: error }), { status: 500 });
+    return new NextResponse(
+      JSON.stringify({
+        errorCode: ErrorCodes.NORMAL,
+        errorMessage: "sorry,something wrong happened",
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 };
 export { GET };
