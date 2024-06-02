@@ -5,12 +5,33 @@ import { ErrorCodes } from "@/utils/constants";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
-const GET = async (request: NextRequest, response: NextResponse) => {
+const POST = async (request: NextRequest, response: NextResponse) => {
   try {
     await connectToDB();
     const pageNo = Number(request.nextUrl.searchParams.get("pageno")) || 1;
+    const referenceBlog: {
+      title: string;
+      description: string;
+      genre: string;
+    } = await request.json();
     const limit = Number(request.nextUrl.searchParams.get("limit")) || 10;
     const skippingNumber = (pageNo - 1) * limit;
+    const pipeline = [
+      {
+        $search: {
+          index: "blogSearch",
+          morelikethis: {
+            like: [
+              {
+                title: referenceBlog.title,
+                description: referenceBlog.description,
+                genre: referenceBlog.genre,
+              },
+            ],
+          },
+        },
+      },
+    ];
     const [blogs, noOfBlogs] = await Promise.all([
       Blog.find({})
         .populate("userid")
@@ -40,4 +61,4 @@ const GET = async (request: NextRequest, response: NextResponse) => {
     );
   }
 };
-export { GET };
+export { POST };
