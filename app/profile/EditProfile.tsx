@@ -14,7 +14,7 @@ import { fetchSessionData } from "@/redux/SessionSlice";
 export default function EditProfile({ onclose }: { onclose: () => void }) {
   const session = useAppSelector((state) => state.session);
   const dispatch = useAppDispatch();
-  console.log(session);
+  //console.log(session);
   const { showError } = useToast();
   const [profileEditStatus, setProfileEditStatus] = useState<SUBMIT_STATUS>(
     SUBMIT_STATUS.INACTIVE
@@ -40,7 +40,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
       sessionStorage.removeItem("editorContent");
       onclose();
     } catch (error) {
-      console.error("Error updating profile:", error);
+      //console.error("Error updating profile:", error);
       setProfileEditStatus(SUBMIT_STATUS.FAILED);
       showError("profile edit unsuccessful");
       setTimeout(() => {
@@ -48,7 +48,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
       }, 3000);
     }
   }
-  console.log(session);
+  //console.log(session);
   return (
     <form
       onSubmit={handleSubmit}

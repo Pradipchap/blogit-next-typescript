@@ -10,18 +10,13 @@ const Select = dynamic(() => import("./Select"), { ssr: false });
 const BlogPage = dynamic(() => import("../Blogpage"), { ssr: false });
 
 export default function MainBlogs() {
-  const options: TabsInterface[] = [
-    { key: "feeds", label: "Feeds" },
-    { key: "foryou", label: "For You" },
-  ];
-  const [option, setOption] = useState<TabsInterface>(options[0]);
   const params = useSearchParams();
-  const feedQuery = params.get("option") || options[0].key;
-
+  const feedQuery = params.get("option") || "feeds";
+  console.log(feedQuery);
   return (
     <div className="relative h-full flex flex-col items-center">
       {" "}
-      <Select options={options} setOption={setOption} currentOption={option} />
+      <Select />
       <div className="m-auto w-full items-center flex flex-col ">
         <BlogPage api={`${BASE_URL}/api/blogs?option=${feedQuery}`} />
       </div>{" "}

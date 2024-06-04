@@ -21,7 +21,7 @@ export default function Page() {
     const password = formData.get("password");
     const confirmpassword = formData.get("confirmpassword");
     const rememberme = formData.get("rememberme");
-    console.log(email, username, password);
+    //console.log(email, username, password);
     if (password !== confirmpassword) return;
     try {
       const response = await fetch(`${BASE_URL}/api/auth/register`, {
@@ -33,14 +33,14 @@ export default function Page() {
         }),
       });
       if (!response.ok) {
-        console.log("error");
+        //console.log("error");
         const error: ErrorInterface = await response.json();
         throw error.errorMessage;
       }
       showSuccess("User Registered");
       router.push(`auth/verifyemail?email=${email}`);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       showError(error as string);
     }
   }

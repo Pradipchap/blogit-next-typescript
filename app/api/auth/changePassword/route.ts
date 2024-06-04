@@ -8,7 +8,7 @@ import sendError from "@/utils/sendError";
 const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const changePasswordCode = await req.cookies.get("changePasswordCode");
-    console.log(changePasswordCode);
+    //console.log(changePasswordCode);
     const { email, password } = await req.json();
     await connectToDB();
     const credentials = await UserCredentials.findOne({ email });

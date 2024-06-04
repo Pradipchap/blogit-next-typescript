@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 import User from "./userModel";
 
-export const  BlogSchema = new Schema({
+export const BlogSchema = new Schema({
   userid: {
     type: Schema.Types.ObjectId,
     ref: User,

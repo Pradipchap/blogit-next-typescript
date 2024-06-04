@@ -18,7 +18,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       code.toString(),
       userCredentials.code
     );
-    console.log(isCodeCorrect);
+    //console.log(isCodeCorrect);
     if (!isCodeCorrect) {
       return sendError(ErrorCodes.WRONG_CODE, "Wrong verification code");
     }

@@ -16,7 +16,7 @@ const corsOptions = {
 
 export async function middleware(request: NextRequest) {
   // checking authenticated routes
-  console.log("first");
+  //console.log("first");
   const redirectUrl = ["/create", "/profile"];
   const userToken = request.cookies.get("blogit")?.value;
   const currentUrl = request.nextUrl.pathname;
@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
   if (isAllowedOrigin) {
-    console.log("is allowed origin", origin);
+    //console.log("is allowed origin", origin);
     response.headers.set("Access-Control-Allow-Origin", origin);
   }
 

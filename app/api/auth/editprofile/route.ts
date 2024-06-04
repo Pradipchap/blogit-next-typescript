@@ -39,12 +39,12 @@ const POST = async (req: NextRequest, res: NextResponse) => {
     );
 
     if (typeof userData.image !== undefined && userData.image !== "") {
-      console.log(userData.image);
+      //console.log(userData.image);
       await del(userData.image).catch((err) => {
         throw "previous image not deleted";
       });
     }
-    console.log(await updatedProfile);
+    //console.log(await updatedProfile);
     return new NextResponse(
       JSON.stringify({
         message: "profile updated successfully",

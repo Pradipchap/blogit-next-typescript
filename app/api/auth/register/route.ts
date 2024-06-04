@@ -22,7 +22,7 @@ const POST = async (request: NextRequest) => {
     const user = await User.create({ email, username });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(hashedPassword);
+    //console.log(hashedPassword);
     const { verificationCode, hashedCode } = await getVerificationCode();
     const userCredential = await UserCredentials.create({
       email,
@@ -36,7 +36,7 @@ const POST = async (request: NextRequest) => {
       subject: "Verify Email",
       html: "",
     });
-    console.log("success");
+    //console.log("success");
     return new NextResponse(
       JSON.stringify({ doesUserExists, userCredential }),
       {

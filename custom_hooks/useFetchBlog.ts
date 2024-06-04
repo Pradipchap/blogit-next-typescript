@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 interface useFetchBlogsInterface {
   api: string;
   dependencies: [unknown];
+  method?: "GET" | "POST";
+  body?: BodyInit | null | undefined;
 }
 
 export default function useFetchBlog({
   api,
   dependencies,
+  method = "GET",
+  body,
 }: useFetchBlogsInterface) {
   const [data, setData] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
@@ -22,8 +26,12 @@ export default function useFetchBlog({
 
   useEffect(() => {
     async function getData() {
+      //console.log(body);
       try {
-        const response = await fetch(api);
+        const response = await fetch(
+          api,
+          method === "POST" ? { method, body: body||"{}" } : {}
+        );
         if (!response.ok) {
           throw new Error();
         }

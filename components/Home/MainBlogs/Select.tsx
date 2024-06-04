@@ -1,23 +1,20 @@
-import React, { Key } from "react";
+import React, { Key, useState } from "react";
 import { TabsInterface } from "@/types/componentTypes";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import classNames from "@/utils/classNames";
 
 interface selectTabProps {
-  options: TabsInterface[];
-  setOption: (option: TabsInterface) => void;
-  currentOption: TabsInterface;
   className?: string;
 }
 
-export default function App({
-  options,
-  currentOption,
-  setOption,
-  className,
-}: selectTabProps) {
+export default function App({ className }: selectTabProps) {
+  const options: TabsInterface[] = [
+    { key: "feeds", label: "Feeds" },
+    { key: "popular", label: "Most Popular" },
+  ];
+  const [option, setOption] = useState<TabsInterface>(options[0]);
   const router = useRouter();
-
+  const params = useSearchParams();
   function onSelectionChange(key: Key) {
     const selectedOption =
       options.find((item) => {
@@ -26,7 +23,8 @@ export default function App({
     setOption(selectedOption);
     router.push(`?option=${selectedOption.key}`);
   }
-  
+  const currentOption = params.get("option") || options[0].key;
+
   return (
     <ul
       className={classNames(
@@ -38,7 +36,7 @@ export default function App({
         <li
           key={element.key}
           className={`${
-            currentOption.key === element.key ? " border-b" : ""
+            currentOption === element.key ? " border-b" : ""
           } px-3 border-black py-2`}
           onClick={() => {
             onSelectionChange(element.key);

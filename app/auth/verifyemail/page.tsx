@@ -17,7 +17,7 @@ function EmailVerification() {
     formData.forEach((element) => {
       otp += element;
     });
-    console.log(Number(otp));
+    //console.log(Number(otp));
     showLoading("loading");
     const email = params.get("email");
     const requestData = { email, code: Number(otp) };

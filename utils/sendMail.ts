@@ -48,10 +48,10 @@ async function sendMail({
       text,
       html,
     };
-    console.log("mail sent successfully");
+    //console.log("mail sent successfully");
     await emailTransporter.sendMail(mailOptions);
   } catch (err) {
-    console.log("ERROR: ", err);
+    //console.log("ERROR: ", err);
     throw new Error("couldn't send mail");
   }
 }

@@ -28,20 +28,20 @@ const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         try {
-          console.log("first");
-          console.log(credentials?.email);
+          //console.log("first");
+          //console.log(credentials?.email);
           const userCredential = await UserCredentials.findOne({
             email: credentials?.email,
           }).populate("user");
-          console.log(userCredential);
+          //console.log(userCredential);
           if (userCredential.verifiedAt) {
             // return userCredentials.user
-            console.log(userCredential.verifiedAt);
+            //console.log(userCredential.verifiedAt);
             const isCorrectPassword = await bcrypt.compare(
               credentials?.password,
               userCredential.password
             );
-            console.log(isCorrectPassword)
+            //console.log(isCorrectPassword)
             if (!isCorrectPassword) {
               throw new Error("Wrong Password");
             } else {
@@ -51,7 +51,7 @@ const authOptions: NextAuthOptions = {
                 email: user.email,
                 name: user.username,
               };
-              console.log(profile)
+              //console.log(profile)
               return profile;
             }
           } else {
@@ -71,7 +71,7 @@ const authOptions: NextAuthOptions = {
             throw new Error(`/verifyemail?email=${credentials?.email}`);
           }
         } catch (error) {
-          console.log(error);
+          //console.log(error);
           throw new Error("hi");
         }
       },
@@ -115,7 +115,7 @@ const authOptions: NextAuthOptions = {
         }
         return true;
       } catch (error) {
-        console.log("error while signing in", error);
+        //console.log("error while signing in", error);
         return false;
       }
     },

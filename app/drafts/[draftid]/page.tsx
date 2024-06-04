@@ -19,7 +19,7 @@ export default async function Page({
       `${BASE_URL}/api/drafts/single?draftid=${params.draftid}`,
     );
     const data: response = await response.json();
-    console.log(data.blog.title);
+    //console.log(data.blog.title);
     return (
       <div className="flex flex-col px-3 sm:px-10 md:px-20">
         {data.blog.userid._id === session?.userID? (

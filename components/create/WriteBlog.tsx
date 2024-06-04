@@ -46,14 +46,14 @@ export default function WriteBlog({ data, title }: props) {
     }
 
     async getContent() {
-      console.log("data time", data?.time);
+      //console.log("data time", data?.time);
       const { content, title } = await editorandform.saveEditorContent();
       this.content = content;
       this.formData.title = title;
       try {
         setIsModalOpen(true);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     }
     getFormData(formData: detailsForm) {

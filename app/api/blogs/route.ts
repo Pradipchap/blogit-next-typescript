@@ -7,37 +7,40 @@ export const dynamic = "force-dynamic";
 
 const POST = async (request: NextRequest, response: NextResponse) => {
   try {
+    const body = await request.json();
+    //console.log("request boyd", await body);
+    const isMostPopularQuery = await request.nextUrl.searchParams.get("option");
+    console.log(isMostPopularQuery);
     await connectToDB();
     const pageNo = Number(request.nextUrl.searchParams.get("pageno")) || 1;
     const referenceBlog: {
       title: string;
       description: string;
       genre: string;
-    } = await request.json();
+    } = await body;
+    if (typeof referenceBlog.title) {
+    }
     const limit = Number(request.nextUrl.searchParams.get("limit")) || 10;
     const skippingNumber = (pageNo - 1) * limit;
+    console.log(referenceBlog);
     const pipeline = [
       {
         $search: {
-          index: "blogSearch",
-          morelikethis: {
-            like: [
-              {
-                title: referenceBlog.title,
-                description: referenceBlog.description,
-                genre: referenceBlog.genre,
-              },
-            ],
+          moreLikeThis: {
+            like: {
+              ...referenceBlog,
+            },
           },
         },
       },
+      { $limit: 5 },
+      { $skip: skippingNumber },
     ];
     const [blogs, noOfBlogs] = await Promise.all([
-      Blog.find({})
-        .populate("userid")
-        .sort({ date: -1 })
-        .limit(limit)
-        .skip(skippingNumber),
+      isMostPopularQuery === "popular?" ||
+      typeof referenceBlog.title === "undefined"
+        ? Blog.find({}).sort({ popularity: -1 }).limit(5).skip(skippingNumber)
+        : Blog.aggregate(pipeline),
       Blog.countDocuments({}),
     ]);
     return new NextResponse(
@@ -50,6 +53,7 @@ const POST = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
+    //console.log(error);
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,

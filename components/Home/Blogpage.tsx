@@ -24,9 +24,12 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
   const [pageno, setpageno] = useState(1);
   const apiWithPagination = api + `?&pageno=${pageno}`;
 
+  const body = localStorage.getItem("recent");
   const { data: data, error } = useFetchBlog({
     api: apiWithPagination,
     dependencies: [apiWithPagination],
+    method: "POST",
+    body,
   }) as { data: responseType; error: any; loading: boolean };
 
   const totalPages = Number(data?.noOfBlogs) / 10;

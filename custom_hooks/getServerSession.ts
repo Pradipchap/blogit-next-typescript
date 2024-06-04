@@ -20,7 +20,7 @@ export default async function getServerSession() {
       throw "";
     }
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return null;
   }
 }

@@ -34,7 +34,7 @@ export default function BlogDetailsForm({
     const formdata = Object.fromEntries(
       formdataInstnce.entries()
     ) as detailsForm;
-    console.log("formdata", formdata);
+    //console.log("formdata", formdata);
     getFormData(formdata);
     const content = submit();
     const data = new FormData();
@@ -59,7 +59,7 @@ export default function BlogDetailsForm({
       sessionStorage.removeItem("editorContent");
       router.push("/");
     } catch (error) {
-      console.error("Error uploading blog:", error);
+      //console.error("Error uploading blog:", error);
       showError("Blog upload unsuccessful");
     }
   }
