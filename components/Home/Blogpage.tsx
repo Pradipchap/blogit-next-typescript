@@ -19,8 +19,13 @@ interface responseType {
 type props = {
   api?: string;
   type?: "blogs" | "drafts";
+  method?: "GET" | "POST";
 };
-function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
+function BlogPage({
+  api = `${BASE_URL}/api/blogs`,
+  type = "blogs",
+  method = "GET",
+}: props) {
   const [pageno, setpageno] = useState(1);
   const apiWithPagination = api + `?&pageno=${pageno}`;
 
@@ -28,7 +33,7 @@ function BlogPage({ api = `${BASE_URL}/api/blogs`, type = "blogs" }: props) {
   const { data: data, error } = useFetchBlog({
     api: apiWithPagination,
     dependencies: [apiWithPagination],
-    method: "POST",
+    method,
     body,
   }) as { data: responseType; error: any; loading: boolean };
 

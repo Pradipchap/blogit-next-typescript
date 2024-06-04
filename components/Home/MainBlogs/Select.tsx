@@ -5,26 +5,17 @@ import classNames from "@/utils/classNames";
 
 interface selectTabProps {
   className?: string;
+  options: TabsInterface[];
+  onSelectionChange: (tab: TabsInterface) => void;
+  currentOption: string;
 }
 
-export default function App({ className }: selectTabProps) {
-  const options: TabsInterface[] = [
-    { key: "feeds", label: "Feeds" },
-    { key: "popular", label: "Most Popular" },
-  ];
-  const [option, setOption] = useState<TabsInterface>(options[0]);
-  const router = useRouter();
-  const params = useSearchParams();
-  function onSelectionChange(key: Key) {
-    const selectedOption =
-      options.find((item) => {
-        return item.key === key.toString();
-      }) || options[0];
-    setOption(selectedOption);
-    router.push(`?option=${selectedOption.key}`);
-  }
-  const currentOption = params.get("option") || options[0].key;
-
+export default function App({
+  className,
+  options,
+  onSelectionChange,
+  currentOption = options[0].key,
+}: selectTabProps) {
   return (
     <ul
       className={classNames(
@@ -39,7 +30,7 @@ export default function App({ className }: selectTabProps) {
             currentOption === element.key ? " border-b" : ""
           } px-3 border-black py-2`}
           onClick={() => {
-            onSelectionChange(element.key);
+            onSelectionChange(element);
           }}
         >
           {element.label}
