@@ -5,16 +5,13 @@ import ImageUpload from "@/components/create/ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
 import React, { FormEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../reduxhooks";
-import setCookie from "@/custom_hooks/setCookie";
-import { CookieInterface } from "@/types/dataTypes";
+import { useAppSelector,useAppDispatch } from "@/app/reduxhooks";
 import updateProfile from "@/custom_hooks/updateProfile";
 import { fetchSessionData } from "@/redux/SessionSlice";
 
 export default function EditProfile({ onclose }: { onclose: () => void }) {
   const session = useAppSelector((state) => state.session);
   const dispatch = useAppDispatch();
-  //console.log(session);
   const { showError } = useToast();
   const [profileEditStatus, setProfileEditStatus] = useState<SUBMIT_STATUS>(
     SUBMIT_STATUS.INACTIVE

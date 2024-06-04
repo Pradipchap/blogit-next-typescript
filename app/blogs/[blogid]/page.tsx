@@ -2,11 +2,13 @@ import { singleBlogProps } from "@/types/createBlogTypes";
 import { BASE_URL } from "@/utils/constants";
 import React from "react";
 import Content from "@/app/blogs/[blogid]/Content";
-import authOptions from "@/utils/NextAuthOptions";
 import WriteBlog from "@/components/create/WriteBlog";
 import getServerSession from "@/custom_hooks/getServerSession";
-import SetLocalStorage from "./setLocalStorage";
-import IncreaseViews from "./IncreaseViews";
+import dynamic from "next/dynamic";
+const SetLocalStorage = dynamic(() => import("./setLocalStorage"), {
+  ssr: false,
+});
+const IncreaseViews = dynamic(() => import("./IncreaseViews"));
 
 type response = {
   blog: singleBlogProps;

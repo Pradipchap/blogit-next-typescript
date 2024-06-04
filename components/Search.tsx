@@ -7,7 +7,7 @@ export default function Search() {
   const router = useRouter();
   async function handleSearch(formData: FormData) {
     const searchString = formData.get("searchString");
-    router.push(`blogs/search/${searchString}`);
+    router.push(`/blogs/search/${searchString}`);
   }
 
   return (
