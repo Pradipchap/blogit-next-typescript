@@ -16,51 +16,59 @@ export default function BlogDetailsForm({
   submit,
   onclose,
   title,
+  genre,
+  image,
+  description,
+  blogId,
 }: {
   getFormData: (formData: detailsForm) => void;
   submit: () => { content: OutputData; formData: detailsForm };
+  genre: string;
   title: string;
+  image: string;
   onclose: () => void;
+  description: string;
+  blogId: string;
 }) {
   const router = useRouter();
   const { showSuccess, showError, showLoading } = useToast();
-  const   session  = useAppSelector(state=>state.session);
-  
+  const session = useAppSelector((state) => state.session);
+
   async function returnData(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    showLoading("posting blog");
-    const form = e.currentTarget;
-    const formdataInstnce = new FormData(form);
-    const formdata = Object.fromEntries(
-      formdataInstnce.entries()
-    ) as detailsForm;
-    //console.log("formdata", formdata);
-    getFormData(formdata);
-    const content = submit();
-    const data = new FormData();
-    data.append("title", content.formData.title);
-    data.append("genre", content.formData.genre);
-    data.append("description", content.formData.description);
-    data.append("image", content.formData.image!);
-    data.append("content", JSON.stringify(content.content));
-    data.append("userid", session?.userID as string);
-
     try {
+      showLoading("posting blog");
+      const form = e.currentTarget;
+      const formdataInstnce = new FormData(form);
+      const formdata = Object.fromEntries(
+        formdataInstnce.entries()
+      ) as detailsForm;
+      getFormData(formdata);
+      const content = submit();
+      const data = new FormData();
+      data.append("title", content.formData.title);
+      data.append("genre", content.formData.genre);
+      data.append("description", content.formData.description);
+      data.append("image", content.formData.image!);
+      data.append("content", JSON.stringify(content.content));
+      data.append("userid", session?.userID as string);
+      if (blogId !== "") data.append("blogId", blogId);
+
       const response = await fetch(`${BASE_URL}/api/blogs/create`, {
         method: "POST",
         body: data,
       });
       if (!response.ok) {
-        throw new Error("Blog upload not successfull");
+        throw "";
       }
-      showSuccess("Blog upload successfull");
+      showSuccess(`Blog ${blogId === "" ? "upload" : "updated"} successful`);
       onclose();
       document.body.style.overflow = "auto";
       sessionStorage.removeItem("editorContent");
       router.push("/");
     } catch (error) {
       //console.error("Error uploading blog:", error);
-      showError("Blog upload unsuccessful");
+      showError(`Blog ${blogId === "" ? "upload" : "updated"} unsuccessful`);
     }
   }
 
@@ -71,7 +79,7 @@ export default function BlogDetailsForm({
       className="grid grid-cols-2 rounded gap-5 w-max bg-white p-10"
     >
       <h3 className="col-span-2 text-xl">Add Details for your blogs</h3>
-      <ImageUpload required={true} />
+      <ImageUpload required={!image} defaultImage={image} />
       <div className="flex flex-col gap-5">
         <CustomInput
           type="text"
@@ -85,6 +93,7 @@ export default function BlogDetailsForm({
           type="text"
           placeholder="Blog genre"
           autoFocus
+          defaultValue={genre}
           required
           name="genre"
         />
@@ -95,11 +104,11 @@ export default function BlogDetailsForm({
           rows={3}
           minLength={40}
           required
+          defaultValue={description}
           name="description"
         />
         <Button
           type="submit"
-          onClick={() => {}}
           className="bg-green-600 w-full m-auto text-sm text-white border-none py-2 px-4 hover:bg-green-500"
         >
           Publish

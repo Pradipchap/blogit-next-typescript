@@ -29,7 +29,7 @@ function EmailVerification() {
       });
       if (await response.ok) {
         showSuccess("User successfully verified");
-        router.push("auth/login");
+        router.push("/auth/login");
       } else {
         showError("user cannot be verified");
       }

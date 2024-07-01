@@ -8,12 +8,22 @@ import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL } from "@/utils/constants";
 interface props {
   editorSave: () => Promise<{ content: OutputData; title: string }>;
+  isOwner: boolean;
+  blogId?: string;
 }
 
-export default function CreateActionButtons({ editorSave }: props) {
+export default function CreateActionButtons({
+  editorSave,
+  isOwner,
+  blogId,
+}: props) {
   return (
     <div>
-      <PopupOver content={<Content editorSave={editorSave} />}>
+      <PopupOver
+        content={
+          <Content editorSave={editorSave} isOwner={isOwner} blogId={blogId} />
+        }
+      >
         <button className="hover:bg-gray-200 transition-all duration-300 rotate-90 rounded-full flex justify-center items-center px-2 py-1">
           {" "}
           <Icon name="ThreeDots" className="text-black" />
@@ -23,12 +33,33 @@ export default function CreateActionButtons({ editorSave }: props) {
   );
 }
 
-function Content({ editorSave }: props) {
+function Content({ editorSave, isOwner, blogId }: props) {
   const { showSuccess, showError, showInfo, showLoading } = useToast();
   const router = useRouter();
+
   function ExitWithoutSaving() {
     sessionStorage.removeItem("editorContent");
     router.push("/");
+  }
+
+  async function deleteBlog() {
+    showLoading("deleting");
+
+    try {
+      const response = await fetch(`${BASE_URL}/api/blogs/delete`, {
+        method: "POST",
+        body: JSON.stringify({ blogId }),
+      });
+      if (!response.ok) {
+        throw new Error("Unsucessfull");
+      }
+      showSuccess("Blog deleted");
+      sessionStorage.removeItem("editorContent");
+      router.push("/");
+    } catch (error) {
+      //console.error("Error uploading blog:", error);
+      showError("Blog delete unsuccessful");
+    }
   }
   async function saveToDrafts() {
     const { content, title } = await editorSave();
@@ -65,14 +96,25 @@ function Content({ editorSave }: props) {
       >
         Save to Drafts
       </Button>
-      <Button
-        icon="Exit"
-        iconClassName="text-red-600"
-        className=" text-red-600 gap-3"
-        onClick={ExitWithoutSaving}
-      >
-        Exit Without Saving
-      </Button>
+      {isOwner ? (
+        <Button
+          icon="Delete"
+          iconClassName="text-red-600"
+          className=" text-red-600 gap-3"
+          onClick={deleteBlog}
+        >
+          Delete
+        </Button>
+      ) : (
+        <Button
+          icon="Exit"
+          iconClassName="text-red-600"
+          className=" text-red-600 gap-3"
+          onClick={ExitWithoutSaving}
+        >
+          Exit Without Saving
+        </Button>
+      )}
     </div>
   );
 }

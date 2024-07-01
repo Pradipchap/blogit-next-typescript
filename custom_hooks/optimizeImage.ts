@@ -14,7 +14,6 @@ async function optimizeImage(image: File) {
       .then((data) => {
         const imageData = data.toString("base64");
         const dataURL = `data:image/jpeg;base64,${imageData}`;
-
         return dataURL;
       });
     return optimizedImage;

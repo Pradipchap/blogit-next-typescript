@@ -20,7 +20,7 @@ export default async function PopularPosts() {
         return (
           <Fragment key={item._id}>
             <Post
-              userimage={item.userid.image}
+              userimage={item.userid?.image}
               username={item.userid.username}
               _id={item._id}
               title={item.title}

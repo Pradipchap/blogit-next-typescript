@@ -10,18 +10,19 @@ import {
   ErrorInterface,
   LoginResult,
 } from "@/types/dataTypes";
-import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
+import { BASE_URL, ErrorCodes, SUBMIT_STATUS } from "@/utils/constants";
 import Link from "next/link";
 import setCookie from "@/custom_hooks/setCookie";
 import { fetchSessionData } from "@/redux/SessionSlice";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { showError } = useToast();
   const [loginStatus, setLoginStatus] = useState<SUBMIT_STATUS>(
     SUBMIT_STATUS.INACTIVE
   );
-
+  const router = useRouter();
   async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     //console.log(e);
@@ -47,6 +48,9 @@ export default function Page() {
       } else {
         //console.log("error");
         const error: ErrorInterface = await response.json();
+        if (error.errorCode === ErrorCodes.EMAIL_NOT_VERIFIED) {
+          router.push(`/auth/verifyemail?email=${email}`);
+        }
         throw error.errorMessage;
       }
     } catch (error) {

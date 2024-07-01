@@ -17,9 +17,20 @@ const EditorJs = dynamic(() => import("@/components/editorjs/Editor"), {
 interface props {
   data?: OutputData;
   title?: string;
+  image?: string;
+  genre?: string;
+  description?: string;
+  blogId?: string;
 }
 
-export default function WriteBlog({ data, title }: props) {
+export default function WriteBlog({
+  data,
+  title,
+  image,
+  genre,
+  description,
+  blogId,
+}: props) {
   const editorInstance = useRef<EditorJSType>();
   const titleRef = useRef<HTMLInputElement | null>(null);
   class output {
@@ -77,17 +88,17 @@ export default function WriteBlog({ data, title }: props) {
   return (
     <section className="relative flex flex-col justify-center items-center gap-10 pt-5">
       <div className="absolute right-0 top-5 flex justify-center items-center gap-5">
-        <CreateActionButtons editorSave={editorandform.saveEditorContent} />
+        <CreateActionButtons
+          isOwner={!!data}
+          blogId={blogId}
+          editorSave={editorandform.saveEditorContent}
+        />
         <Button
           type="submit"
-          // disabled={JSON.parse(
-          //   sessionStorage.getItem("editorContent") ||
-          //     JSON.stringify({ blocks: [] })
-          // ).time===data?.time}
           onClick={editorandform.getContent}
           className="bg-green-600 text-sm disabled:bg-green-300 disabled:hover:bg-green-300 text-white border-none py-2 px-3 hover:bg-green-500"
         >
-          Publish
+          {data ? "update" : "publish"}
         </Button>
       </div>
       <div className="flex flex-col items-center w-full gap-20 relative mt-10">
@@ -117,10 +128,14 @@ export default function WriteBlog({ data, title }: props) {
         createPortal(
           <Modal onclose={() => setIsModalOpen(false)}>
             <BlogDetailsForm
+              blogId={blogId || ""}
               onclose={() => setIsModalOpen(false)}
+              image={image || ""}
               title={editorandform.formData.title}
+              genre={genre || ""}
               getFormData={editorandform.getFormData}
               submit={editorandform.returnAll}
+              description={description || ""}
             />
           </Modal>,
           document.body

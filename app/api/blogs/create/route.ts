@@ -19,29 +19,39 @@ const POST = async (request: NextRequest) => {
     }
     const data = await request.formData();
     await connectToDB();
-    const { title, genre, description, userid, content, image } =
+    const { title, genre, description, userid, content, image, blogId } =
       Object.fromEntries(data.entries());
-    if (!title || !genre || !description || !userid || !content || !image) {
+    const imageFile = image as File;
+    if (!title || !genre || !description || !userid || !content) {
       throw "Missing required fields.";
     }
-    const buffer = await optimizeImage(image as File);
-    await console.log(await buffer);
+    let buffer = "";
+    if (imageFile.size > 0) {
+      buffer = await optimizeImage(image as File);
+    }
     const parsedContent = await JSON.parse(content as string);
-    await console.log(parsedContent);
-
-    const newBlog = await new Blog({
-      userid,
-      title,
-      genre,
-      date: Date.now(),
-      description,
-      image: buffer,
-      content: parsedContent,
-      popularity: 2,
-    });
-
-    await newBlog.save();
-    return new NextResponse(JSON.stringify(newBlog), { status: 200 });
+    if (blogId) {
+      await Blog.findByIdAndUpdate(blogId, {
+        userid,
+        title,
+        genre,
+        description,
+        ...(buffer !== "" ? { image: buffer } : {}),
+        content: parsedContent,
+      });
+    } else {
+      await Blog.create({
+        userid,
+        title,
+        genre,
+        date: Date.now(),
+        description,
+        image: buffer,
+        content: parsedContent,
+        popularity: 2,
+      });
+    }
+    return new NextResponse("", { status: 200 });
   } catch (error) {
     return new NextResponse(
       JSON.stringify({
