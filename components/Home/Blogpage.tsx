@@ -1,13 +1,13 @@
 "use client";
 
 import React, { memo, useState } from "react";
-import { singleBlogProps } from "@/types/createBlogTypes";
-import BlogCardSkeleton from "../skeletons/BlogCardSkeleton";
-import useFetchBlog from "@/custom_hooks/useFetchBlog";
-import Pagination from "../Pagination";
-import { BASE_URL } from "@/utils/constants";
 import dynamic from "next/dynamic";
+import { singleBlogProps } from "@/types/createBlogTypes";
 
+import useFetchBlog from "@/custom_hooks/useFetchBlog";
+import { BASE_URL } from "@/utils/constants";
+const Pagination = dynamic(() => import("../Pagination"));
+const BlogCardSkeleton = dynamic(() => import("../skeletons/BlogCardSkeleton"));
 const BlogCard = dynamic(() => import("@/components/Home/BlogCard"), {
   ssr: false,
 });

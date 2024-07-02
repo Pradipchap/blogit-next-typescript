@@ -8,14 +8,9 @@ async function optimizeImage(image: File) {
     const x = await image.arrayBuffer();
     const buffer = Buffer.from(x);
     const optimizedImage = await sharp(buffer)
-      .jpeg({ mozjpeg: true })
+      .webp({ lossless: true })
       .resize({ width: 500, height: 400 })
-      .toBuffer()
-      .then((data) => {
-        const imageData = data.toString("base64");
-        const dataURL = `data:image/jpeg;base64,${imageData}`;
-        return dataURL;
-      });
+      .toBuffer();
     return optimizedImage;
   } catch (error) {
     throw new Error("Error optimizing image");

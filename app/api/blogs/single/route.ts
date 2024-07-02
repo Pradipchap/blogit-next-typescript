@@ -17,6 +17,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
+    console.log(error)
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,

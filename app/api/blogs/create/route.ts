@@ -5,6 +5,7 @@ import Blog from "@/models/blogModel";
 import { ErrorCodes } from "@/utils/constants";
 import getApiCookie from "@/custom_hooks/getApiCookie";
 import sendError from "@/utils/sendError";
+import { put } from "@vercel/blob";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
@@ -25,9 +26,15 @@ const POST = async (request: NextRequest) => {
     if (!title || !genre || !description || !userid || !content) {
       throw "Missing required fields.";
     }
-    let buffer = "";
+    let imageUrl = "";
     if (imageFile.size > 0) {
-      buffer = await optimizeImage(image as File);
+      const fileName = imageFile.name.split(".")[0];
+      const optimizedImage = await optimizeImage(imageFile as File);
+
+      const imageDetails = await put(`${fileName}.webp`, optimizedImage, {
+        access: "public",
+      });
+      imageUrl = imageDetails.url;
     }
     const parsedContent = await JSON.parse(content as string);
     if (blogId) {
@@ -36,7 +43,7 @@ const POST = async (request: NextRequest) => {
         title,
         genre,
         description,
-        ...(buffer !== "" ? { image: buffer } : {}),
+        ...(imageUrl !== "" ? { image: imageUrl } : {}),
         content: parsedContent,
       });
     } else {
@@ -46,7 +53,7 @@ const POST = async (request: NextRequest) => {
         genre,
         date: Date.now(),
         description,
-        image: buffer,
+        image: imageUrl,
         content: parsedContent,
         popularity: 2,
       });

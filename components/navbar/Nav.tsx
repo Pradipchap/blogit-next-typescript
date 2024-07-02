@@ -15,7 +15,7 @@ export default function Nav({ children }: { children: ReactNode }) {
        h-14 bg-white flex justify-between items-center px-3 xl:px-10`}
       >
         <Link href="/">
-          <Image src={Logo} width={70} height={70} alt="logo" />
+          <Image src={Logo} width={70} height={70} alt="logo" loading="lazy" />
         </Link>
         <div className="flex gap-3 lg:gap-6 items-center">
           <div className={`gap-6 sm:flex sm:flex-row hidden items-center`}>

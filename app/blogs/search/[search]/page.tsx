@@ -7,8 +7,7 @@ export default async function Page({ params }: { params: { search: string } }) {
   console.log("search params", params.search);
   try {
     const response = await fetch(
-      `${BASE_URL}/api/blogs/search?searchString=${params.search}`,
-      { cache: "no-cache" }
+      `${BASE_URL}/api/blogs/search?searchString=${params.search}`
     );
     const data: responseType = await response.json();
     console.log(await data.blogs);

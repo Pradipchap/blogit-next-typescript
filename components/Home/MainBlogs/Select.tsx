@@ -1,6 +1,5 @@
-import React, { Key, useState } from "react";
+import React from "react";
 import { TabsInterface } from "@/types/componentTypes";
-import { useRouter, useSearchParams } from "next/navigation";
 import classNames from "@/utils/classNames";
 
 interface selectTabProps {

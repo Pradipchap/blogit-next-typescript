@@ -5,9 +5,10 @@ import ImageUpload from "@/components/create/ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
 import React, { FormEvent, useState } from "react";
-import { useAppSelector,useAppDispatch } from "@/app/reduxhooks";
+import { useAppSelector, useAppDispatch } from "@/app/reduxhooks";
 import updateProfile from "@/custom_hooks/updateProfile";
 import { fetchSessionData } from "@/redux/SessionSlice";
+import { useRouter } from "next/navigation";
 
 export default function EditProfile({ onclose }: { onclose: () => void }) {
   const session = useAppSelector((state) => state.session);
@@ -16,6 +17,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
   const [profileEditStatus, setProfileEditStatus] = useState<SUBMIT_STATUS>(
     SUBMIT_STATUS.INACTIVE
   );
+  const router = useRouter();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,6 +38,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
       document.body.style.overflow = "auto";
       sessionStorage.removeItem("editorContent");
       onclose();
+      router.refresh();
     } catch (error) {
       //console.error("Error updating profile:", error);
       setProfileEditStatus(SUBMIT_STATUS.FAILED);

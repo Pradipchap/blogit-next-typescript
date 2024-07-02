@@ -1,4 +1,3 @@
-
 import React from "react";
 import "./globals.css";
 import type { Metadata } from "next";
@@ -8,6 +7,7 @@ import ReduxProvider from "@/redux/ReduxProvider";
 import ProfileNav from "@/components/navbar/ProfileNav";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Toast from "@/components/popups/Toast";
+import { BASE_URL } from "@/utils/constants";
 
 const inter = Fira_Sans({ subsets: ["latin"], weight: ["400", "700", "200"] });
 
@@ -23,14 +23,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="dns-prefetch" href={`${BASE_URL}`} />
+        <link rel="preconnect" href={`${BASE_URL}`} />
+      </head>
       <body className={inter.className}>
-          <ReduxProvider>
-            <Toast />
-            <Nav>
-              <ProfileNav/>
-            </Nav>
-            {children}
-          </ReduxProvider>
+        <ReduxProvider>
+          <Toast />
+          <Nav>
+            <ProfileNav />
+          </Nav>
+          {children}
+        </ReduxProvider>
       </body>
     </html>
   );

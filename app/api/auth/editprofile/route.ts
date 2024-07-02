@@ -33,7 +33,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       {
         ...(dateofbirth !== "" ? { dateofbirth: dateofbirth } : {}),
         ...(phone !== "" ? { phone: phone } : {}),
-        ...(imageUrl !== "" ? { image: imageUrl } : {}),
+        ...(phone !== "" ? { image: imageUrl } : {}),
       },
       { new: true }
     );

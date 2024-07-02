@@ -5,9 +5,7 @@ import Link from "next/link";
 import React, { Fragment } from "react";
 
 export default async function PopularPosts() {
-  const response = await fetch(`${BASE_URL}/api/blogs/popularblogs`, {
-    cache: "no-cache",
-  });
+  const response = await fetch(`${BASE_URL}/api/blogs/popularblogs`);
   if (!response.ok) {
     return <p>sorry something went wrong</p>;
   }
