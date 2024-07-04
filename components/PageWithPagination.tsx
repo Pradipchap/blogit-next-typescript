@@ -1,4 +1,4 @@
-import React from "react";
+
 import Blogpage from "./Home/Blogpage";
 
 type props = {

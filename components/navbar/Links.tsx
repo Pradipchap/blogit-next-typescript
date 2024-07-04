@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 import { TNavItems } from "@/types/navTypes";
 import classNames from "@/utils/classNames";
 import Icon from "../Icon";

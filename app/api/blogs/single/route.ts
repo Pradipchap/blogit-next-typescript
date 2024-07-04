@@ -8,6 +8,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
   const id = await request.nextUrl.searchParams.get("blogid");
   try {
     const blog = await Blog.findById(id).populate("userid");
+    console.log(JSON.stringify(await blog));
     return new NextResponse(
       JSON.stringify({
         blog,
@@ -17,7 +18,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,

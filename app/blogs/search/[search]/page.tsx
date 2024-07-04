@@ -1,7 +1,6 @@
 import BlogCard from "@/components/Home/BlogCard";
 import { responseType } from "@/types/dataTypes";
 import { BASE_URL } from "@/utils/constants";
-import React from "react";
 
 export default async function Page({ params }: { params: { search: string } }) {
   console.log("search params", params.search);

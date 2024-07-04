@@ -1,6 +1,6 @@
 "use client";
 import classNames from "@/utils/classNames";
-import React, { InputHTMLAttributes, useState } from "react";
+import  { InputHTMLAttributes, useState } from "react";
 import Icon from "../Icon";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

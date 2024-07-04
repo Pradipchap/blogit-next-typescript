@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import EditorJS from "@editorjs/editorjs";
 import { OutputData } from "@editorjs/editorjs";
 

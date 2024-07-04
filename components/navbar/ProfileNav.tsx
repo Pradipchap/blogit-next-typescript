@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import Login from "./Logout";
 import Icon from "../Icon";
 import PopupOver from "../popups/Popup";
@@ -11,7 +10,6 @@ import getServerSession from "@/custom_hooks/getServerSession";
 
 export default async function ProfileNav() {
   const session = await getServerSession();
-  //console.log(session);
   if (session) {
     const lists = ProfileNavList.concat([
       { name: "Profile", iconName: "Profile", href: "/profile" },

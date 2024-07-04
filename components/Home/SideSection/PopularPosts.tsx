@@ -2,7 +2,7 @@ import { responseType } from "@/types/dataTypes";
 import { BASE_URL } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Fragment } from "react";
+import  { Fragment } from "react";
 
 export default async function PopularPosts() {
   const response = await fetch(`${BASE_URL}/api/blogs/popularblogs`);

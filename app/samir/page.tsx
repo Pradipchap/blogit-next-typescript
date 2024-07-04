@@ -1,4 +1,4 @@
-import React from "react";
+
 import SamirImage from "@/public/img01.png";
 import Image from "next/image";
 

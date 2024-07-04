@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppSelector } from "@/app/reduxhooks";
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { createPortal } from "react-dom";
 import Icon from "../Icon";
 import { useToast } from "@/custom_hooks/useToast";

@@ -4,7 +4,7 @@ import CustomInput from "@/components/Inputs/CustomInput";
 import ImageUpload from "@/components/create/ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
 import { BASE_URL, SUBMIT_STATUS } from "@/utils/constants";
-import React, { FormEvent, useState } from "react";
+import  { FormEvent, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/app/reduxhooks";
 import updateProfile from "@/custom_hooks/updateProfile";
 import { fetchSessionData } from "@/redux/SessionSlice";

@@ -1,4 +1,3 @@
-import React from "react";
 import BlogCard from "@/components/Home/BlogCard";
 import { singleBlogProps } from "@/types/createBlogTypes";
 import { BASE_URL } from "@/utils/constants";

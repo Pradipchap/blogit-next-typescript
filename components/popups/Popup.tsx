@@ -1,6 +1,6 @@
 "use client";
 
-import React, {
+import {
   Fragment,
   ReactElement,
   ReactNode,

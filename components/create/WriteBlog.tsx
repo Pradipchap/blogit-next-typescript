@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
+import  { useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import EditorJSType from "@editorjs/editorjs";
 import BlogDetailsForm from "./BlogDetailsForm";

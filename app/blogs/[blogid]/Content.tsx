@@ -1,7 +1,7 @@
 "use client";
 
 import { OutputData } from "@editorjs/editorjs";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import EditorJSType from "@editorjs/editorjs";
 const EditorJs = dynamic(() => import("@/components/editorjs/Editor"));
 import Image from "next/image";

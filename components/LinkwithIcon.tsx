@@ -1,4 +1,4 @@
-import React from "react";
+
 import classNames from "@/utils/classNames";
 import Icon from "./Icon";
 import { TNavItems } from "@/types/navTypes";

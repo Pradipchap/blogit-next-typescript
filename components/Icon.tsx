@@ -1,5 +1,5 @@
 import classNames from "@/utils/classNames";
-import React from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGaugeHigh,

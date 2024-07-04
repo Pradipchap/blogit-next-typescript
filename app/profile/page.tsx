@@ -1,4 +1,4 @@
-import React from "react";
+
 const ProfileSection = dynamic(
   () => import("../../components/profileComponents/ProfileSection"),
   { ssr: false }

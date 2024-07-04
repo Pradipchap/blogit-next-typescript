@@ -1,9 +1,8 @@
 "use client";
 
-import React, { memo, useState } from "react";
+import  { memo, useState } from "react";
 import dynamic from "next/dynamic";
 import { singleBlogProps } from "@/types/createBlogTypes";
-
 import useFetchBlog from "@/custom_hooks/useFetchBlog";
 import { BASE_URL } from "@/utils/constants";
 const Pagination = dynamic(() => import("../Pagination"));

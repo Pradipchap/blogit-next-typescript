@@ -1,6 +1,5 @@
 import { singleBlogProps } from "@/types/createBlogTypes";
 import { BASE_URL } from "@/utils/constants";
-import React from "react";
 import Content from "@/app/blogs/[blogid]/Content";
 import WriteBlog from "@/components/create/WriteBlog";
 import getServerSession from "@/custom_hooks/getServerSession";
@@ -21,6 +20,9 @@ export default async function Page({ params }: { params: { blogid: string } }) {
     const response = await fetch(
       `${BASE_URL}/api/blogs/single?blogid=${params.blogid}`
     );
+    if(!response.ok){
+      throw ""
+    }
     const data: response = await response.json();
     const {
       title,
@@ -39,7 +41,7 @@ export default async function Page({ params }: { params: { blogid: string } }) {
           description={description}
           genre={genre}
         />
-        {userid._id === session.userID ? (
+        {userid._id === session?.userID ? (
           <WriteBlog
             data={content}
             title={title}
@@ -54,6 +56,7 @@ export default async function Page({ params }: { params: { blogid: string } }) {
       </div>
     );
   } catch (error) {
+    console.log(error)
     return <h1>error while getting blog</h1>;
   }
 }

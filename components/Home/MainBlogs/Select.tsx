@@ -1,4 +1,4 @@
-import React from "react";
+
 import { TabsInterface } from "@/types/componentTypes";
 import classNames from "@/utils/classNames";
 

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import Button from "./Button";
 import deleteCookies from "@/custom_hooks/deleteCookies";
 import { useRouter } from "next/navigation";

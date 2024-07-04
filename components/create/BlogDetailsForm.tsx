@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent } from "react";
+import  { FormEvent } from "react";
 import Button from "../Button";
 import { useSession } from "next-auth/react";
 import { OutputData } from "@editorjs/editorjs";

@@ -1,4 +1,4 @@
-import React from "react";
+
 
 export default function OrDivider({ text = "or" }: { text?: string }) {
   return (

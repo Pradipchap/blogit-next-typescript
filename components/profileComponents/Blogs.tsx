@@ -1,5 +1,5 @@
 "use client";
-import React, { Key, useState } from "react";
+import  { Key, useState } from "react";
 import Select from "@/components/Home/MainBlogs/Select";
 import Blogpage from "@/components/Home/Blogpage";
 import { TabsInterface } from "@/types/componentTypes";

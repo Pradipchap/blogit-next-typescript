@@ -1,5 +1,5 @@
 import { BASE_URL } from "@/utils/constants";
-import React from "react";
+
 
 const PopularPostsList = ["science", "politics", "sport", "election", "health"];
 export default async function PopularTopics() {

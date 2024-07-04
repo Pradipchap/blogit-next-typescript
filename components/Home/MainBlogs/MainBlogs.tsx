@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useSearchParams } from "next/navigation";
 import { TabsInterface } from "@/types/componentTypes";
 import { BASE_URL } from "@/utils/constants";

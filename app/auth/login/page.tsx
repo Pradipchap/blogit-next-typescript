@@ -8,7 +8,6 @@ import { useToast } from "@/custom_hooks/useToast";
 import {
   CookieInterface,
   ErrorInterface,
-  LoginResult,
 } from "@/types/dataTypes";
 import { BASE_URL, ErrorCodes, SUBMIT_STATUS } from "@/utils/constants";
 import Link from "next/link";

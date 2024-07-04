@@ -1,6 +1,6 @@
 import classNames from "@/utils/classNames";
 import Image from "next/image";
-import React, { ChangeEvent, useRef, useState } from "react";
+import  { ChangeEvent, useRef, useState } from "react";
 import Icon from "../Icon";
 
 interface props {

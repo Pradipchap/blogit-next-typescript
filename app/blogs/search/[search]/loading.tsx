@@ -1,5 +1,4 @@
 import BlogCardSkeleton from "@/components/skeletons/BlogCardSkeleton";
-import React from "react";
 
 export default function Loading() {
   return (

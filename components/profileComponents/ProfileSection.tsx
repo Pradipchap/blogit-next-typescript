@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import  { ReactNode, useState } from "react";
 import Button from "@/components/Button";
 import EditProfile from "./EditProfile";
 import Modal from "@/components/popups/Modal";

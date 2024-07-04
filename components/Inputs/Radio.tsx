@@ -1,5 +1,5 @@
 import classNames from "@/utils/classNames";
-import React, { InputHTMLAttributes } from "react";
+import  { InputHTMLAttributes } from "react";
 
 interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;

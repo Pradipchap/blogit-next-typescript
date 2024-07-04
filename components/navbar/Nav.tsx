@@ -1,5 +1,6 @@
 "use client";
-import React, { ReactNode } from "react";
+
+import { ReactNode } from "react";
 import Links from "./Links";
 import { Navlist } from "@/utils/constants";
 import Search from "../Search";

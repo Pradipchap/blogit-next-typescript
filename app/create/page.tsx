@@ -1,5 +1,4 @@
 import WriteBlog from "@/components/create/WriteBlog";
-import React from "react";
 
 export default function Create() {
   return (
