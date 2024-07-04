@@ -28,14 +28,12 @@ function Form() {
       setEmailSubmissionStatus(SUBMIT_STATUS.PROCESSING);
       const formData = new FormData(e.currentTarget);
       const email = await formData.get("email");
-      //console.log(email);
       const response = await fetch(BASE_URL + "/api/auth/forgotPassword", {
         method: "POST",
         body: JSON.stringify({ email }),
       });
 
       if (!response.ok) {
-        //console.log("asd");
         throw "";
       }
       setEmailSubmissionStatus(SUBMIT_STATUS.SUCCESS);
@@ -44,7 +42,6 @@ function Form() {
     } catch (error) {
       setEmailSubmissionStatus(SUBMIT_STATUS.FAILED);
       showError((error as string) || "failed, try again");
-      //console.log(error);
       setTimeout(() => {
         setEmailSubmissionStatus(SUBMIT_STATUS.INACTIVE);
       }, 3000);
@@ -60,7 +57,6 @@ function Form() {
       otp += element;
     });
 
-    //console.log(Number(otp));
 
     const email = params.get("email");
     const requestData = { email, code: Number(otp) };

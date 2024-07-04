@@ -3,13 +3,11 @@ import { responseType } from "@/types/dataTypes";
 import { BASE_URL } from "@/utils/constants";
 
 export default async function Page({ params }: { params: { search: string } }) {
-  console.log("search params", params.search);
   try {
     const response = await fetch(
       `${BASE_URL}/api/blogs/search?searchString=${params.search}`
     );
     const data: responseType = await response.json();
-    console.log(await data.blogs);
     return (
       <div className="flex flex-col gap-5">
         {data.blogs.map((blog) => {

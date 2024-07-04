@@ -48,7 +48,6 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
       }, 3000);
     }
   }
-  //console.log(session);
   return (
     <form
       onSubmit={handleSubmit}

@@ -56,7 +56,6 @@ export default async function Page({ params }: { params: { blogid: string } }) {
       </div>
     );
   } catch (error) {
-    console.log(error)
     return <h1>error while getting blog</h1>;
   }
 }

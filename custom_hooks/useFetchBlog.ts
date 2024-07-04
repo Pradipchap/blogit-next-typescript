@@ -26,7 +26,6 @@ export default function useFetchBlog({
 
   useEffect(() => {
     async function getData() {
-      //console.log(body);
       try {
         const response = await fetch(
           api,

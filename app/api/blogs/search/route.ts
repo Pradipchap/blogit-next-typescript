@@ -24,7 +24,6 @@ const GET = async (req: NextRequest, res: NextResponse) => {
     ];
     const blogs = await Blog.aggregate(pipeline).limit(5);
     const noOfBlogs = 5;
-    console.log(blogs)
     return new NextResponse(
       JSON.stringify({ blogs: blogs, noOfBlogs: noOfBlogs })
     );

@@ -25,7 +25,6 @@ const GET = async (request: NextRequest, response: NextResponse) => {
     const noOfBlogs = await Draft.countDocuments({});
     const skippingNumber =
       pageNo === 0 ? 0 : pageNo === 1 ? 0 : (pageNo - 1) * 5;
-    //console.log(skippingNumber);
     const drafts = await Draft.find({ userid: session.userID })
       .populate("userid")
       .sort({ date: -1 })

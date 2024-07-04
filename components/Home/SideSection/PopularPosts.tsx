@@ -10,7 +10,6 @@ export default async function PopularPosts() {
     return <p>sorry something went wrong</p>;
   }
   const data: responseType = await response.json();
-  //console.log(data.blogs);
   return (
     <div>
       <p className="mb-8 font-medium text-xl">Popular Posts</p>

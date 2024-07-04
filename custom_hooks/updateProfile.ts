@@ -6,8 +6,6 @@ export default function updateProfile(
   expiresIn: string,
   accessToken: string
 ) {
-  //console.log(expiresIn);
-  //console.log(data);
   const updatedData: CookieInterface = {
     accessToken,
     expiresIn: expiresIn,

@@ -8,7 +8,6 @@ export default async function getServerSession() {
   try {
     const cookie = await cookies().get("blogit")?.value;
     if (typeof cookie === "undefined") {
-      console.log("d");
       throw "";
     }
     const session = await JSON.parse(cookie);

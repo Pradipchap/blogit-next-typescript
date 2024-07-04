@@ -19,7 +19,6 @@ const POST = async (req: NextRequest) => {
     if (!userDetail) {
       return sendError(ErrorCodes.USER_NOT_FOUND, "sorry user not found", 401);
     }
-    //console.log("first");
     const userVerifiedDate = await userDetail.verifiedAt;
     if (!userVerifiedDate) {
       return sendError(
@@ -40,7 +39,6 @@ const POST = async (req: NextRequest) => {
           expiresIn: 86400,
         }
       );
-      //console.log(userDetail.user._id.toString());
       return new NextResponse(
         JSON.stringify({
           accessToken: token,

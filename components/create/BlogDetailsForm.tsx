@@ -67,7 +67,6 @@ export default function BlogDetailsForm({
       sessionStorage.removeItem("editorContent");
       router.push("/");
     } catch (error) {
-      //console.error("Error uploading blog:", error);
       showError(`Blog ${blogId === "" ? "upload" : "updated"} unsuccessful`);
     }
   }

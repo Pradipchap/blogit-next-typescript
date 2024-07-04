@@ -33,7 +33,7 @@ export default function CreateActionButtons({
 }
 
 function Content({ editorSave, isOwner, blogId }: props) {
-  const { showSuccess, showError, showInfo, showLoading } = useToast();
+  const { showSuccess, showError, showLoading } = useToast();
   const router = useRouter();
 
   function ExitWithoutSaving() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 import Links from "./Links";
 import { Navlist } from "@/utils/constants";
 import Search from "../Search";
@@ -8,7 +8,7 @@ import Logo from "@/public/logo-no-background.svg";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Nav({ children }: { children: ReactNode }) {
+const Nav = memo(function x({ children }: { children: ReactNode }) {
   return (
     <div className="h-14 ">
       <nav
@@ -37,4 +37,5 @@ export default function Nav({ children }: { children: ReactNode }) {
       </nav>
     </div>
   );
-}
+});
+export default Nav;

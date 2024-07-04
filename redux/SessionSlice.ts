@@ -8,11 +8,8 @@ export const fetchSessionData = createAsyncThunk("session", async () => {
     if (cookieValue === null) {
       throw "";
     }
-    //console.log("first")
-    //console.log(cookieValue);
     return cookieValue;
   } catch (error) {
-    //console.log(error);
     return null;
   }
 });

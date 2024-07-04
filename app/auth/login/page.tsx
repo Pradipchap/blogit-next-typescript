@@ -24,7 +24,6 @@ export default function Page() {
   const router = useRouter();
   async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    //console.log(e);
     const formData = new FormData(e.currentTarget as HTMLFormElement);
     const email = formData.get("email");
     const password = formData.get("password");
@@ -40,12 +39,10 @@ export default function Page() {
       if (response.ok) {
         setLoginStatus(SUBMIT_STATUS.SUCCESS);
         const result: CookieInterface = await response.json();
-        //console.log(result);
         setCookie("blogit", result, 1);
         fetchSessionData();
         window.location.assign("/");
       } else {
-        //console.log("error");
         const error: ErrorInterface = await response.json();
         if (error.errorCode === ErrorCodes.EMAIL_NOT_VERIFIED) {
           router.push(`/auth/verifyemail?email=${email}`);
@@ -53,7 +50,6 @@ export default function Page() {
         throw error.errorMessage;
       }
     } catch (error) {
-      //console.log(error);
       setLoginStatus(SUBMIT_STATUS.FAILED);
       showError(error as string);
       setTimeout(() => {

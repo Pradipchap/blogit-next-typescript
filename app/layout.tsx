@@ -1,11 +1,12 @@
 import "./globals.css";
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Nav from "../components/navbar/Nav";
 import ReduxProvider from "@/redux/ReduxProvider";
 import ProfileNav from "@/components/navbar/ProfileNav";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import Toast from "@/components/popups/Toast";
+const Toast = dynamic(() => import("@/components/popups/Toast"));
 import { BASE_URL } from "@/utils/constants";
 import { ReactNode } from "react";
 

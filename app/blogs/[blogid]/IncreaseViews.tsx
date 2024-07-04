@@ -13,9 +13,7 @@ export default function IncreaseViews({ blogid }: props) {
           method: "POST",
           body: JSON.stringify({ blogid }),
         });
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
     increaseViews();
   }, []);

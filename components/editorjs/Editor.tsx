@@ -19,11 +19,9 @@ export default function EditorJs({
     const editor = new EditorJS({
       holder: "editor",
       onReady: () => {
-        //console.log("Editor js is ready");
         editorInstance.current = editor;
       },
       onChange: async (api, event) => {
-        //console.log("editor is changed", event);
         if (editorInstance.current) {
           if (isReadOnly) {
             return;
@@ -49,7 +47,6 @@ export default function EditorJs({
 
   useEffect(
     () => {
-      //console.log("editor js compoentnt");
       if (!editorInstance.current) {
         initializeEditor();
       }
