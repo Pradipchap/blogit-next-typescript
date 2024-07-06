@@ -1,4 +1,3 @@
-
 import classNames from "@/utils/classNames";
 import Icon from "./Icon";
 import { ButtonProps } from "@/types/componentTypes";
@@ -51,7 +50,9 @@ export default function Button(props: ButtonProps) {
       )}
       {status !== SUBMIT_STATUS.INACTIVE ? (
         <span className="ml-1">
-         {buttonStatus.icon&& <Icon name={buttonStatus.icon} className="text-white text-xl" />}
+          {buttonStatus.icon && (
+            <Icon name={buttonStatus.icon} className="text-white text-xl" />
+          )}
         </span>
       ) : (
         children

@@ -1,4 +1,5 @@
 import { SUBMIT_STATUS } from "@/utils/constants";
+import { ButtonHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
 
 export interface TabsInterface {
   label: string;
@@ -6,7 +7,10 @@ export interface TabsInterface {
 }
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   className?: string;
   variant?: "primary" | "muted";
   icon?: string;

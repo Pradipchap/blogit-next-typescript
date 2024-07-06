@@ -7,6 +7,16 @@
   --background-rgb: 255, 255, 255;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -webkit-scrollbar-width: none;
+  -moz-scrollbar-width: none;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
