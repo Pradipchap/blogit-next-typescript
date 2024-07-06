@@ -17,6 +17,7 @@ export default function useIntersection({ watcher, buttonRef }: props) {
       (entries) => {
         console.log(entries[0].isIntersecting);
         if (entries[0].isIntersecting) {
+          console.log("first");
           buttonElement.style.opacity = "0%";
         } else {
           buttonElement.style.opacity = "100%";

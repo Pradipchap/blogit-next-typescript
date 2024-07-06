@@ -1,11 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { PopularPostsList } from "@/utils/constants";
-import Link from "next/link";
-import React, { useRef } from "react";
-import Button from "./Button";
+import { useRef } from "react";
 import useIntersection from "@/custom_hooks/useIntersection";
-import Icon from "./Icon";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+const Icon = dynamic(() => import("./Icon"));
 
 export default function TopicsScroll() {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -13,11 +14,14 @@ export default function TopicsScroll() {
   const rightScroll = useRef<HTMLAnchorElement | null>(null);
   const leftButton = useRef<HTMLButtonElement | null>(null);
   const rightButton = useRef<HTMLButtonElement | null>(null);
-  const isLeftInterSecting = useIntersection({
+  const params = usePathname();
+  const topic = params.split("/")[2];
+
+  useIntersection({
     watcher: leftScroll,
     buttonRef: leftButton,
   });
-  const isRightInterSecting = useIntersection({
+  useIntersection({
     watcher: rightScroll,
     buttonRef: rightButton,
   });
@@ -35,7 +39,7 @@ export default function TopicsScroll() {
   return (
     <div
       ref={scrollContainerRef}
-      className="relative flex gap-2 w-[90%] scroll-smooth overflow-y-clip md:w-[80%] lg:w-[70%] overflow-x-auto no-scrollbar"
+      className="relative flex items-center h-10 gap-2 w-[90%] scroll-smooth overflow-y-clip md:w-[80%] lg:w-[70%] overflow-x-auto no-scrollbar"
     >
       {" "}
       <button
@@ -56,24 +60,16 @@ export default function TopicsScroll() {
                 ? rightScroll
                 : null
             }
+            className={`py-2 text-center px-4 rounded-3xl text-[15px] font-normal text-gray-900 bg-gray-100 ${
+              topic === item ? "border border-gray-500" : ""
+            }`}
             href={`/topics/${item}`}
             key={item}
-            className="px-3 py-1.5 rounded-3xl border text-base font-medium border-black"
           >
             {item}
           </Link>
         );
       })}
-      {/* <Button
-        ref={rightButton}
-        onClick={rightScrollhandler}
-        icon="Right"
-        className="sticky right-0 py-0 bg-gradient-to-l from-white via-white/70 backdrop-blur-[0.2px] to-white/30"
-        iconAlignment="right"
-        iconClassName="opacity-60"
-      >
-        <div className="h-full w-10" />
-      </Button> */}
       <button
         ref={rightButton}
         onClick={rightScrollhandler}

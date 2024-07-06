@@ -36,4 +36,19 @@ const ErrorMessages = [
 
 export const NUMBER_REGEX = /^[0-9]*$/;
 
-export const PopularPostsList = ["science", "politics", "sport", "election", "health","science", "politics", "sport", "election", "health","science", "politics", "sport", "election", "health","science", "politics", "sport", "election", "health"];
+export const PopularPostsList = [
+  "war",
+  "science",
+  "politics",
+  "sport",
+  "health",
+  "economy",
+  "world",
+  "life",
+  "education",
+  "coding",
+  "chatGPT",
+  "AI",
+  "religion",
+  "spirituality",
+];
