@@ -12,10 +12,9 @@ const Pagination = dynamic(() => import("../Pagination"));
 export default function Recomended({ topic }: { topic: string }) {
   const [page, setPage] = useState(1);
   const { data: data, error, loading } = useFetchBlog({
-    api: `${BASE_URL}/api/blogs?pageno=${page}`,
+    api: `${BASE_URL}/api/blogs/topic?pageno=${page}&topic=${topic.toLowerCase()}`,
     dependencies: [page],
-    method: "POST",
-    body: JSON.stringify({}),
+    method: "GET",
   }) as { data: responseType; error: any; loading: boolean };
   const totalPages = Number(data?.noOfBlogs) / 10;
   if (error) {
