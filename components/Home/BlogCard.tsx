@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { blogCardProps } from "@/types/createBlogTypes";
 import Link from "next/link";
+import { blogImage } from "@/utils/constants";
 
 export default function BlogCard({
   blogid,
@@ -10,7 +11,7 @@ export default function BlogCard({
   profilename,
   genre,
   profileImage,
-  image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4sEG5g9GFcy4SUxbzWNzUTf1jMISTDZrTw&usqp=CAU",
+  image = blogImage,
   description = "",
   date,
   link = `/blogs/${blogid}`,
@@ -42,7 +43,7 @@ export default function BlogCard({
               <span className="sr-only">{profilename}</span>
               {profileImage && (
                 <Image
-                  className="h-10 w-10 rounded-full bg-pink-600"
+                  className="h-7 w-7 md:h-10 md:w-10 rounded-full bg-pink-600"
                   src={profileImage}
                   alt="profile image"
                   width={500}

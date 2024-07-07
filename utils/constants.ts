@@ -36,6 +36,9 @@ const ErrorMessages = [
 
 export const NUMBER_REGEX = /^[0-9]*$/;
 
+export const blogImage =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM4sEG5g9GFcy4SUxbzWNzUTf1jMISTDZrTw&usqp=CAU";
+
 export const PopularPostsList = [
   "war",
   "science",

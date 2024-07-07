@@ -2,7 +2,7 @@ import { ErrorStatus } from "./../utils/constants";
 import { useEffect, useState } from "react";
 interface useFetchBlogsInterface {
   api: string;
-  dependencies: [unknown];
+  dependencies: any[];
   method?: "GET" | "POST";
   body?: BodyInit | null | undefined;
 }
@@ -29,7 +29,7 @@ export default function useFetchBlog({
       try {
         const response = await fetch(
           api,
-          method === "POST" ? { method, body: body||"{}" } : {}
+          method === "POST" ? { method, body: body || "{}" } : {}
         );
         if (!response.ok) {
           throw new Error();

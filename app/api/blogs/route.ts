@@ -36,7 +36,7 @@ const POST = async (request: NextRequest, response: NextResponse) => {
     const [blogs, noOfBlogs] = await Promise.all([
       isMostPopularQuery === "popular?" ||
       typeof referenceBlog.title === "undefined"
-        ? Blog.find({}).sort({ popularity: -1 }).limit(5).skip(skippingNumber)
+        ? Blog.find({}).sort({ popularity: -1 }).populate("userid").limit(5).skip(skippingNumber)
         : Blog.aggregate(pipeline),
       Blog.countDocuments({}),
     ]);

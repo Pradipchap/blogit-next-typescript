@@ -15,7 +15,9 @@ export type blogCardProps = {
   image: string;
   description: string;
   date: Date;
-  link?:string
+  link?: string;
+  thumbs?: number;
+  comments?: number;
 };
 export type singleBlogProps = {
   _id: string;

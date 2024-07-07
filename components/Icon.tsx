@@ -26,6 +26,8 @@ import {
   faRightFromBracket,
   faBookOpen,
   faPencilSquare,
+  faThumbsUp,
+  faComment,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faSpinner,
@@ -56,6 +58,20 @@ export default function Icon({ name, className = "" }: IconProps) {
           className={classNames("text-black text-lg", className)}
         />
       );
+      case "Thumb":
+        return (
+          <FontAwesomeIcon
+            icon={faThumbsUp}
+            className={classNames("text-black text-lg", className)}
+          />
+        );
+        case "Comment":
+        return (
+          <FontAwesomeIcon
+            icon={faComment}
+            className={classNames("text-black text-lg", className)}
+          />
+        );
     case "Logout":
       return (
         <FontAwesomeIcon
