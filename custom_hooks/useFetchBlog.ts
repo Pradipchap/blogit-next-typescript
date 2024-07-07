@@ -15,6 +15,7 @@ export default function useFetchBlog({
 }: useFetchBlogsInterface) {
   const [data, setData] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const isNetworkConnected =
     typeof window !== "undefined" && window.navigator.onLine;
 
@@ -27,6 +28,7 @@ export default function useFetchBlog({
   useEffect(() => {
     async function getData() {
       try {
+        setLoading(true);
         const response = await fetch(
           api,
           method === "POST" ? { method, body: body || "{}" } : {}
@@ -38,10 +40,12 @@ export default function useFetchBlog({
         setData(data);
       } catch (error) {
         setError(ErrorStatus.unknown_error);
+      } finally {
+        setLoading(false);
       }
     }
     getData();
   }, [...dependencies]);
 
-  return { data, error };
+  return { data, error, loading };
 }

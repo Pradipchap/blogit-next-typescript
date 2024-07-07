@@ -30,10 +30,10 @@ export default function BlogCard({
       <div className="h-full col-span-5 flex flex-col justify-between py-5">
         <div className="flex flex-col gap-2">
           {" "}
-          <Link href={link} className="text-base md:text-lg font-bold">
+          <Link href={link} className="text-base md:text-2xl font-bold">
             {title}
           </Link>
-          <p className="text-gray-600 text-sm max-w-full line-clamp-3">
+          <p className="text-gray-600 text-sm md:text-base max-w-full line-clamp-3">
             {description.slice(0, 300)}....
           </p>
         </div>

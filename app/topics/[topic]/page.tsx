@@ -1,6 +1,7 @@
-import Others from "@/components/TopicsComponents/Others";
-import Recomended from "@/components/TopicsComponents/Recomended";
-import React from "react";
+import dynamic from "next/dynamic";
+const Recomended = dynamic(() =>
+  import("@/components/TopicsComponents/Recomended")
+);
 
 export default function page({ params }: { params: { topic: string } }) {
   return (

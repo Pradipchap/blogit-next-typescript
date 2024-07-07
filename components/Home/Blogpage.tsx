@@ -29,7 +29,7 @@ function BlogPage({
   const apiWithPagination = api + `?&pageno=${pageno}`;
 
   const body = localStorage.getItem("recent");
-  const { data: data, error } = useFetchBlog({
+  const { data: data, error,loading } = useFetchBlog({
     api: apiWithPagination,
     dependencies: [apiWithPagination],
     method,
@@ -41,7 +41,7 @@ function BlogPage({
   if (error) {
     return <p>{error}</p>;
   }
-  if (!data) {
+  if (loading) {
     return (
       <>
         <BlogCardSkeleton />

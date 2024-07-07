@@ -1,15 +1,17 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
-import RecomendedBlogCard from "./RecomendedBlogCard";
+const RecomendedBlogCard = dynamic(() => import("./RecomendedBlogCard"));
 import { BASE_URL } from "@/utils/constants";
 import { responseType } from "@/types/dataTypes";
 import useFetchBlog from "@/custom_hooks/useFetchBlog";
-import Pagination from "../Pagination";
+import TopicBlogSkeleton from "../skeletons/TopicBlogSkeleton";
+const Pagination = dynamic(() => import("../Pagination"));
 
 export default function Recomended({ topic }: { topic: string }) {
   const [page, setPage] = useState(1);
-  const { data: data, error } = useFetchBlog({
+  const { data: data, error, loading } = useFetchBlog({
     api: `${BASE_URL}/api/blogs?pageno=${page}`,
     dependencies: [page],
     method: "POST",
@@ -21,25 +23,32 @@ export default function Recomended({ topic }: { topic: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-10 w-full">
+    <div className="flex flex-col gap-10 w-full items-center">
       <h1 className="text-xl font-light my-10">
         Recomended blogs related to{" "}
-        <span className="font-bold text-3xl px-3"> {topic.toUpperCase()}</span>
+        <span className="font-bold text-3xl px-1"> {topic}</span>
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        {data?.blogs.map((blog) => (
-          <RecomendedBlogCard
-            title={blog.title}
-            description={blog.description}
-            image={blog.image}
-            profileImage={blog.userid?.image}
-            blogid={blog._id}
-            date={blog.date}
-            profilename={blog.userid.username}
-            genre={blog.genre}
-            key={blog._id}
-          />
-        ))}
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5 self-start">
+        {loading ? (
+          <>
+            <TopicBlogSkeleton />
+            <TopicBlogSkeleton />
+          </>
+        ) : (
+          data?.blogs.map((blog) => (
+            <RecomendedBlogCard
+              title={blog.title}
+              description={blog.description}
+              image={blog.image}
+              profileImage={blog.userid?.image}
+              blogid={blog._id}
+              date={blog.date}
+              profilename={blog.userid.username}
+              genre={blog.genre}
+              key={blog._id}
+            />
+          ))
+        )}
       </div>
       {totalPages > 1 && data.blogs.length > 0 && (
         <Pagination

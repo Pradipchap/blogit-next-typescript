@@ -12,7 +12,7 @@ export default async function PopularPosts() {
   const data: responseType = await response.json();
   return (
     <div>
-      <p className="mb-8 font-medium text-xl">Popular Posts</p>
+      <p className="mb-8 font-bold text-xl">Popular Posts</p>
       {data.blogs.map((item) => {
         return (
           <Fragment key={item._id}>
