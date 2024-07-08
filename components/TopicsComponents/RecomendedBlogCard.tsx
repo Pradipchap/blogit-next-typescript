@@ -1,12 +1,13 @@
 import { blogCardProps } from "@/types/createBlogTypes";
 import { blogImage } from "@/utils/constants";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Icon from "../Icon";
+const Icon = dynamic(() => import("../Icon"));
 
 export default function RecomendedBlogCard({
-  blogid,
+  _id,
   title = "",
   profilename,
   genre,
@@ -16,7 +17,7 @@ export default function RecomendedBlogCard({
   thumbs = 0,
   comments = 0,
   date,
-  link = `/blogs/${blogid}`,
+  link = `/blogs/${_id}`,
 }: blogCardProps) {
   return (
     <div className="w-full max-w-[35rem] h-[33rem] flex flex-col p-1 gap-2">

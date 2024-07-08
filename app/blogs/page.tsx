@@ -1,6 +1,7 @@
-import BlogCard from "@/components/Home/BlogCard";
+const BlogCard = dynamic(() => import("@/components/Home/BlogCard"));
 import { singleBlogProps } from "@/types/createBlogTypes";
 import { BASE_URL } from "@/utils/constants";
+import dynamic from "next/dynamic";
 interface responseType {
   noOfBlogs: number;
   blogs: singleBlogProps[];
@@ -28,7 +29,7 @@ async function Page() {
               profilename={blog.userid.username}
               date={blog.date}
               description={blog.description}
-              blogid={blog._id}
+              _id={blog._id}
               genre={blog.genre}
               image={blog.image}
             />

@@ -24,6 +24,7 @@
     }
   },
   "include": [
+    "editorjs.d.ts",
     "next-env.d.ts",
     "types",
     "**/*.ts",
