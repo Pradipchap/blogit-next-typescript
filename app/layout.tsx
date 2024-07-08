@@ -1,7 +1,7 @@
 import "./globals.css";
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import { Roboto_Flex } from "next/font/google";
+import { Inter, Roboto_Flex } from "next/font/google";
 import Nav from "../components/navbar/Nav";
 import ReduxProvider from "@/redux/ReduxProvider";
 import ProfileNav from "@/components/navbar/ProfileNav";
@@ -10,7 +10,7 @@ const Toast = dynamic(() => import("@/components/popups/Toast"));
 import { BASE_URL } from "@/utils/constants";
 import { ReactNode } from "react";
 
-const inter = Roboto_Flex({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
