@@ -5,6 +5,7 @@ interface useFetchBlogsInterface {
   dependencies: any[];
   method?: "GET" | "POST";
   body?: BodyInit | null | undefined;
+  abort?: boolean;
 }
 
 export default function useFetchBlog({
@@ -12,10 +13,12 @@ export default function useFetchBlog({
   dependencies,
   method = "GET",
   body,
+  abort = false,
 }: useFetchBlogsInterface) {
   const [data, setData] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
   const isNetworkConnected =
     typeof window !== "undefined" && window.navigator.onLine;
 
@@ -28,6 +31,9 @@ export default function useFetchBlog({
   useEffect(() => {
     async function getData() {
       try {
+        if (abort) {
+          throw "";
+        }
         setLoading(true);
         const response = await fetch(
           api,

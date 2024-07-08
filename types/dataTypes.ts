@@ -5,6 +5,13 @@ export type responseType = {
   blogs: singleBlogProps[];
 };
 
+export type searchBlogType = {
+  _id: string;
+  title: string;
+  image: string;
+  description: string;
+  date: string;
+};
 export type ToastType = "success" | "error" | "info" | "loading";
 
 export interface ErrorInterface {

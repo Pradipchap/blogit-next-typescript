@@ -1,4 +1,5 @@
 import { OutputData } from "@editorjs/editorjs";
+import { searchBlogType } from "./dataTypes";
 
 export type detailsForm = {
   title: string;
@@ -6,28 +7,19 @@ export type detailsForm = {
   description: string;
   image: File | null;
 };
-export type blogCardProps = {
-  blogid: string;
+export type blogCardProps = searchBlogType & {
   title: string;
-  profilename: string;
-  genre: string;
-  profileImage: string;
-  image: string;
-  description: string;
-  date: Date;
+  profilename?: string;
+  genre?: string;
+  profileImage?: string;
   link?: string;
   thumbs?: number;
   comments?: number;
 };
-export type singleBlogProps = {
-  _id: string;
+export type singleBlogProps = searchBlogType & {
   userid: profile;
-  title: string;
   genre: string;
-  description: string;
-  image: string;
   content: OutputData;
-  date: Date;
   popularity: number;
 };
 export type profile = {

@@ -4,7 +4,7 @@ import { PopularPostsList as data } from "@/utils/constants";
 export default async function PopularTopics() {
   return (
     <div>
-      <p className="mb-8 font-bold text-xl">Popular Topics</p>
+      <p className="mb-8 font-bold text-lg text-green-700">Popular Topics</p>
       <div className="flex items-center flex-wrap gap-2">
         {data.slice(0, 10).map((item) => {
           return (

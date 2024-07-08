@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Fragment,
   ReactElement,
@@ -13,19 +12,31 @@ import { createPortal } from "react-dom";
 interface dropdownProps {
   children: ReactNode;
   content: ReactNode;
+  targetIndependent?: boolean;
 }
 
-export default function PopupOver({ children, content }: dropdownProps) {
+export default function PopupOver({
+  children,
+  content,
+  targetIndependent = false,
+}: dropdownProps) {
+  const isInput = (children as ReactElement).type === "input" || "form";
   const [isOpen, setIsOpen] = useState(false);
   const [position, setposition] = useState<{
-    top?: number | undefined;
-    right?: number | undefined;
-    left?: number | undefined;
-    bottom?: number | undefined;
-  }>({});
+    top: number;
+    left: number;
+  } | null>(null);
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const popupRef = useRef<HTMLDivElement | null>(null);
+
+  function setWidth() {
+    if (targetIndependent) return {};
+    else {
+      const width = buttonRef.current?.getBoundingClientRect().width;
+      return { width };
+    }
+  }
 
   function getPostition() {
     const x = buttonRef.current?.getBoundingClientRect().right;
@@ -37,7 +48,7 @@ export default function PopupOver({ children, content }: dropdownProps) {
     const popupHeight = popupRef.current?.getBoundingClientRect().height;
 
     if (!buttonRef.current || !popupRef.current) {
-      return;
+      return null;
     }
     if (typeof y !== "undefined" && typeof x !== "undefined") {
       const top = Math.ceil(y) + (buttonRef.current?.clientHeight || 0);
@@ -54,7 +65,7 @@ export default function PopupOver({ children, content }: dropdownProps) {
         };
       } else return { top: top, left: right };
     } else {
-      return {};
+      return null;
     }
   }
 
@@ -86,7 +97,8 @@ export default function PopupOver({ children, content }: dropdownProps) {
   useEffect(() => {
     function handleScreenSize() {
       const position = getPostition();
-      setposition(position || {});
+      //eslint-disable-next-line
+      setposition(position);
     }
 
     window.addEventListener("resize", handleScreenSize);
@@ -95,12 +107,15 @@ export default function PopupOver({ children, content }: dropdownProps) {
 
   useEffect(
     () => {
+      if (!popupRef.current) {
+        return;
+      }
       const position = getPostition();
-      setposition(position || {});
+      setposition(position);
     },
 
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-    [popupRef.current, isOpen]
+    //eslint--next-line react-hooks/exhaustive-deps
+    [isOpen]
   );
 
   return (
@@ -110,9 +125,11 @@ export default function PopupOver({ children, content }: dropdownProps) {
           ref={buttonRef}
           {...(children as ReactElement).props}
           onClick={() => {
-            setIsOpen((isOpen) => !isOpen);
-            const pos = getPostition();
-            setposition(pos || {});
+            if (isInput) {
+              if (!isOpen) setIsOpen((isOpen) => !isOpen);
+            } else {
+              setIsOpen((isOpen) => !isOpen);
+            }
           }}
           className={(children as ReactElement).props.className}
         >
@@ -124,10 +141,11 @@ export default function PopupOver({ children, content }: dropdownProps) {
           <div
             id="popupEl"
             ref={popupRef}
-            className="transition-all h-max w-max duration-300 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] bg-white"
+            className="transition-all h-max w-max duration-300 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px] bg-transparent"
             style={{
               position: "fixed",
               ...position,
+              ...setWidth(),
             }}
           >
             {content}

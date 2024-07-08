@@ -1,33 +1,7 @@
-import BlogCard from "@/components/Home/BlogCard";
-import { responseType } from "@/types/dataTypes";
-import { BASE_URL } from "@/utils/constants";
+"use client"
+import Blogpage from "@/components/Home/Blogpage";
 
-export default async function Page({ params }: { params: { search: string } }) {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/api/blogs/search?searchString=${params.search}`
-    );
-    const data: responseType = await response.json();
-    return (
-      <div className="flex flex-col gap-5">
-        {data.blogs.map((blog) => {
-          return (
-            <BlogCard
-              title={blog.title}
-              description={blog.description}
-              image={blog.image}
-              profileImage={blog.userid.image}
-              blogid={blog._id}
-              date={blog.date}
-              profilename={blog.userid.username}
-              genre={blog.genre}
-              key={blog._id}
-            />
-          );
-        })}
-      </div>
-    );
-  } catch (error) {
-    return <p>sorry</p>;
-  }
+export default function Page({ params }: { params: { search: string } }) {
+  const api = `/api/blogs/search?searchString=${params.search}`;
+  return <Blogpage api={api} method="GET" />;
 }

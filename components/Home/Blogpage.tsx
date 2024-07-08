@@ -61,7 +61,7 @@ function BlogPage({
             description={blog.description}
             image={blog.image}
             profileImage={blog.userid?.image}
-            blogid={blog._id}
+            _id={blog._id}
             date={blog.date}
             profilename={blog.userid.username}
             genre={blog.genre}

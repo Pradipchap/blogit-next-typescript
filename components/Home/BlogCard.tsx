@@ -6,7 +6,7 @@ import Link from "next/link";
 import { blogImage } from "@/utils/constants";
 
 export default function BlogCard({
-  blogid,
+  _id,
   title = "",
   profilename,
   genre,
@@ -14,7 +14,7 @@ export default function BlogCard({
   image = blogImage,
   description = "",
   date,
-  link = `/blogs/${blogid}`,
+  link = `/blogs/${_id}`,
 }: blogCardProps) {
   return (
     <div className="w-full max-w-2xl h-52 grid grid-cols-7 gap-5">
@@ -40,7 +40,6 @@ export default function BlogCard({
         <div className="flex justify-start items-center font-sans">
           <div className="shrink-0">
             <div>
-              <span className="sr-only">{profilename}</span>
               {profileImage && (
                 <Image
                   className="h-7 w-7 md:h-10 md:w-10 rounded-full bg-pink-600"
@@ -53,9 +52,11 @@ export default function BlogCard({
             </div>
           </div>
           <div className="ml-3">
-            <div className="text-sm font-medium text-skin-inverted">
-              <p className="hover:underline">{profilename}</p>
-            </div>
+            {profilename && (
+              <div className="text-sm font-medium text-skin-inverted">
+                <p className="hover:underline">{profilename}</p>
+              </div>
+            )}
             <div className="flex space-x-1 text-xs">
               <p>{new Date(date).toDateString()}</p>
               <span aria-hidden="true">·</span>

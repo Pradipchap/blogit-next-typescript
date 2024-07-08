@@ -2,7 +2,7 @@ import { responseType } from "@/types/dataTypes";
 import { BASE_URL } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
-import  { Fragment } from "react";
+import { Fragment } from "react";
 
 export default async function PopularPosts() {
   const response = await fetch(`${BASE_URL}/api/blogs/popularblogs`);
@@ -12,7 +12,7 @@ export default async function PopularPosts() {
   const data: responseType = await response.json();
   return (
     <div>
-      <p className="mb-8 font-bold text-xl">Popular Posts</p>
+      <p className="mb-8 font-bold text-lg text-green-700">Popular Posts</p>
       {data.blogs.map((item) => {
         return (
           <Fragment key={item._id}>
@@ -52,12 +52,10 @@ function Post({ title, description, _id, userimage, username }: PostProps) {
         )}
         <p className="text-xs font-semibold">{username}</p>
       </div>
-      <Link href={`blogs/${_id}`} className="font-bold">
+      <Link href={`blogs/${_id}`} className="font-bold text-lg">
         {title}
       </Link>
-      <p className=" text-sm font-normal line-clamp-3">
-        {description.slice(0, 140)}
-      </p>
+      <p className="text-[15px] font-medium line-clamp-3">{description}</p>
     </div>
   );
 }
