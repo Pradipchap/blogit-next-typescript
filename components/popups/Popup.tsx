@@ -20,7 +20,8 @@ export default function PopupOver({
   content,
   targetIndependent = false,
 }: dropdownProps) {
-  const isInput = (children as ReactElement).type === "input" || "form";
+  const tagName = (children as ReactElement).type;
+  const isInput = tagName === "input" || tagName === "form";
   const [isOpen, setIsOpen] = useState(false);
   const [position, setposition] = useState<{
     top: number;
@@ -128,7 +129,6 @@ export default function PopupOver({
             if (isInput) {
               if (!isOpen) setIsOpen((isOpen) => !isOpen);
             } else {
-              console.log("first")
               setIsOpen((isOpen) => !isOpen);
             }
           }}

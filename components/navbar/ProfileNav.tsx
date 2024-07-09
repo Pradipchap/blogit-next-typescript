@@ -18,7 +18,7 @@ export default async function ProfileNav() {
       <PopupOver
         targetIndependent={true}
         content={
-          <div className="flex flex-col items-start w-max px-10 py-2">
+          <div className="flex flex-col bg-white items-start w-max px-10 py-2">
             {lists.map((element) => {
               return (
                 <LinkWithIcon
