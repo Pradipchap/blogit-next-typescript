@@ -6,7 +6,8 @@ const MainBlogs = dynamic(
 );
 
 export const maxDuration = 60;
-export default function Page() {
+
+function Page() {
   return (
     <div className="h-max flex justify-center w-full mt-5 min-h-[calc(100vh-76px)] px-2 md:px-20">
       <div className="w-[70%] h-full">
@@ -18,3 +19,4 @@ export default function Page() {
     </div>
   );
 }
+export default Page;

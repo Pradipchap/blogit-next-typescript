@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import  { useState } from "react";
 const RecomendedBlogCard = dynamic(() => import("./RecomendedBlogCard"));
 import { BASE_URL } from "@/utils/constants";
 import { responseType } from "@/types/dataTypes";
@@ -42,7 +42,7 @@ export default function Recomended({ topic }: { topic: string }) {
               profileImage={blog.userid?.image}
               _id={blog._id}
               date={blog.date}
-              profilename={blog.userid.username}
+              profilename={blog.userid?.username}
               genre={blog.genre}
               key={blog._id}
             />

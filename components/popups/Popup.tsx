@@ -128,6 +128,7 @@ export default function PopupOver({
             if (isInput) {
               if (!isOpen) setIsOpen((isOpen) => !isOpen);
             } else {
+              console.log("first")
               setIsOpen((isOpen) => !isOpen);
             }
           }}

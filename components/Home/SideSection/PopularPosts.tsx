@@ -5,7 +5,9 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 export default async function PopularPosts() {
-  const response = await fetch(`${BASE_URL}/api/blogs/popularblogs`);
+  const response = await fetch(`${BASE_URL}/api/blogs/popularblogs`, {
+    cache: "no-cache",
+  });
   if (!response.ok) {
     return <p>sorry something went wrong</p>;
   }
@@ -18,7 +20,7 @@ export default async function PopularPosts() {
           <Fragment key={item._id}>
             <Post
               userimage={item.userid?.image}
-              username={item.userid.username}
+              username={item.userid?.username}
               _id={item._id}
               title={item.title}
               description={item.description}

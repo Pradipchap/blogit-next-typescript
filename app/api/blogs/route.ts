@@ -16,8 +16,6 @@ const POST = async (request: NextRequest, response: NextResponse) => {
       description: string;
       genre: string;
     } = await body;
-    if (typeof referenceBlog.title) {
-    }
     const limit = Number(request.nextUrl.searchParams.get("limit")) || 10;
     const skippingNumber = (pageNo - 1) * limit;
     const pipeline = [

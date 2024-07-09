@@ -6,7 +6,9 @@ import Nav from "../components/navbar/Nav";
 import ReduxProvider from "@/redux/ReduxProvider";
 import ProfileNav from "@/components/navbar/ProfileNav";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-const Toast = dynamic(() => import("@/components/popups/Toast"));
+const Toast = dynamic(() => import("@/components/popups/Toast"), {
+  ssr: false,
+});
 import { BASE_URL } from "@/utils/constants";
 import { ReactNode } from "react";
 

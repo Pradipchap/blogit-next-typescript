@@ -13,7 +13,7 @@ export default function App({
   className,
   options,
   onSelectionChange,
-  currentOption = options[0].key,
+  currentOption,
 }: selectTabProps) {
   return (
     <ul

@@ -9,6 +9,7 @@ const Blogs = dynamic(() => import("@/components/profileComponents/Blogs"), {
 });
 import getServerSession from "@/custom_hooks/getServerSession";
 import dynamic from "next/dynamic";
+export const maxDuration = 60;
 
 async function Page() {
   const session = await getServerSession();
