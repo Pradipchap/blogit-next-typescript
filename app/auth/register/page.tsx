@@ -36,7 +36,7 @@ export default function Page() {
         throw error.errorMessage;
       }
       showSuccess("User Registered");
-      router.push(`auth/verifyemail?email=${email}`);
+      router.push(`/auth/verifyemail?email=${email}`);
     } catch (error) {
       showError(error as string);
     }

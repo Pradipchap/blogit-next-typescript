@@ -11,30 +11,48 @@ export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
 const POST = async (request: NextRequest) => {
+  const client = await connectToDB();
+
+  if (!client) {
+    return sendError(ErrorCodes.NORMAL, "Failed to connect to the database");
+  }
+  const session = await client.startSession();
+  await session.startTransaction();
   try {
     const data = await request.json();
     const { email, username, password } = data;
-    await connectToDB();
+
     const doesUserExists = await User.exists({ email });
     if (doesUserExists) {
       return sendError(ErrorCodes.USER_EXISTS, "User already exists!");
     }
-    const user = await User.create({ email, username });
 
+    const user = await User.create([{ email, username }], { session });
+    console.log("returned user", user);
     const hashedPassword = await bcrypt.hash(password, 10);
     const { verificationCode, hashedCode } = await getVerificationCode();
-    const userCredential = await UserCredentials.create({
-      email,
-      password: hashedPassword,
-      user: user._id,
-      code: hashedCode,
-    });
+
+    const userCredential = await UserCredentials.create(
+      [
+        {
+          email,
+          password: hashedPassword,
+          user: user[0]._id,
+          code: hashedCode,
+        },
+      ],
+      { session }
+    );
+
     await sendMail({
       to: email.toString(),
       text: verificationCode.toString(),
       subject: "Verify Email",
       html: "",
     });
+
+    await session.commitTransaction();
+
     return new NextResponse(
       JSON.stringify({ doesUserExists, userCredential }),
       {
@@ -42,6 +60,8 @@ const POST = async (request: NextRequest) => {
       }
     );
   } catch (error) {
+    console.log("error is", error);
+    await session.abortTransaction();
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,
@@ -51,6 +71,9 @@ const POST = async (request: NextRequest) => {
         status: 500,
       }
     );
+  } finally {
+    (await session)?.endSession();
+    await client?.disconnect();
   }
 };
 export { POST };
