@@ -8,7 +8,6 @@ import {
   useState,
 } from "react";
 import { createPortal } from "react-dom";
-
 interface dropdownProps {
   children: ReactNode;
   content: ReactNode;
@@ -71,17 +70,29 @@ export default function PopupOver({
   }
 
   useEffect(() => {
-    const handleClickOutside = (event: Event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       const popupElement = popupRef.current;
       const targetElement = buttonRef.current;
+      const target = event.target as HTMLElement;
+      const tagName = target.tagName;
 
-      if (
-        popupElement &&
-        targetElement &&
-        !popupElement.contains(event.target as Node) &&
-        !targetElement.contains(event.target as Node)
-      ) {
-        closePopup();
+      if (popupElement && targetElement) {
+        if (!popupElement.contains(target) && !targetElement.contains(target)) {
+          closePopup();
+          return;
+        }
+        if (popupElement.contains(target) && event.button === 0) {
+          {
+            const parentTagName = target.parentElement?.tagName;
+            if (
+              tagName === "BUTTON" ||
+              tagName === "A" ||
+              parentTagName === "BUTTON" ||
+              parentTagName === "A"
+            )
+              closePopup();
+          }
+        }
       }
     };
     window.addEventListener("click", handleClickOutside);
