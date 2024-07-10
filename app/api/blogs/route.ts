@@ -2,6 +2,7 @@ import { connectToDB } from "@/utils/database";
 import Blog from "@/models/blogModel";
 import { NextRequest, NextResponse } from "next/server";
 import { ErrorCodes } from "@/utils/constants";
+import { PipelineStage } from "mongoose";
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
@@ -28,13 +29,62 @@ const POST = async (request: NextRequest, response: NextResponse) => {
           },
         },
       },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userid",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $project: {
+          title: 1,
+          description: 1,
+          image: 1,
+          date: 1,
+          genre: 1,
+          userid: { $arrayElemAt: ["$user", 0] },
+        },
+      },
       { $limit: 5 },
       { $skip: skippingNumber },
+    ];
+    const pipeline2: PipelineStage[] = [
+      {
+        $sort: {
+          popularity: 1,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userid",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $project: {
+          title: 1,
+          description: 1,
+          image: 1,
+          date: 1,
+          genre: 1,
+          userid: { $arrayElemAt: ["$user", 0] },
+        },
+      },
+      {
+        $skip: skippingNumber,
+      },
+      {
+        $limit: 5,
+      },
     ];
     const [blogs, noOfBlogs] = await Promise.all([
       isMostPopularQuery === "popular?" ||
       typeof referenceBlog.title === "undefined"
-        ? Blog.find({}).sort({ popularity: -1 }).populate("userid").limit(5).skip(skippingNumber)
+        ? Blog.aggregate(pipeline2)
         : Blog.aggregate(pipeline),
       Blog.countDocuments({}),
     ]);
@@ -48,10 +98,11 @@ const POST = async (request: NextRequest, response: NextResponse) => {
       }
     );
   } catch (error) {
+    console.log(error);
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,
-        errorMessage: "sorry,something wrong happened",
+        errorMessage: error,
       }),
       {
         status: 500,

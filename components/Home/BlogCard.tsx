@@ -17,7 +17,7 @@ export default function BlogCard({
   link = `/blogs/${_id}`,
 }: blogCardProps) {
   return (
-    <div className="w-full max-w-2xl h-52 grid grid-cols-7 gap-5">
+    <div className="w-full max-w-2xl h-56 grid grid-cols-7 gap-5">
       {image !== "" && (
         <Image
           className="h-auto m-auto w-full col-span-2"
@@ -33,8 +33,8 @@ export default function BlogCard({
           <Link href={link} className="text-base md:text-2xl font-bold">
             {title}
           </Link>
-          <p className="text-gray-600 text-sm md:text-base max-w-full line-clamp-3">
-            {description.slice(0, 300)}....
+          <p className="text-gray-600 text-sm md:text-base max-w-full line-clamp-2">
+            {description}
           </p>
         </div>
         <div className="flex justify-start items-center font-sans">
@@ -42,11 +42,11 @@ export default function BlogCard({
             <div>
               {profileImage && (
                 <Image
-                  className="h-7 w-7 md:h-10 md:w-10 rounded-full bg-pink-600"
+                  className="h-5 w-5 md:h-7 md:w-7 rounded-full bg-pink-600"
                   src={profileImage}
                   alt="profile image"
-                  width={500}
-                  height={300}
+                  width={30}
+                  height={30}
                 />
               )}
             </div>

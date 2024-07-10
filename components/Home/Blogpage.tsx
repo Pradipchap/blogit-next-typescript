@@ -66,7 +66,7 @@ function BlogPage({
             profileImage={blog.userid?.image}
             _id={blog._id}
             date={blog.date}
-            profilename={blog.userid.username}
+            profilename={blog.userid?.username}
             genre={blog.genre}
             key={blog._id}
             link={type === "drafts" ? `/drafts/${blog._id}` : undefined}
