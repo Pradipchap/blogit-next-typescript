@@ -16,7 +16,7 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       return sendError(ErrorCodes.USER_NOT_AUTHENTICATED, "Not Authenticated");
     }
     await connectToDB();
-    const noOfBlogs = await Blog.countDocuments({});
+    const noOfBlogs = await Blog.countDocuments({ userid: session.userID });
     const skippingNumber =
       pageNo === 0 ? 0 : pageNo === 1 ? 0 : (pageNo - 1) * 5;
     const blogs = await Blog.find({ userid: session.userID })

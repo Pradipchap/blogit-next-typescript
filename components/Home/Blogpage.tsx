@@ -1,6 +1,6 @@
 "use client";
 
-import  { memo, useState } from "react";
+import { memo, useState } from "react";
 import dynamic from "next/dynamic";
 import { singleBlogProps } from "@/types/createBlogTypes";
 import useFetchBlog from "@/custom_hooks/useFetchBlog";
@@ -29,7 +29,7 @@ function BlogPage({
   const apiWithPagination = api + `?&pageno=${pageno}`;
 
   const body = localStorage.getItem("recent");
-  const { data: data, error,loading } = useFetchBlog({
+  const { data: data, error, loading } = useFetchBlog({
     api: apiWithPagination,
     dependencies: [apiWithPagination],
     method,
@@ -51,6 +51,9 @@ function BlogPage({
         <BlogCardSkeleton />
       </>
     );
+  }
+  if (data?.noOfBlogs === 0) {
+    return <p>No results</p>;
   }
   return (
     <>

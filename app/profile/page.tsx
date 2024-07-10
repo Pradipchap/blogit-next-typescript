@@ -1,4 +1,3 @@
-
 const ProfileSection = dynamic(
   () => import("../../components/profileComponents/ProfileSection"),
   { ssr: false }
@@ -9,6 +8,7 @@ const Blogs = dynamic(() => import("@/components/profileComponents/Blogs"), {
 });
 import getServerSession from "@/custom_hooks/getServerSession";
 import dynamic from "next/dynamic";
+import { blogImage } from "@/utils/constants";
 export const maxDuration = 60;
 
 async function Page() {
@@ -20,7 +20,7 @@ async function Page() {
           {session ? (
             <>
               <Image
-                src={session?.image || ""}
+                src={session?.image || blogImage}
                 className="rounded-full h-32 w-32"
                 alt="profile image"
                 height={128}
