@@ -136,7 +136,14 @@ export default function PopupOver({
         <div
           ref={buttonRef}
           {...(children as ReactElement).props}
-          onClick={() => {
+          onChange={() => {
+            setIsOpen(true);
+          }}
+          onClick={(event) => {
+            const element = event.target as HTMLElement;
+            if (element.tagName === "INPUT") {
+              return;
+            }
             if (isInput) {
               if (!isOpen) setIsOpen((isOpen) => !isOpen);
             } else {
