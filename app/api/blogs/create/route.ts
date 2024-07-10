@@ -10,6 +10,12 @@ export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
 const POST = async (request: NextRequest) => {
+  const client = await connectToDB();
+  if (!client) {
+    return sendError(ErrorCodes.NORMAL, "Failed to connect to the database");
+  }
+  const TransactionSession = await client.startSession();
+  await TransactionSession.startTransaction();
   try {
     const session = getApiCookie(request);
     if (!session) {
@@ -19,7 +25,7 @@ const POST = async (request: NextRequest) => {
       );
     }
     const data = await request.formData();
-    await connectToDB();
+
     const { title, genre, description, userid, content, image, blogId } =
       Object.fromEntries(data.entries());
     const imageFile = image as File;
@@ -38,28 +44,39 @@ const POST = async (request: NextRequest) => {
     }
     const parsedContent = await JSON.parse(content as string);
     if (blogId) {
-      await Blog.findByIdAndUpdate(blogId, {
-        userid,
-        title,
-        genre,
-        description,
-        ...(imageUrl !== "" ? { image: imageUrl } : {}),
-        content: parsedContent,
-      });
+      await Blog.findByIdAndUpdate(
+        blogId,
+        {
+          userid,
+          title,
+          genre,
+          description,
+          ...(imageUrl !== "" ? { image: imageUrl } : {}),
+          content: parsedContent,
+        },
+        { session: TransactionSession }
+      );
     } else {
-      await Blog.create({
-        userid,
-        title,
-        genre,
-        date: Date.now(),
-        description,
-        image: imageUrl,
-        content: parsedContent,
-        popularity: 2,
-      });
+      await Blog.create(
+        [
+          {
+            userid,
+            title,
+            genre,
+            date: Date.now(),
+            description,
+            image: imageUrl,
+            content: parsedContent,
+            popularity: 2,
+          },
+        ],
+        { session: TransactionSession }
+      );
     }
+    await TransactionSession.commitTransaction();
     return new NextResponse("", { status: 200 });
   } catch (error) {
+    await TransactionSession.abortTransaction();
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,
@@ -69,6 +86,9 @@ const POST = async (request: NextRequest) => {
         status: 500,
       }
     );
+  } finally {
+    await TransactionSession.endSession();
+    await client.disconnect();
   }
 };
 

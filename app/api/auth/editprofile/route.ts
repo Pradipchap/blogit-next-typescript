@@ -7,8 +7,15 @@ import getApiCookie from "@/custom_hooks/getApiCookie";
 
 import { ErrorCodes } from "@/utils/constants";
 import sendError from "@/utils/sendError";
+import { connectToDB } from "@/utils/database";
 
 const POST = async (req: NextRequest, res: NextResponse) => {
+  const client = await connectToDB();
+  if (!client) {
+    return sendError(ErrorCodes.NORMAL, "Failed to connect to the database");
+  }
+  const session = await client.startSession();
+  await session.startTransaction();
   try {
     const userData = getApiCookie(req);
     if (!userData) {
@@ -35,7 +42,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
         ...(phone !== "" ? { phone: phone } : {}),
         ...(phone !== "" ? { image: imageUrl } : {}),
       },
-      { new: true }
+      { new: true, session }
     );
 
     if (typeof userData.image !== undefined && userData.image !== "") {
@@ -44,6 +51,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
           throw "previous image not deleted";
         });
     }
+    await session.commitTransaction();
     return new NextResponse(
       JSON.stringify({
         message: "profile updated successfully",
@@ -52,6 +60,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       { status: 200 }
     );
   } catch (error) {
+    await session.abortTransaction();
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,
@@ -61,6 +70,9 @@ const POST = async (req: NextRequest, res: NextResponse) => {
         status: 500,
       }
     );
+  } finally {
+    await session.endSession();
+    await client.disconnect();
   }
 };
 

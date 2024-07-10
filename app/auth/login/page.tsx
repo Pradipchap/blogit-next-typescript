@@ -5,10 +5,7 @@ import Checkbox from "@/components/Inputs/Checkbox";
 import CustomInput from "@/components/Inputs/CustomInput";
 import OrDivider from "@/components/OrDivider";
 import { useToast } from "@/custom_hooks/useToast";
-import {
-  CookieInterface,
-  ErrorInterface,
-} from "@/types/dataTypes";
+import { CookieInterface, ErrorInterface } from "@/types/dataTypes";
 import { BASE_URL, ErrorCodes, SUBMIT_STATUS } from "@/utils/constants";
 import Link from "next/link";
 import setCookie from "@/custom_hooks/setCookie";
@@ -101,7 +98,7 @@ export default function Page() {
         href={"/auth/register"}
         className="m-auto mt-3  hover:underline transition-all text-red-600"
       >
-        Already have an account ?
+        Don&apos;t have an accoint
       </Link>
     </form>
   );

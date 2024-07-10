@@ -11,8 +11,13 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const POST = async (req: NextRequest, res: NextResponse) => {
+  const client = await connectToDB();
+  if (!client) {
+    return sendError(ErrorCodes.NORMAL, "Failed to connect to the database");
+  }
+  const session = await client.startSession();
+  await session.startTransaction();
   try {
-    await connectToDB();
     const { email } = await req.json();
     const user = await User.findOne({ email });
     if (!user) {
@@ -26,7 +31,12 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       subject: "verification code",
       html: "",
     });
-    await UserCredentials.findOneAndUpdate({ email }, { code: encryptedCode });
+    await UserCredentials.findOneAndUpdate(
+      { email },
+      { code: encryptedCode },
+      { session }
+    );
+    await session.commitTransaction();
     return new NextResponse(
       JSON.stringify({
         message: "verification code sent successfully",
@@ -36,6 +46,7 @@ const POST = async (req: NextRequest, res: NextResponse) => {
       }
     );
   } catch (error) {
+    await session.abortTransaction();
     return new NextResponse(
       JSON.stringify({
         errorCode: ErrorCodes.NORMAL,
@@ -45,6 +56,9 @@ const POST = async (req: NextRequest, res: NextResponse) => {
         status: 500,
       }
     );
+  } finally {
+    await session.endSession();
+    await client.disconnect();
   }
 };
 

@@ -5,7 +5,7 @@ export default async function PopularTopics() {
   return (
     <div>
       <p className="mb-8 font-bold text-lg text-green-700">Popular Topics</p>
-      <div className="flex items-center flex-wrap gap-2">
+      <div className="flex items-center flex-wrap gap-3">
         {data.slice(0, 10).map((item) => {
           return (
             <Link

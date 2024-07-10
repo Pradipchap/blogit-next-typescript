@@ -72,8 +72,8 @@ const POST = async (request: NextRequest) => {
       }
     );
   } finally {
-    (await session)?.endSession();
-    await client?.disconnect();
+    await session.endSession();
+    await client.disconnect();
   }
 };
 export { POST };

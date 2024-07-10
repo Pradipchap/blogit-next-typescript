@@ -57,7 +57,7 @@ function Post({ title, description, _id, userimage, username }: PostProps) {
       <Link href={`blogs/${_id}`} className="font-bold text-lg">
         {title}
       </Link>
-      <p className="text-[15px] font-medium line-clamp-3">{description}</p>
+      <p className="text-[15px] font-medium line-clamp-2">{description}</p>
     </div>
   );
 }
