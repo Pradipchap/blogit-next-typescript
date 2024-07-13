@@ -128,5 +128,5 @@ export default function EditorJs({
     []
   );
 
-  return <div id="editor" className="w-full" />;
+  return <div id="editor" className="w-full max-w-full px-2" />;
 }

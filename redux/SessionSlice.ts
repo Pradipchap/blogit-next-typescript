@@ -5,9 +5,11 @@ import getProjectCookieValue from "@/custom_hooks/getCookievalue";
 export const fetchSessionData = createAsyncThunk("session", async () => {
   try {
     const cookieValue = getProjectCookieValue();
+    console.log(cookieValue)
     if (cookieValue === null) {
       throw "";
     }
+    console.log(cookieValue)
     return cookieValue;
   } catch (error) {
     return null;

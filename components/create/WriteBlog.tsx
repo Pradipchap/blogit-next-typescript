@@ -1,11 +1,11 @@
 "use client";
-import  { useMemo, useRef, useState } from "react";
+import { ReactNode, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import EditorJSType from "@editorjs/editorjs";
-import BlogDetailsForm from "./BlogDetailsForm";
+const BlogDetailsForm = dynamic(() => import("./BlogDetailsForm"));
 import { OutputData } from "@editorjs/editorjs";
 import { detailsForm } from "@/types/createBlogTypes";
-import Modal from "../popups/Modal";
+const Modal = dynamic(() => import("../popups/Modal"));
 import { createPortal } from "react-dom";
 import Button from "../Button";
 import CreateActionButtons from "./CreateActionButtons";
@@ -21,6 +21,7 @@ interface props {
   genre?: string;
   description?: string;
   blogId?: string;
+  children?: ReactNode;
 }
 
 export default function WriteBlog({
@@ -30,6 +31,7 @@ export default function WriteBlog({
   genre,
   description,
   blogId,
+  children,
 }: props) {
   const editorInstance = useRef<EditorJSType>();
   const titleRef = useRef<HTMLInputElement | null>(null);
@@ -62,8 +64,7 @@ export default function WriteBlog({
       this.formData.title = title;
       try {
         setIsModalOpen(true);
-      } catch (error) {
-      }
+      } catch (error) {}
     }
     getFormData(formData: detailsForm) {
       this.formData = formData;
@@ -115,6 +116,7 @@ export default function WriteBlog({
             placeholder="Write your Blog title"
           />
         </div>
+        {children}
         <EditorJs
           submit={editorandform.getContent}
           isReadOnly={false}

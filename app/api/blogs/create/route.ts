@@ -68,6 +68,7 @@ const POST = async (request: NextRequest) => {
             image: imageUrl,
             content: parsedContent,
             popularity: 2,
+            thumbs: 0,
           },
         ],
         { session: TransactionSession }

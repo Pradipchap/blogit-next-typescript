@@ -38,7 +38,7 @@ export default function Button(props: ButtonProps) {
     <button
       {...rest}
       className={classNames(
-        "px-3 py-2 rounded-sm flex items-center justify-center",
+        "px-3 py-2 rounded-sm flex items-center justify-center cursor-pointer",
         className,
         buttonStatus.backgroundColor
       )}

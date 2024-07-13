@@ -2,14 +2,15 @@
 
 import Button from "./Button";
 import deleteCookies from "@/custom_hooks/deleteCookies";
-import { useRouter } from "next/navigation";
+import { fetchSessionData } from "@/redux/SessionSlice";
 
 export default function LogoutButton() {
-  const router = useRouter();
   function handleLogout() {
     deleteCookies("blogit");
-    router.refresh();
+    window.location.reload();
+    fetchSessionData();
   }
+
   return (
     <Button
       icon="Logout"

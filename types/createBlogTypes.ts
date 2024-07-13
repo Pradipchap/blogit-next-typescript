@@ -20,8 +20,17 @@ export type singleBlogProps = searchBlogType & {
   userid: profile;
   genre: string;
   content: OutputData;
+  thumbs?: number;
+  comments?: number;
   popularity: number;
 };
+export interface commentInterface {
+  comment: string;
+  _id: string;
+  userid: profile;
+  datetime: string;
+}
+
 export type profile = {
   _id: string;
   email: string;

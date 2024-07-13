@@ -1,23 +1,21 @@
 "use client";
-
-import { OutputData } from "@editorjs/editorjs";
+import dynamic from "next/dynamic";
 import { useRef } from "react";
-import EditorJSType from "@editorjs/editorjs";
+import EditorJSType, { OutputData } from "@editorjs/editorjs";
 const EditorJs = dynamic(() => import("@/components/editorjs/Editor"));
 import Image from "next/image";
-import dynamic from "next/dynamic";
+import { singleBlogProps } from "@/types/createBlogTypes";
 
-interface props {
-  data: OutputData;
-  title: string;
-  image?: string;
-}
-
-export default function Content({ data, title, image }: props) {
+export default function Content({
+  content,
+  image,
+}: {
+  content: OutputData;
+  image: string;
+}) {
   const editorInstance = useRef<EditorJSType>();
   return (
-    <div className="flex flex-col mt-16 gap-5 justify-center items-center w-full">
-      <h1 className="text-xl font-bold">{title}</h1>
+    <div className="flex flex-col mt-16 gap-10 justify-center items-center">
       {image && (
         <Image
           src={image}
@@ -29,7 +27,7 @@ export default function Content({ data, title, image }: props) {
           width={700}
         />
       )}
-      <EditorJs isReadOnly data={data} editorInstance={editorInstance} />
+      <EditorJs isReadOnly data={content} editorInstance={editorInstance} />
     </div>
   );
 }

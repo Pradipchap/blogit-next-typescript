@@ -69,6 +69,7 @@ function BlogPage({
             profilename={blog.userid?.username}
             genre={blog.genre}
             key={blog._id}
+            thumbs={blog.thumbs}
             link={type === "drafts" ? `/drafts/${blog._id}` : undefined}
           />
         );

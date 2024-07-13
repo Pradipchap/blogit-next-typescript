@@ -1,6 +1,12 @@
 import { Schema, model, models } from "mongoose";
 import User from "./userModel";
 
+const commentSchema = new Schema({
+  comment: { type: String, required: true },
+  datetime: { type: Date, default: Date.now },
+  userid: { type: Schema.Types.ObjectId, ref: User },
+});
+
 export const BlogSchema = new Schema({
   userid: {
     type: Schema.Types.ObjectId,
@@ -30,6 +36,11 @@ export const BlogSchema = new Schema({
     type: Date,
     required: [true, "date is required"],
   },
+  thumbs: {
+    type: Number,
+    required: [true],
+  },
+  comments: [commentSchema],
   popularity: {
     type: Number,
     required: [true],

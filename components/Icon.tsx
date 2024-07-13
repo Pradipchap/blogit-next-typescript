@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGaugeHigh,
   faSearch,
-  faXmark,
   faArrowRightFromBracket,
   faCalendarDays,
   faChevronDown,
@@ -20,14 +19,12 @@ import {
   faEllipsisVertical,
   faLock,
   faLockOpen,
-  faPenToSquare,
   faPen,
   faExclamation,
   faRightFromBracket,
   faBookOpen,
   faPencilSquare,
-  faThumbsUp,
-  faComment,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faSpinner,
@@ -36,10 +33,13 @@ import {
 import {
   faBell,
   faClock,
+  faComment,
   faEye,
   faEyeSlash,
   faFilePdf,
   faFloppyDisk,
+  faPenToSquare,
+  faThumbsUp,
   faTrashCan,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";

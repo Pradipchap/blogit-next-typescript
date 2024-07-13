@@ -23,11 +23,7 @@ export default async function Page({
         {data.blog.userid._id === session?.userID ? (
           <WriteBlog data={data.blog.content} title={data.blog.title} />
         ) : (
-          <Content
-            data={data.blog.content}
-            title={data.blog.title}
-            image={data.blog.image}
-          />
+          <Content content={data.blog.content} image={data.blog.image} />
         )}
       </div>
     );
