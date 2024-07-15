@@ -13,7 +13,7 @@ export default async function PopularPosts() {
   }
   const data: responseType = await response.json();
   return (
-    <div>
+    <div className="w-full">
       <p className="mb-8 font-bold text-lg text-green-700">Popular Posts</p>
       {data.blogs.map((item) => {
         return (
@@ -41,7 +41,7 @@ interface PostProps {
 }
 function Post({ title, description, _id, userimage, username }: PostProps) {
   return (
-    <div className="flex flex-col gap-1 mb-3">
+    <div className="flex flex-col gap-1 mb-7">
       <div className=" flex gap-2 items-center">
         {userimage && (
           <Image

@@ -27,7 +27,7 @@ export default function MainBlogs() {
   }
 
   return (
-    <div className="relative h-full flex flex-col items-center">
+    <div className="relative h-full w-full flex flex-col items-center">
       {" "}
       <Select
         options={options}
