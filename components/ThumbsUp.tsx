@@ -1,10 +1,11 @@
 "use client";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "@/app/reduxhooks";
-import { handleThumbClick } from "@/app/actions";
-const Icon = dynamic(() => import("./Icon"));
-import { useRef, useState } from "react";
+import { handleIsBlogThumbed, handleThumbClick } from "@/app/actions";
+import { useEffect, useRef, useState } from "react";
 import { profile } from "@/types/createBlogTypes";
+
+const Icon = dynamic(() => import("./Icon"));
 const BlogProfile = dynamic(() => import("./BlogViewComponents/BlogProfile"));
 const CommentSection = dynamic(() =>
   import("./BlogViewComponents/CommentSection")
@@ -26,71 +27,90 @@ export default function ThumbsUp({
   userid,
   date,
 }: props) {
+  const userId = userid._id;
   const [isCommentOpen, setIsCommentOpen] = useState(false);
-  const session = useAppSelector((state) => state.session);
+  const [ThumbStatus, setThumbStatus] = useState<
+    "liked" | "unliked" | "disabled"
+  >("disabled");
+  const { accessToken, userID: currentUserId } = useAppSelector(
+    (state) => state.session
+  );
   const thumbsRef = useRef<HTMLParagraphElement | null>(null);
+
   const interactions = [
     { name: "Thumb", value: thumbs, clickFunc: incrementThumb },
-    {
-      name: "Comment",
-      value: comments,
-      clickFunc: handleCommentClick,
-    },
+    { name: "Comment", value: comments, clickFunc: handleCommentClick },
   ];
 
   function handleCommentClick() {
-    console.log("first");
     setIsCommentOpen(true);
   }
+
   function incrementThumb() {
-    console.log("first");
-    handleThumbClick(blogId);
+    handleThumbClick(blogId, userId);
     if (thumbsRef.current) {
       thumbsRef.current.innerHTML = (thumbs + 1).toString();
     }
   }
 
+  useEffect(
+    () => {
+      async function isThumbLiked() {
+        if (!accessToken) {
+          setThumbStatus("disabled");
+          return;
+        }
+        if (userId === currentUserId) {
+          setThumbStatus("disabled");
+          return;
+        }
+        const isBlogThumbed = await handleIsBlogThumbed(blogId, userId);
+
+        setThumbStatus(isBlogThumbed ? "liked" : "unliked");
+      }
+      isThumbLiked();
+    },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+    [blogId, userId]
+  );
+
   return (
-    <div className="py-3 px-8 flex items-center justify-between gap-5 w-full border-y border-gray-200">
+    <div className="py-3 px-8 flex items-center justify-between gap-5 w-full border-y-[0.4px] border-gray-200">
       <SidePopup isOpen={isCommentOpen} onClose={() => setIsCommentOpen(false)}>
         <CommentSection blogId={blogId} />
       </SidePopup>
       <BlogProfile
         profileName={userid.username}
-        date={date}
+        datetime={date}
         profileImage={userid.image}
       />
       <div className="flex gap-3">
-        {interactions.map(({ name, value, clickFunc }) => {
-          return (
-            <div className="flex gap-2 text-gray-500 font-light" key={name}>
-              <button
-                className=" scroll-smooth"
-                onClick={clickFunc}
-                disabled={
+        {interactions.map(({ name, value, clickFunc }) => (
+          <div className="flex gap-2 font-light" key={name}>
+            <button
+              className="group scroll-smooth flex gap-1"
+              onClick={clickFunc}
+              disabled={name === "Thumb" ? ThumbStatus !== "unliked" : false}
+            >
+              <Icon
+                name={
                   name === "Thumb"
-                    ? session.accessToken
-                      ? userid._id === session.userID
-                        ? true
-                        : false
-                      : true
-                    : false
+                    ? ThumbStatus === "liked"
+                      ? "ThumbSolid"
+                      : "Thumb"
+                    : name
                 }
-              >
-                <Icon
-                  name={name}
-                  className="hover:text-green-700 hover:scale-110 transition-colors text-gray-500"
-                />
-              </button>{" "}
+                className="group-disabled:group-hover:text-gray-600 group-hover:text-black text-gray-600"
+              />
               <p
-                className="text-sm"
+                className={`text-sm group-disabled:group-hover:text-gray-600 group-hover:text-black text-gray-600`}
                 {...(name === "Thumb" ? { ref: thumbsRef } : {})}
               >
-                {0}
+                {value}
               </p>
-            </div>
-          );
-        })}
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

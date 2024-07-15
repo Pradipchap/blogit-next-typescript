@@ -35,6 +35,7 @@ export default async function Page({ params }: { params: { blogid: string } }) {
       _id,
       thumbs,
       comments,
+      date,
     } = await data.blog;
     return (
       <div className="flex flex-col px-3 sm:px-10 md:px-20 items-center justify-center m-auto mt-24 max-w-4xl">
@@ -45,22 +46,22 @@ export default async function Page({ params }: { params: { blogid: string } }) {
           genre={genre}
         />
         {userid._id === session?.userID ? (
-            <WriteBlog
-              data={content}
-              title={title}
-              image={image}
-              genre={genre}
-              description={description}
+          <WriteBlog
+            data={content}
+            title={title}
+            image={image}
+            genre={genre}
+            description={description}
+            blogId={_id}
+          >
+            <ThumbsUp
               blogId={_id}
-            >
-              <ThumbsUp
-                blogId={_id}
-                thumbs={thumbs}
-                comments={comments}
-                userid={userid}
-                date={data.blog.date}
-              />
-            </WriteBlog>
+              thumbs={thumbs}
+              comments={comments}
+              userid={userid}
+              date={date}
+            />
+          </WriteBlog>
         ) : (
           <>
             <h1 className="text-xl md:text-2xl xl:text-4xl font-bold mb-10">
@@ -71,7 +72,7 @@ export default async function Page({ params }: { params: { blogid: string } }) {
               thumbs={thumbs}
               comments={comments}
               userid={userid}
-              date={data.blog.date}
+              date={date}
             />
             <Content {...data.blog} />
           </>

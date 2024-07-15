@@ -72,7 +72,13 @@ const POST = async (request: NextRequest, response: NextResponse) => {
           image: 1,
           date: 1,
           genre: 1,
-          thumbs: 1,
+          thumbs: {
+            $cond: {
+              if: { $isArray: "$thumbs" },
+              then: { $size: "$thumbs" },
+              else: "NA",
+            },
+          },
           userid: { $arrayElemAt: ["$user", 0] },
         },
       },

@@ -16,8 +16,6 @@ const GET = async (request: NextRequest, response: NextResponse) => {
   console.log("first");
   try {
     await connectToDB();
-    const skip = 0; // Set the skip value for pagination
-    const limit = 10; // Set the limit value for pagination
 
     const pipeline = [
       { $match: { _id: new mongoose.Types.ObjectId(id || "") } },
@@ -25,27 +23,18 @@ const GET = async (request: NextRequest, response: NextResponse) => {
       { $unwind: "$comments" },
       {
         $lookup: {
-          from: "users", // Make sure the collection name is correct
+          from: "users",
           localField: "comments.userid",
           foreignField: "_id",
           as: "comments.userid",
         },
       },
-      { $unwind: "$comments.userid" },
       {
         $project: {
+          "comments.userid": { $arrayElemAt: ["$comments.userid", 0] },
           "comments.comment": 1,
-          "comments._id": 1,
           "comments.datetime": 1,
-          "comments.userid": {
-            _id: 1,
-            email: 1,
-            username: 1,
-            __v: 1,
-            dateofbirth: 1,
-            image: 1,
-            phone: 1,
-          },
+          "comments._id": 1,
         },
       },
       {
@@ -54,13 +43,11 @@ const GET = async (request: NextRequest, response: NextResponse) => {
           comments: { $push: "$comments" },
         },
       },
-      { $skip: skip },
-      { $limit: limit },
     ];
     const comments = await Blog.aggregate(pipeline);
     return new NextResponse(
       JSON.stringify({
-        comments: comments[0].comments,
+        comments: comments[0]?.comments || [],
       }),
       {
         status: 200,

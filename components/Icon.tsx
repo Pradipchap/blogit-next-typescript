@@ -25,11 +25,9 @@ import {
   faBookOpen,
   faPencilSquare,
   faXmark,
+  faHeart as faHeartSolid,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faSpinner,
-  faQuestion,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faQuestion } from "@fortawesome/free-solid-svg-icons";
 import {
   faBell,
   faClock,
@@ -38,8 +36,8 @@ import {
   faEyeSlash,
   faFilePdf,
   faFloppyDisk,
+  faHeart,
   faPenToSquare,
-  faThumbsUp,
   faTrashCan,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
@@ -58,20 +56,27 @@ export default function Icon({ name, className = "" }: IconProps) {
           className={classNames("text-black text-lg", className)}
         />
       );
-      case "Thumb":
-        return (
-          <FontAwesomeIcon
-            icon={faThumbsUp}
-            className={classNames("text-black text-lg", className)}
-          />
-        );
-        case "Comment":
-        return (
-          <FontAwesomeIcon
-            icon={faComment}
-            className={classNames("text-black text-lg", className)}
-          />
-        );
+    case "Thumb":
+      return (
+        <FontAwesomeIcon
+          icon={faHeart}
+          className={classNames("text-black text-lg", className)}
+        />
+      );
+    case "ThumbSolid":
+      return (
+        <FontAwesomeIcon
+          icon={faHeartSolid}
+          className={classNames("text-black text-lg", className)}
+        />
+      );
+    case "Comment":
+      return (
+        <FontAwesomeIcon
+          icon={faComment}
+          className={classNames("text-black text-lg", className)}
+        />
+      );
     case "Logout":
       return (
         <FontAwesomeIcon
@@ -303,7 +308,7 @@ export default function Icon({ name, className = "" }: IconProps) {
           className={classNames("text-lg text-black", className)}
         />
       );
-      case "Google":
+    case "Google":
       return (
         <FontAwesomeIcon
           icon={"google"}
@@ -319,4 +324,3 @@ export default function Icon({ name, className = "" }: IconProps) {
       );
   }
 }
-

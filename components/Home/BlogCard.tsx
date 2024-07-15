@@ -41,7 +41,7 @@ export default function BlogCard({
         <BlogProfile
           profileImage={profileImage}
           profileName={profilename || ""}
-          date={date}
+          datetime={date}
           genre={genre}
         />
       </div>

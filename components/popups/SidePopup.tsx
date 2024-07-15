@@ -69,7 +69,7 @@ export default function SidePopup({
             <></>
           </Button>
         </div>
-        {children}
+        {isOpen ? children : <></>}
       </div>
     </div>,
     document.body

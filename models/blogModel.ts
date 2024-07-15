@@ -36,10 +36,12 @@ export const BlogSchema = new Schema({
     type: Date,
     required: [true, "date is required"],
   },
-  thumbs: {
-    type: Number,
-    required: [true],
-  },
+  thumbs: [
+    {
+      type: Schema.Types.ObjectId,
+      required: [true],
+    },
+  ],
   comments: [commentSchema],
   popularity: {
     type: Number,

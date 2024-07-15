@@ -1,14 +1,35 @@
 "use server";
 
-import getApiCookie from "@/custom_hooks/getApiCookie";
 import Blog from "@/models/blogModel";
 import { connectToDB } from "@/utils/database";
+import mongoose from "mongoose";
 
-export async function handleThumbClick(blogId: string) {
+export async function handleThumbClick(blogId: string, userId: string) {
   try {
     await connectToDB();
-    await Blog.findByIdAndUpdate(blogId, { $inc: { thumbs: 1 } });
+    await Blog.findByIdAndUpdate(blogId, { $addToSet: { thumbs: userId } });
   } catch (error) {}
+}
+export async function handleIsBlogThumbed(blogId: string, userId: string) {
+  try {
+    await connectToDB();
+    const pipeline = [
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(blogId),
+        },
+      },
+      {
+        $project: {
+          isLiked: { $in: [new mongoose.Types.ObjectId(userId), "$thumbs"] },
+        },
+      },
+    ];
+    const x = await Blog.aggregate(pipeline);
+    return x[0].isLiked;
+  } catch (error) {
+    return true;
+  }
 }
 
 export async function handleCommentPost(
