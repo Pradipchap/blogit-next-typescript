@@ -17,7 +17,7 @@ const options: TabsInterface[] = [
 export default function MainBlogs() {
   const router = useRouter();
   const params = useSearchParams();
-  const feedQuery = params.get("option") || "feeds";
+  const feedQuery = params.get("option") || "popular";
   function onSelectionChange(tab: TabsInterface) {
     const selectedOption =
       options.find((item) => {

@@ -42,6 +42,7 @@ export const blogImage =
 
 export const profileImage = ProfileImg;
 export const PopularPostsList = [
+  "Coding",
   "War",
   "Science",
   "Politics",
@@ -51,7 +52,6 @@ export const PopularPostsList = [
   "World",
   "Life",
   "Education",
-  "Coding",
   "ChatGPT",
   "AI",
   "Religion",

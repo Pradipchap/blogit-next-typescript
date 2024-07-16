@@ -1,5 +1,5 @@
 "use client";
-import  { FormEvent } from "react";
+import { FormEvent } from "react";
 import Button from "../Button";
 import { useSession } from "next-auth/react";
 import { OutputData } from "@editorjs/editorjs";
@@ -7,7 +7,7 @@ import { detailsForm } from "@/types/createBlogTypes";
 import { useRouter } from "next/navigation";
 import ImageUpload from "./ImageUpload";
 import { useToast } from "@/custom_hooks/useToast";
-import { BASE_URL } from "@/utils/constants";
+import { BASE_URL, PopularPostsList } from "@/utils/constants";
 import CustomInput from "../Inputs/CustomInput";
 import { useAppSelector } from "@/app/reduxhooks";
 
@@ -88,14 +88,19 @@ export default function BlogDetailsForm({
           required
           name="title"
         />
-        <CustomInput
-          type="text"
-          placeholder="Blog genre"
-          autoFocus
-          defaultValue={genre}
+        <select
           required
           name="genre"
-        />
+          className="appearance-none outline-none after:bg-green-500 px-2 w-full py-2 bg-gray-50 border-gray-300 border rounded disabled:text-gray-400"
+        >
+          {PopularPostsList.map((item, index) => {
+            return (
+              <option key={item} value={item.toLowerCase()}>
+                {item}
+              </option>
+            );
+          })}
+        </select>
         <textarea
           placeholder="Short Description"
           className="outline-none px-3 py-2 bg-gray-50 border-gray-300 border rounded"

@@ -13,7 +13,7 @@ function Page() {
       <div className="flex-1 h-full">
         <MainBlogs />
       </div>
-      <div className="sideblog flex-1 w-[30%] flex-grow-0 sticky top-[76px] h-max hidden avg:block">
+      <div className="sideblog w-[30%] flex-grow-0 sticky top-[76px] h-max hidden avg:block">
         <SideSection />
       </div>
     </div>

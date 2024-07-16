@@ -43,9 +43,6 @@ input[type="search"]::-webkit-search-results-decoration {
   transition-property: transform, opacity;
 }
 
-.editor-font-size-btn {
-}
-
 .editor-fontsize-select {
   position: absolute;
   top: 5;
