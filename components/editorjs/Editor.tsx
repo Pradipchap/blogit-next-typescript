@@ -8,7 +8,11 @@ import Marker from "@editorjs/marker";
 import Table from "@editorjs/table";
 import Warning from "@editorjs/warning";
 import ImageTool from "@editorjs/image";
+import Header from "@editorjs/header";
+import List from "@editorjs/list";
+
 import { BASE_URL } from "@/utils/constants";
+// import FontSizes from "./FontSizeTool";
 interface EditorProps {
   isReadOnly?: boolean;
   data?: OutputData;
@@ -51,6 +55,15 @@ export default function EditorJs({
         inlineCode: {
           class: InlineCode,
           shortcut: "CMD+SHIFT+M",
+        },
+        // fontSizes: FontSizes,
+        header: {
+          class: Header,
+          inlineToolbar: ["link"],
+        },
+        list: {
+          class: List,
+          inlineToolbar: true,
         },
         warning: {
           class: Warning,

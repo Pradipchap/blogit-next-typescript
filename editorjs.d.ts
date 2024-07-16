@@ -24,3 +24,13 @@ declare module "@editorjs/warning" {
   import Warning from "@editorjs/warning";
   export = Warning;
 }
+
+declare module "@editorjs/list" {
+  import List from "@editorjs/list";
+  export = List;
+}
+
+declare module "@editorjs/header" {
+  import Header from "@editorjs/header";
+  export = Header;
+}

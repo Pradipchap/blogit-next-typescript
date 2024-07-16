@@ -10,8 +10,8 @@ const Select = dynamic(() => import("./Select"), { ssr: false });
 const BlogPage = dynamic(() => import("../Blogpage"), { ssr: false });
 
 const options: TabsInterface[] = [
-  { key: "feeds", label: "Feeds" },
   { key: "popular", label: "Most Popular" },
+  { key: "feeds", label: "Feeds" },
 ];
 
 export default function MainBlogs() {

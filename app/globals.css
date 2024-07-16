@@ -42,3 +42,17 @@ input[type="search"]::-webkit-search-results-decoration {
   transition-behavior: normal, normal;
   transition-property: transform, opacity;
 }
+
+.editor-font-size-btn {
+}
+
+.editor-fontsize-select {
+  position: absolute;
+  top: 5;
+  right: 50%;
+  transform: translateX(50%);
+  appearance: none;
+  width: 100px;
+  outline: none;
+  background-color: rgba(83, 86, 85, 0.9);
+}
