@@ -21,7 +21,7 @@ export default function BlogCard({
     <div className="w-full max-w-3xl h-56 grid grid-cols-7 gap-5">
       {image !== "" && (
         <Image
-          className="h-auto m-auto w-full col-span-2"
+          className="max-h-56 m-auto w-full col-span-2"
           src={image}
           height={100}
           width={100}
