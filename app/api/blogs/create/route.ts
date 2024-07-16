@@ -89,7 +89,6 @@ const POST = async (request: NextRequest) => {
     );
   } finally {
     await TransactionSession.endSession();
-    await client.disconnect();
   }
 };
 

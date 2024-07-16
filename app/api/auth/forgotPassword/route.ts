@@ -58,7 +58,6 @@ const POST = async (req: NextRequest, res: NextResponse) => {
     );
   } finally {
     await session.endSession();
-    await client.disconnect();
   }
 };
 
