@@ -74,7 +74,7 @@ const POST = async (request: NextRequest) => {
       );
     }
     await TransactionSession.commitTransaction();
-    return new NextResponse("", { status: 200 });
+    return new NextResponse(JSON.stringify({}), { status: 200 });
   } catch (error) {
     await TransactionSession.abortTransaction();
     return new NextResponse(
