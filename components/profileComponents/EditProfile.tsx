@@ -40,7 +40,7 @@ export default function EditProfile({ onclose }: { onclose: () => void }) {
       onclose();
       router.refresh();
     } catch (error) {
-      //console.error("Error updating profile:", error);
+      console.error("Error updating profile:", error);
       setProfileEditStatus(SUBMIT_STATUS.FAILED);
       showError("profile edit unsuccessful");
       setTimeout(() => {

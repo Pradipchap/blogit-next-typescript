@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Roboto_Flex } from "next/font/google";
 import Nav from "../components/navbar/Nav";
 import ReduxProvider from "@/redux/ReduxProvider";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import ProfileNav from "@/components/navbar/ProfileNav";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 const Toast = dynamic(() => import("@/components/popups/Toast"), {
@@ -41,6 +43,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="preconnect" href={`${BASE_URL}`} />
       </head>
       <body className={inter.className}>
+        <Analytics />
+        <SpeedInsights />
         <ReduxProvider>
           <Toast />
           <Nav>
