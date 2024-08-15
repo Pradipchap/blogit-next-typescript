@@ -60,7 +60,7 @@ function Content({ searchString }: ContentProps) {
 
   return (
     <div className="px-2 py-4 flex flex-col gap-2 min-h-52 w-96 bg-white">
-      {loading ? (
+      {loading || searchString === "" ? (
         <>
           <SearchResultsSkeleton />
           <SearchResultsSkeleton />
