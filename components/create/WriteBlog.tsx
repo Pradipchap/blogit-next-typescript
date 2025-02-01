@@ -113,7 +113,7 @@ export default function WriteBlog({
             type="text"
             className=" self-start text-3xl outline-none"
             autoFocus
-            placeholder="Write your Blog title"
+            placeholder="Write your News title"
           />
         </div>
         {children}
