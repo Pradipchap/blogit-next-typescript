@@ -6,7 +6,7 @@ const allowedOrigins = [
   "https://blogit-next-typescript-pradipchaps-projects.vercel.app",
   "https://blogit-next-typescript-pradipchap.vercel.app",
   "https://blogit-next-typescript.vercel.app",
-  "https://*pradipchapagain.com,np"
+  "https://*pradipchapagain.com.np"
 ];
 
 const corsOptions = {
